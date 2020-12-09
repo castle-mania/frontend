@@ -1,0 +1,20 @@
+.Header {
+    width: 40%;
+    display: block;
+    justify-content: center;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.header-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+@media screen and (max-width:769px) {
+
+    .Header {
+        width: 90%;
+    }
+}

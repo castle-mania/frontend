@@ -1,0 +1,44 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    grid-column-gap: 5px;
+    width: 350px;
+    padding: 15px;
+    padding-bottom: 0px;
+    background-color: var(--darkBG);
+    border-radius: 5px;
+    padding: 15px;
+}
+
+.grid-container div img {
+    width: 100%;
+}
+
+.grid-container button {
+    padding: 0;
+}
+
+
+.rs-btn {
+    padding: 2px;
+}
+
+.generator-btn {
+    padding: 20;
+}
+
+.generator-info {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    font-size: large;
+}
+
+.generator-info-list {
+    list-style: none;
+}
+
+.Title {
+    color: var(--accent);
+    font-weight: 1000;
+}

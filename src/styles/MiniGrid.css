@@ -1,0 +1,41 @@
+.mini-grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-row-gap: 2px;
+    padding-bottom: 0px;
+    background-color: var(--darkBG);
+    border-radius: 5px;
+    padding: 15px;
+    align-items: center;
+    justify-content: center;
+}
+
+.mini-grid-container div img {
+    width: 90%;
+}
+
+.mini-grid-container div {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.mini-rs-btn {
+    padding: 0px;
+}
+
+.mini-generator-btn {
+    padding: 20;
+}
+
+.mini-generator-info {
+    display: flex;
+    gap: 25px;
+    justify-content: center;
+    font-size: large;
+}
+
+.mini-generator-info-list {
+    list-style: none;
+}

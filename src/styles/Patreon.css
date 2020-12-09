@@ -1,0 +1,18 @@
+.patreon {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 auto;
+    width: 720px;
+    background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 15px;
+    border-radius: 5px;
+    align-items: center; /* align vertical */
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width:769px) {
+
+    .patreon {
+        width: 90%;
+    }
+}
