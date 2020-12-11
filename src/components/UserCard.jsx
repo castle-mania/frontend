@@ -6,7 +6,6 @@ import Moment from 'react-moment';
 export default class UserCard extends Component {
 
     render() {
-        const { user } = this.props;
         const { castle } = this.props;
         const { lootboxes } = this.props.castle;
         const { Line } = Progress; 
@@ -23,11 +22,11 @@ export default class UserCard extends Component {
                 <div className="details">
                     <div className="mini-details">  
                         <div>
-                            <img src={user.lastKnownAvatarURL} alt={ user.lastKnownUsername }/>
+                            <img src={castle.lastKnownAvatarURL} alt={ castle.lastKnownUsername }/>
                         </div>
                         <div>
                             <ul>
-                                <li className="highlight">{ user.lastKnownTag }</li>
+                                <li className="highlight">{ castle.lastKnownUsername }</li>
                                 <li>{ castle.money } Gems</li>
                                 <li>{ castle.GPS }/s {multiplier}</li>
                                 <li>{ castle.level } lvl</li>

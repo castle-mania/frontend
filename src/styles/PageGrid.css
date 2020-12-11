@@ -9,8 +9,10 @@
                          "d d";
 }
 
+
 .item-1 {
     grid-area: a;
+    min-width: 720px;
 }
 
 .item-2 {
@@ -31,5 +33,10 @@
         grid-template-areas: "a"
                               "b"
                               "c";
+    }
+
+    .item-1 {
+        min-width: 30%;
+        grid-area: a;
     }
 }

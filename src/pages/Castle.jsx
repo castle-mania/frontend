@@ -3,7 +3,7 @@ import Grid from '../components/Grid';
 import UserCard from '../components/UserCard';
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
-import { Alert } from 'rsuite';
+import { Alert, Placeholder } from 'rsuite';
 
 export default class Castle extends Component {
 
@@ -52,7 +52,7 @@ export default class Castle extends Component {
         
         return (
             <div>
-                { success && (  
+                { success ? (  
                 <div className="page-grid">
                     <div className="item-1">
                         <UserCard 
@@ -66,7 +66,18 @@ export default class Castle extends Component {
                     <div className="item-3">
                         <Grid className='item-3' grid={inventory}/>
                     </div>
-                </div> ) }
+                </div> ) : 
+                <div className="page-grid">
+                    <div className="item-1">
+                        <Placeholder.Graph active />
+                    </div>
+                    <div className="item-2">
+                        <Placeholder.Graph active />
+                    </div>
+                    <div className="item-3">
+                        <Placeholder.Graph active />
+                    </div>
+                </div>}
             </div>
         )
     }
