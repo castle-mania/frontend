@@ -10,20 +10,20 @@
 }
 
 
-.item-1 {
+.page-grid  .item-1 {
     grid-area: a;
     min-width: 720px;
 }
 
-.item-2 {
+.page-grid .item-2 {
     grid-area: b;
 }
 
-.item-3 {
+.page-grid  .item-3 {
     grid-area: c;
 }
 
-.item-4 {
+.page-grid  .item-4 {
     grid-area: d;
 }
 
@@ -35,7 +35,7 @@
                               "c";
     }
 
-    .item-1 {
+    .page-grid  .item-1 {
         min-width: 30%;
         grid-area: a;
     }

@@ -2,8 +2,8 @@
 
 :root {
     --BG: #36393f;
-    --lightBG: #2f3136;
-    --darkBG: #252525;
+    --lightBG: #181b1d;
+    --darkBG: #222629;
     --accent: #3add99;
     --darkAccent:  #1e704e;
     --white: #f1f1f1;
@@ -26,8 +26,17 @@ body {
     background-color: var(--lightBG);
 }
 
+a:link {
+    text-decoration: none;
+}
+
+a:link:hover {
+    color: var(--accent);
+}
+
 .highlight {
     color: var(--accent);
+    font-weight: 1000;
 }
 
 .middle {

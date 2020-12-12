@@ -24,7 +24,7 @@ export default class Castle extends Component {
             }
         }).then(response => {
             if (response.status === 200) return response.json()
-            throw new Error("Authentication Failure")
+            throw new Error(response.json())
         })
         .then(responseJSON => {
             this.setState({
@@ -38,8 +38,7 @@ export default class Castle extends Component {
                 authenticated: false,
                 error: "Authentication Failure"
             })
-            Alert.error('Not authenticated.')
-            this.props.history.push('/')
+            Alert.error('Failed to find castle')
         })
     }
 

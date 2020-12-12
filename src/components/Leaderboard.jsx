@@ -5,6 +5,15 @@ import { Alert, Table } from 'rsuite';
 
 const { Column, HeaderCell, Cell } = Table;
 
+const ImageCell = ({ rowData, dataKey, ...props }) => (
+    <Cell {...props}>
+        {rowData[dataKey] ? (
+            <img className="leaderboard-icon" src={rowData[dataKey]} alt="icon"/>
+        ) : ( <p>🏰</p> )} 
+        
+    </Cell>
+  );
+
 export default class Leaderboard extends Component {
 
     state = {
@@ -31,26 +40,32 @@ export default class Leaderboard extends Component {
             this.setState({success: true})
         })
         .catch(error => {
-            Alert.error('Something went wrong.')
-            this.props.history.push('/')
+            Alert.error('Error loading leaderboard.')
         })
     }
 
     render() {
-        
         return (
             <div className="leaderboard">
                 { this.state.success ? (
-                <Table width={720} height={520} data={this.state.data.map((d, i) => {i++; return {...d, p: i}})}>
-                    <Column width={50} align="left" fixed>
+                <Table width={350} height={350} data={this.state.data.map((d, i) => {i++; return {...d, p: i}})}>
+                    <Column width={40} align="left" fixed>
                         <HeaderCell>#</HeaderCell>
                         <Cell dataKey="p" />
                     </Column>
-                    <Column width={200} align="left" fixed>
-                        <HeaderCell>Name</HeaderCell>
-                        <Cell dataKey="name" />
+                    <Column width={50} align="center" fixed>
+                        <HeaderCell></HeaderCell>
+                        <ImageCell dataKey="icon" />
                     </Column>
-                    <Column width={200} align="left" fixed>
+                    <Column width={140} align="left" fixed>
+                        <HeaderCell>Name</HeaderCell>
+                        <Cell>
+                            {rowData => (
+                                <a href={`/castle?userid=${rowData._id}`}>{rowData.name}</a>
+                            )}
+                        </Cell>
+                    </Column>
+                    <Column width={120} align="left" fixed>
                         <HeaderCell>{this.props.field}</HeaderCell>
                         <Cell dataKey={this.props.field} />
                     </Column>
