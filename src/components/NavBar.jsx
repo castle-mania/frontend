@@ -1,20 +1,17 @@
 import React, { Component } from 'react'
 import '../styles/NavBar.css'
-import PropTypes from "prop-types";
 import gem from '../res/gem.png'
 import Patreon from './Patreon'
+import { Avatar } from 'rsuite'
     
 export default class NavBar extends Component {
 
     state = {
         toggled: false,
         authenticated: false,
-        user: {}
+        user: {},
+        loading: false,
     }
-
-    static propTypes = {
-        authenticated: PropTypes.bool.isRequired
-    };
 
     componentDidMount() {
         fetch("/auth", {
@@ -30,7 +27,7 @@ export default class NavBar extends Component {
             throw new Error("Authentication Failure")
         })
         .then(responseJSON => {
-            this.setState({authenticated: true, user: responseJSON.user});
+            this.setState({authenticated: true, user: responseJSON.user, loading: true});
         })
         .catch(error => {
             this.setState({
@@ -41,8 +38,9 @@ export default class NavBar extends Component {
     }
 
     render() {
-        const { authenticated } = this.state;
+        const { authenticated, loading } = this.state;
         const { premium } = this.state.user;
+        const { user } = this.state;
 
         return (
             <div>
@@ -54,24 +52,27 @@ export default class NavBar extends Component {
                     </a>
                 </div>
                 <ul className={'nav-links ' + (this.state.toggled && ' nav-active')}>
-                    { authenticated && (
+                    { (authenticated || loading) && (
                         <li>
                             <a href={'/castle?userid=' + this.state.user.discordId}>🏰 Castle</a>
                         </li>
                     )}
                     <li>
-                        <a href="https://www.patreon.com/castlemania?fan_landing=true">❤️ Premium</a>
+                        <a href="/marketplace">🛍️ Marketplace</a>
                     </li>
                     <li>
-                        <a href="/leaderboards">🏆 Leaderboards</a>
+                        <a href="https://www.patreon.com/castlemania?fan_landing=true">❤️ Premium</a>
                     </li>
-                    { !authenticated ? (
+                    { (!authenticated || !loading) ? (
                         <li className="login">
                             <p className="logButton" onClick={this._handleLoginClick}>Login</p>
                         </li>
                     ) : ( 
                         <li className="login">
-                            <p className="logButton" onClick={this._handleLogoutClick}>Logout</p>
+                            <p className="logButton logotext" onClick={this._handleLogoutClick}>
+                                <Avatar size="xs" style={{marginRight: 10}} src={user.lastKnownAvatarURL}></Avatar>
+                                Logout
+                            </p>
                         </li>
                      )}
                 </ul>

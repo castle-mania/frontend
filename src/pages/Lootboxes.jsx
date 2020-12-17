@@ -76,7 +76,7 @@ export default class Lootboxes extends Component {
                         
                     </div>
                 ) : (
-                    <p className="middle">Nothing to open!</p>
+                    <p className="center">Nothing to open!</p>
                 )}
                 <RewardPopup reward={this.state.reward} show={this.state.show}></RewardPopup>
             </div>
@@ -153,8 +153,8 @@ class RewardPopup extends React.Component {
       const { reward } = this.state;
       const success = !(Object.keys(reward).length === 0 && reward.constructor === Object)
       return (
-        <div className="modal-container">
-          <Modal backdrop={backdrop} show={show} size="xs" onHide={this.close}>
+        <div className="modal-container middle">
+          <Modal className="middle" backdrop={backdrop} show={show} size="xs" onHide={this.close}>
             <Modal.Header>
               <Modal.Title>You unboxed!</Modal.Title>
             </Modal.Header>

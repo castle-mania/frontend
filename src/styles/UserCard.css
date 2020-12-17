@@ -15,7 +15,7 @@
     justify-content: space-between;
 }
 
-.user-card img {
+.user-card .profile-icon {
     border-radius: 20%;
     width: 100px;
     display: flex;

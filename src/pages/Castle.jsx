@@ -3,14 +3,17 @@ import Grid from '../components/Grid';
 import UserCard from '../components/UserCard';
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
-import { Alert, Placeholder } from 'rsuite';
+import '../styles/Sidenav.css'
+import { Alert, Placeholder, Button, Badge } from 'rsuite';
+import Leaderboard from '../components/Leaderboard'
 
 export default class Castle extends Component {
 
     state = {
         success: false,
         castle: {},
-        user: {}
+        user: {},
+        loggedIn: false,
     }
 
     componentDidMount() {
@@ -29,6 +32,7 @@ export default class Castle extends Component {
         .then(responseJSON => {
             this.setState({
                 success: true,
+                loggedIn: responseJSON.loggedIn,
                 castle: responseJSON.castle,
                 user: responseJSON.user
             });
@@ -48,22 +52,40 @@ export default class Castle extends Component {
         const { success } = this.state;
         const { generators } = this.state.castle;
         const { inventory } = this.state.castle;
+        const { lootboxes } = this.state.castle;
+        const { loggedIn } = this.state
         
         return (
             <div>
                 { success ? (  
                 <div className="page-grid">
+                    { loggedIn && (
+                        <div className="item-5 sidenav">
+                        <div className="sidenav-btns">
+                                <div>
+                                    <Badge content={(lootboxes.length > 0) && lootboxes.length}>
+                                        <Button href="/lootboxes" style={{ padding: 10, width: 340 }}>My Lootboxes</Button>
+                                    </Badge>
+                                </div>
+                                <Button href={'/marketplace?userid=' + castle.userID} style={{ padding: 10, width: 340 }}>My Listings</Button>
+                            </div>
+                        </div>
+                    )}
+                    
                     <div className="item-1">
-                        <UserCard 
-                            user={user}
-                            castle={castle}
-                        />
+                            <UserCard 
+                                user={user}
+                                castle={castle}
+                            />
                     </div>
                     <div className="item-2">
                         <Grid className='item-2' grid={generators}/>
                     </div>
                     <div className="item-3">
                         <Grid className='item-3' grid={inventory}/>
+                    </div>
+                    <div className="item-4">
+                        <Leaderboard/>
                     </div>
                 </div> ) : 
                 <div className="page-grid">

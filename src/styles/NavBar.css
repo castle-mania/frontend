@@ -5,6 +5,7 @@ nav {
     height: 100px;
     background-color: var(--darkBG);
     margin-bottom: 25px;
+    position: relative;
 }
 
 .nav-links {
@@ -15,13 +16,6 @@ nav {
 
 .logo {
     width: 25px;
-}
-
-.logotext {
-    display: flex;
-    align-items: center;
-    color: var(--white);
-    text-decoration: none;
 }
 
 a {

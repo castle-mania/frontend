@@ -41,7 +41,23 @@ a:link:hover {
 
 .middle {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: 25%;
+    left: 40%;
+    /* bring your own prefixes */
+    transform: translate(-55%, -55%);
+}
+
+.avatar-icon {
+    vertical-align: baseline;
+}
+
+.logotext {
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    text-decoration: none;
+}
+
+.center {
+    text-align: center;
 }

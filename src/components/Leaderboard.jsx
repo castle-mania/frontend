@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
-import { Alert, Table } from 'rsuite';
+import { Alert, Table, Dropdown } from 'rsuite';
 
 const { Column, HeaderCell, Cell } = Table;
 
@@ -14,16 +14,59 @@ const ImageCell = ({ rowData, dataKey, ...props }) => (
     </Cell>
   );
 
+
 export default class Leaderboard extends Component {
 
     state = {
         data: {},
         success: false,
+        url: '/api/leaderboard/gps'
     }
 
     componentDidMount() {
         this.setState({success: false})
-        fetch(this.props.url, {
+        this._changeLeaderboard(this.state.url)
+    }
+
+    render() {
+        return (
+            <div className="leaderboard">
+                { this.state.success ? (
+                <div>
+                    <Table width={350} height={350} data={this.state.data.map((d, i) => {i++; return {...d, p: i}})}>
+                        <Column width={40} align="left" fixed>
+                            <HeaderCell>#</HeaderCell>
+                            <Cell dataKey="p" />
+                        </Column>
+                        <Column width={50} align="center" fixed>
+                            <HeaderCell></HeaderCell>
+                            <ImageCell dataKey="icon" />
+                        </Column>
+                        <Column width={260} align="left" fixed>
+                            <HeaderCell>Name</HeaderCell>
+                            <Cell>
+                                {rowData => (
+                                    <a href={`/castle?userid=${rowData._id}`}>{rowData.name}</a>
+                                )}
+                            </Cell>
+                        </Column>
+                    </Table>
+                    <div className="leaderboard-dropdown">
+                        <Dropdown title="Sort By">
+                            <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/gps')}>Top GPS</Dropdown.Item>
+                            <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/level')}>Top Level</Dropdown.Item>
+                            <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/money')}>Top Castle</Dropdown.Item>
+                            <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/kingdom')}>Top Kingdom</Dropdown.Item>
+                        </Dropdown>
+                    </div>
+                </div>
+                ) : (<Table width={480} height={520} loading={true}/>)}
+            </div>
+        )
+    }
+
+    _changeLeaderboard(url) {
+        fetch(url, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -42,37 +85,6 @@ export default class Leaderboard extends Component {
         .catch(error => {
             Alert.error('Error loading leaderboard.')
         })
-    }
-
-    render() {
-        return (
-            <div className="leaderboard">
-                { this.state.success ? (
-                <Table width={350} height={350} data={this.state.data.map((d, i) => {i++; return {...d, p: i}})}>
-                    <Column width={40} align="left" fixed>
-                        <HeaderCell>#</HeaderCell>
-                        <Cell dataKey="p" />
-                    </Column>
-                    <Column width={50} align="center" fixed>
-                        <HeaderCell></HeaderCell>
-                        <ImageCell dataKey="icon" />
-                    </Column>
-                    <Column width={140} align="left" fixed>
-                        <HeaderCell>Name</HeaderCell>
-                        <Cell>
-                            {rowData => (
-                                <a href={`/castle?userid=${rowData._id}`}>{rowData.name}</a>
-                            )}
-                        </Cell>
-                    </Column>
-                    <Column width={120} align="left" fixed>
-                        <HeaderCell>{this.props.field}</HeaderCell>
-                        <Cell dataKey={this.props.field} />
-                    </Column>
-                </Table>
-                ) : (<Table width={480} height={520} loading={true}/>)}
-            </div>
-        )
     }
 
     _handleNotAuthenticated = () => {
