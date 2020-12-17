@@ -47,6 +47,14 @@ a:link:hover {
     transform: translate(-55%, -55%);
 }
 
+
+.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+  }
 .avatar-icon {
     vertical-align: baseline;
 }

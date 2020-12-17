@@ -6,18 +6,24 @@ export default class UserCard extends Component {
 
     render() {
         return (
-            <div className="Header">
+            <div className="Header centered">
                 <h1>CastleMania</h1>
                 <div className="header-buttons">
                     <Button 
                     appearance='primary'
-                    style={{ padding: 10 }}>Add to Discord</Button>
+                    style={{ padding: 10 }}
+                    onClick={() => this._openWindow('https://discord.com/oauth2/authorize?client_id=757120026867138580&permissions=2176&scope=bot')}>Add to Discord</Button>
                     <Button 
                     appearance='primary'
-                    style={{ padding: 10 }}>Login with Discord</Button>
+                    style={{ padding: 10 }}
+                    href='/auth/login'>Login with Discord</Button>
                 </div>
             </div>
         )
+    }
+
+    _openWindow(url) {
+        window.open(url)
     }
 }
     

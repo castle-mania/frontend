@@ -45,7 +45,7 @@ export default class Currency extends Component {
         let { value } = this.props
 
         if (value >= 1000) {
-            value = this.abbrNum(value, 0)
+            value = this.abbrNum(value, 2)
         }
 
         
