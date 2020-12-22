@@ -42,7 +42,7 @@ export default class Currency extends Component {
 
     render() {
 
-        let { value } = this.props
+        let { value, icon } = this.props
 
         if (value >= 1000) {
             value = this.abbrNum(value, 2)
@@ -51,7 +51,7 @@ export default class Currency extends Component {
         
         return (
             <div className="logotext">
-                <img src={gem} className="logo" alt="gem"></img>
+                { icon && (<img src={gem} className="small-gem" alt="gem"></img>)}
                 { value }
             </div>
         )

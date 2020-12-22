@@ -10,11 +10,10 @@ export default class NavBar extends Component {
         toggled: false,
         authenticated: false,
         user: {},
-        loading: false,
     }
 
     componentDidMount() {
-        fetch("/auth", {
+        fetch("/api/user", {
             method: "GET",
             credentials: "include",
             headers: {
@@ -27,7 +26,11 @@ export default class NavBar extends Component {
             throw new Error("Authentication Failure")
         })
         .then(responseJSON => {
-            this.setState({authenticated: true, user: responseJSON.user, loading: true});
+            console.log(responseJSON)
+            this.setState({
+                authenticated: true, 
+                user: responseJSON.user, 
+            });
         })
         .catch(error => {
             this.setState({
@@ -38,9 +41,8 @@ export default class NavBar extends Component {
     }
 
     render() {
-        const { authenticated, loading } = this.state;
+        const { authenticated, user} = this.state;
         const { premium } = this.state.user;
-        const { user } = this.state;
 
         return (
             <div>
@@ -52,7 +54,7 @@ export default class NavBar extends Component {
                     </a>
                 </div>
                 <ul className={'nav-links ' + (this.state.toggled && ' nav-active')}>
-                    { (authenticated || loading) && (
+                    { (authenticated ) && (
                         <li>
                             <a href={'/castle?userid=' + this.state.user.discordId}>🏰 Castle</a>
                         </li>
@@ -63,7 +65,7 @@ export default class NavBar extends Component {
                     <li>
                         <a href="https://www.patreon.com/castlemania?fan_landing=true">❤️ Premium</a>
                     </li>
-                    { (!authenticated || !loading) ? (
+                    { (!authenticated ) ? (
                         <li className="login">
                             <p className="logButton" onClick={this._handleLoginClick}>Login</p>
                         </li>
@@ -101,4 +103,3 @@ export default class NavBar extends Component {
         this.props._handleNotAuthenticated();
     }
 }
-    

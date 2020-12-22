@@ -2,10 +2,10 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 100px;
+    height: 70px;
     background-color: var(--darkBG);
-    margin-bottom: 25px;
     position: relative;
+    margin-bottom: 20px;
 }
 
 .nav-links {
@@ -15,7 +15,7 @@ nav {
 }
 
 .logo {
-    width: 25px;
+    width: 32px;
 }
 
 a {
@@ -103,3 +103,8 @@ a {
     border-radius: 50px;
 }
 
+
+.navbar-brand {
+    padding: 18px 20px;
+    display: inline-block;
+}

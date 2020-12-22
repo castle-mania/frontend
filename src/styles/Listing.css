@@ -1,57 +1,68 @@
 .listing-icon {
-    padding: 20px;
+    width: 100px;
+    position: absolute;
+    padding: 10px;
 }
 
 .listing-grid {
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto auto;
     gap: 10px;
     justify-content: center;
 }
 
-.listing {
-    background-color: var(--darkBG);
-    border-radius: 10px;
+.listing-panel {
+    width: 100px;
+    height: 100px;
+    border: 2px solid transparent;
 }
 
 .listing-info {
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    row-gap: 10px;
+    position: absolute;
+    background-color: #121212;
+    margin: 5px;
+    padding: 2px;
+    border-radius: 2px;
+    opacity: 0.9;
+    padding-right: 7px;
 }
 
 .listing-badges {
     display: flex;
     column-gap: 10px;
-    margin-left: 10px;
 }
 
 .listing:hover {
     cursor: pointer;
-    filter: brightness(1.05)
+    filter: brightness(1.1)
 }
 
 
-
 .search-bar {
-    width: 720px;
     display: flex;
     margin: 0 auto;
-    justify-self: flex-end;
+    justify-content: center;
     margin-bottom: 10px;
 }
 
 @media screen and (max-width:769px) {
-
-    .listing-grid {
-        display: grid;
-        grid-template-columns: auto auto;
-        justify-content: center;
-    }
-
     .search-bar {
         width: 90%;
+    }
+}
+@media screen and (max-width:750px) {
+    .listing-grid {
+        display: grid;
+        grid-template-columns: auto auto auto auto auto;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width:540px) {
+    .listing-grid {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        justify-content: center;
     }
 }
 

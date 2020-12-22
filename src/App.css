@@ -69,3 +69,7 @@ a:link:hover {
 .center {
     text-align: center;
 }
+
+.small-gem {
+    width: 16px;
+}

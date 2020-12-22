@@ -2,33 +2,26 @@ import React, { Component } from 'react'
 import '../styles/Grid.css';
 import PropTypes from 'prop-types'; 
 import { Popover, Whisper, Button } from 'rsuite';
-import Moment from 'react-moment';
-    
-const Speaker = ({ generator, url, ...props }) => {
-return (
-        <Popover {...props}>
-            <div className="generator-info">
-                <div>
-                    <img className="generator-icon" src={url} alt='blank'/>
-                </div>
-                <div>
-                    <ul className="generator-info-list">
-                        <li className="Title">{generator.name}</li>
-                        <li>GPS: {generator.moneypersecond}</li>
-                        <li><Moment durationFromNow date={generator.purchased}/> ago</li>
-                    </ul>
-                </div>
-            </div>
+
+const tooltip = function (generator) {
+    return (
+        <Popover style={{width: 200}}>
+            <ul style={{listStyle: 'none'}}>
+                <li><b>Generator Details</b></li>
+                <li>{generator.name}</li>
+                <li>Generator Level {generator.level}</li>
+                <li>GPS: {generator.moneypersecond}</li>
+            </ul>
         </Popover>
-    );
+    )
 };
   
 
 const CustomComponent = ({ placement, generator, url }) => (
     <Whisper
-        trigger="click"
+        trigger="hover"
         placement={placement}
-        speaker={<Speaker generator={generator} url={url} />}
+        speaker={tooltip(generator)}
     >
         <Button appearance="subtle">
             <img className="generator-icon" src={url} alt='blank'/>

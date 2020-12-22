@@ -27,7 +27,7 @@ export default class UserCard extends Component {
                         <div>
                             <ul>
                                 <li className="highlight">{ castle.lastKnownUsername }</li>
-                                <li><Currency value={castle.money}></Currency></li>
+                                <li><Currency icon={true} value={castle.money}></Currency></li>
                                 <li>{ castle.GPS }/s {multiplier}</li>
                                 <li>{ castle.level } lvl</li>
                                 <li><Moment durationFromNow date={ castle.created }/></li>
