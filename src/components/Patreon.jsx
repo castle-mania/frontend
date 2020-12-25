@@ -7,10 +7,10 @@ export default class UserCard extends Component {
     render() {
         return (
             <div className="patreon">
-                <p>❤️ Support Castle-Mania on Patreon!</p>
+                <p>❤️ Support Castle Mania on Patreon!</p>
                 <Button 
                     href="https://www.patreon.com/castlemania?fan_landing=true" 
-                    style={{ padding: 10 }}
+                    style={{ padding: 7 }}
                 >Support Here</Button>
             </div>
         )

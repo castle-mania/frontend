@@ -12,17 +12,19 @@ export default class ListingPanels extends Component {
     state = {
         listings: [],
         hasMore: true,
-        limit: 32,
+        limit: 36,
         offset: 0,
+        loaded: false,
         search: this.props.search || 'generator',
         user: this.props.user
     }
 
     componentWillReceiveProps(next) {
         this.setState({
+            loaded: true,
             listings: [],
             hasMore: true,
-            limit: 32,
+            limit: 36,
             offset: 0,
             search: next.search || 'generator',
             user: next.user
@@ -47,7 +49,7 @@ export default class ListingPanels extends Component {
                 loadMore={this.loadMore}
                 hasMore={hasMore}
                 loader={(
-                    <div className="center">
+                    <div className="center" style={{marginTop: 20}}>
                         <Loader speed="fast" content="Loading listings..."/>
                     </div>
                 )}
@@ -55,18 +57,26 @@ export default class ListingPanels extends Component {
                 <div className="listing-grid">
                     {listingPanels}
                 </div>
+                { listingPanels.length === 0 && (
+                    <div>
+                        <div className="center">You've seen everything!</div>
+                    </div>
+                )}  
+                
             </InfiniteScroll>
         )
     }
 
     loadMore = () => {
 
+        if (!this.state.loaded) return
+        
         const params = {
             search: this.state.search,
             limit: this.state.limit,
             offset: this.state.offset,
         }
-        
+
         const esc = encodeURIComponent;
         const query = Object.keys(params)
             .map(k => esc(k) + '=' + esc(params[k]))
@@ -93,7 +103,6 @@ export default class ListingPanels extends Component {
             });
         })
         .catch(error => {
-            console.log(error)
             this.setState({
                 authenticated: false,
                 error: "Authentication Failure"

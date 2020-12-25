@@ -8,8 +8,7 @@ export default class Lootboxes extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: {},
-            castle: {},
+            lootboxes: [],
             error: null,
             authenticated: false,
             reward: {},
@@ -18,11 +17,15 @@ export default class Lootboxes extends Component {
     }
 
     componentDidMount() {
-        fetch("/auth/lootboxes", {
+
+        const JWT = window.localStorage.getItem('castlemania-JWT')
+
+        fetch("/api/castle/lootboxes", {
             method: "GET",
             credentials: "include",
             headers: {
                 Accept: "application/json",
+                Authorization: "Bearer " + JWT,
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Credentials": true
             }
@@ -33,8 +36,7 @@ export default class Lootboxes extends Component {
         .then(responseJSON => {
             this.setState({
                 authenticated: true, 
-                user: responseJSON.user, 
-                castle: responseJSON.castle
+                lootboxes: responseJSON
             });
         })
         .catch(error => {
@@ -48,8 +50,8 @@ export default class Lootboxes extends Component {
     }
 
     render() {
-        const { authenticated } = this.state;
-        const { lootboxes } = this.state.castle;
+        console.log(this.state)
+        const { authenticated, lootboxes } = this.state;
 
         let listLootboxes = []
 
@@ -86,12 +88,14 @@ export default class Lootboxes extends Component {
     fetchLootbox(id) {
         this.setState({reward: {}})
         this.setState({show: true})
+        const JWT = window.localStorage.getItem('castlemania-JWT')
         
-        fetch(`/auth/open?id=${id}`, {
+        fetch(`/api/castle/lootboxes/open?lootboxId=${id}`, {
             method: "GET",
             credentials: "include",
             headers: {
                 Accept: "application/json",
+                Authorization: "Bearer " + JWT,
                 "Content-Type": "application/json",
                 "Access-Control-Allow-Credentials": true
             }
@@ -110,6 +114,7 @@ export default class Lootboxes extends Component {
             }
         })
         .catch(error => {
+            console.log(error)
             this.setState({
                 authenticated: false,
                 error: "Authentication Failure"
@@ -153,8 +158,8 @@ class RewardPopup extends React.Component {
       const { reward } = this.state;
       const success = !(Object.keys(reward).length === 0 && reward.constructor === Object)
       return (
-        <div className="modal-container middle">
-          <Modal className="middle" backdrop={backdrop} show={show} size="xs" onHide={this.close}>
+        <div className="modal-container">
+          <Modal  backdrop={backdrop} show={show} size="xs" onHide={this.close}>
             <Modal.Header>
               <Modal.Title>You unboxed!</Modal.Title>
             </Modal.Header>

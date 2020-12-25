@@ -6,6 +6,7 @@ import Castle from './pages/Castle'
 import Lootboxes from './pages/Lootboxes'
 import Marketplace from './pages/Marketplace'
 import NavBar from './components/NavBar'
+import DiscordAuth from './pages/DiscordAuth'
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/Castle" exact component={Castle}/>
         <Route path="/Lootboxes" exact component={Lootboxes}/>
         <Route path="/Marketplace" exact component={Marketplace}/>
+        <Route path="/discord/callback" exact component={DiscordAuth}/>
       </Router>
       </div>
     </div>

@@ -46,7 +46,7 @@ export default class Leaderboard extends Component {
                             <HeaderCell>Name</HeaderCell>
                             <Cell>
                                 {rowData => (
-                                    <a href={`/castle?userid=${rowData._id}`}>{rowData.name}</a>
+                                    <a href={`/castle?discordId=${rowData._id}`}>{rowData.name}</a>
                                 )}
                             </Cell>
                         </Column>
@@ -54,8 +54,8 @@ export default class Leaderboard extends Component {
                     <div className="leaderboard-dropdown">
                         <Dropdown title="Sort By">
                             <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/gps')}>Top GPS</Dropdown.Item>
-                            <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/level')}>Top Level</Dropdown.Item>
-                            <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/money')}>Top Castle</Dropdown.Item>
+                            <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/lvl')}>Top Level</Dropdown.Item>
+                            <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/gems')}>Top Castle</Dropdown.Item>
                             <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/kingdom')}>Top Kingdom</Dropdown.Item>
                         </Dropdown>
                     </div>

@@ -7,7 +7,7 @@ export default class UserCard extends Component {
     render() {
         return (
             <div className="Header centered">
-                <h1>CastleMania</h1>
+                <h1>Castle Mania</h1>
                 <div className="header-buttons">
                     <Button 
                     appearance='primary'

@@ -9,10 +9,10 @@ export default class UserCard extends Component {
     render() {
         const { castle } = this.props;
         const { Line } = Progress; 
-        const { allTimeEarnings, baseLevelXP, nextLevelXP} = this.props.castle;
-        const progress = Math.floor(((allTimeEarnings - baseLevelXP) / (nextLevelXP - baseLevelXP)) * 100) > 100 
+        const { XP, baseLevelXP, nextLevelXP} = this.props.castle;
+        const progress = Math.floor(((XP - baseLevelXP) / (nextLevelXP - baseLevelXP)) * 100) > 100 
                         ? 100
-                        : Math.floor(((allTimeEarnings - baseLevelXP) / (nextLevelXP - baseLevelXP)) * 100);
+                        : Math.floor(((XP - baseLevelXP) / (nextLevelXP - baseLevelXP)) * 100);
 
         const multiplier =
              castle.multiplier === 1 ? '' : `x${castle.multiplier}`

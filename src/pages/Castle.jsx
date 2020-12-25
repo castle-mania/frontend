@@ -4,7 +4,7 @@ import UserCard from '../components/UserCard';
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
 import '../styles/Sidenav.css'
-import { Alert, Placeholder, Button, Badge } from 'rsuite';
+import { Alert, Placeholder } from 'rsuite';
 import Leaderboard from '../components/Leaderboard'
 
 export default class Castle extends Component {
@@ -32,9 +32,7 @@ export default class Castle extends Component {
         .then(responseJSON => {
             this.setState({
                 success: true,
-                loggedIn: responseJSON.loggedIn,
-                castle: responseJSON.castle,
-                user: responseJSON.user
+                castle: responseJSON
             });
         })
         .catch(error => {
@@ -47,36 +45,16 @@ export default class Castle extends Component {
     }
 
     render() {
-        const { user } = this.state;
-        const { castle } = this.state;
-        const { success } = this.state;
-        const { generators } = this.state.castle;
-        const { inventory } = this.state.castle;
-        const { lootboxes } = this.state.castle;
-        const { loggedIn } = this.state
+
+        const { castle, success } = this.state
+        const { generators, inventory } = castle
         
         return (
             <div>
                 { success ? (  
                 <div className="page-grid">
-                    { loggedIn && (
-                        <div className="item-5 sidenav">
-                        <div className="sidenav-btns">
-                                <div>
-                                    <Badge content={(lootboxes.length > 0) && lootboxes.length}>
-                                        <Button href="/lootboxes" style={{ padding: 10, width: 340 }}>My Lootboxes</Button>
-                                    </Badge>
-                                </div>
-                                <Button href={'/marketplace?userid=' + castle.userID} style={{ padding: 10, width: 340 }}>My Listings</Button>
-                            </div>
-                        </div>
-                    )}
-                    
                     <div className="item-1">
-                            <UserCard 
-                                user={user}
-                                castle={castle}
-                            />
+                        <UserCard castle={castle}/>
                     </div>
                     <div className="item-2">
                         <Grid className='item-2' grid={generators}/>
