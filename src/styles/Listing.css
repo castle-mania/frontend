@@ -58,10 +58,18 @@
     }
 }
 
-@media screen and (max-width:540px) {
+@media screen and (max-width:618px) {
     .listing-grid {
         display: grid;
         grid-template-columns: auto auto auto auto;
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width:510px) {
+    .listing-grid {
+        display: grid;
+        grid-template-columns: auto auto auto;
         justify-content: center;
     }
 }

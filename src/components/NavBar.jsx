@@ -117,6 +117,11 @@ export default class NavBar extends Component {
                             <Dropdown.Item>
                                 <a href="/commands">📖 Commands</a>
                             </Dropdown.Item>
+                            { ( authenticated && !loading ) && (
+                                <Dropdown.Item>
+                                    <a href={'/lootboxes'}>📦 Lootboxes</a>
+                                </Dropdown.Item>
+                            )}
                             <Dropdown.Item>
                                 <a href="https://www.patreon.com/castlemania?fan_landing=true">❤️ Premium</a>
                             </Dropdown.Item>

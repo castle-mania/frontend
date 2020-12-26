@@ -33,7 +33,7 @@ export default class Leaderboard extends Component {
             <div className="leaderboard">
                 { this.state.success ? (
                 <div>
-                    <Table width={350} height={350} data={this.state.data.map((d, i) => {i++; return {...d, p: i}})}>
+                    <Table width={350} autoHeight={true} data={this.state.data.map((d, i) => {i++; return {...d, p: i}})}>
                         <Column width={40} align="left" fixed>
                             <HeaderCell>#</HeaderCell>
                             <Cell dataKey="p" />
