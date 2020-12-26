@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import '../styles/NavBar.css'
 import gem from '../res/gem.png'
 import Patreon from './Patreon'
-import { Avatar } from 'rsuite'
+import { Avatar, Dropdown, Icon, IconButton } from 'rsuite'
     
 export default class NavBar extends Component {
 
@@ -67,7 +67,7 @@ export default class NavBar extends Component {
                             <h5>Castle Mania</h5>
                         </a>
                     </div>
-                    <ul className={'nav-links ' + (this.state.toggled && ' nav-active')}>
+                    <ul className="nav-links">
                         { ( authenticated && !loading ) && (
                             <li>
                                 <a href={'/castle?discordId=' + user.discordId}>🏰 Castle</a>
@@ -75,6 +75,9 @@ export default class NavBar extends Component {
                         )}
                         <li>
                             <a href="/marketplace">🛍️ Marketplace</a>
+                        </li>
+                        <li>
+                            <a href="/commands">📖 Commands</a>
                         </li>
                         { ( authenticated && !loading ) && (
                             <li>
@@ -97,20 +100,50 @@ export default class NavBar extends Component {
                             </li>
                         )}
                     </ul>
-                    <div className="burger" onClick={this._toggleNavbar}>
-                        <div className="line1"></div>
-                        <div className="line2"></div>
-                        <div className="line3"></div>
+                    <div className="burger">
+                        <Dropdown  placement="bottomEnd" noCaret size="lg"
+                            renderTitle={() => {
+                                return <IconButton icon={<Icon icon="plus" />} circle />;
+                              }}
+                            >
+                            { ( authenticated && !loading ) && (
+                                <Dropdown.Item>
+                                    <a href={'/castle?discordId=' + user.discordId}>🏰 Castle</a>
+                                </Dropdown.Item>
+                            )}
+                            <Dropdown.Item>
+                                <a href="/marketplace">🛍️ Marketplace</a>
+                            </Dropdown.Item>
+                            <Dropdown.Item>
+                                <a href="/commands">📖 Commands</a>
+                            </Dropdown.Item>
+                            <Dropdown.Item>
+                                <a href="https://www.patreon.com/castlemania?fan_landing=true">❤️ Premium</a>
+                            </Dropdown.Item>
+                            { (!authenticated && !loading ) ? (
+                                <Dropdown.Item className="login">
+                                    <p className="logButton" onClick={this._handleLoginClick}>Login</p>
+                                </Dropdown.Item>
+                            ) : ( 
+                                <Dropdown.Item className="login">
+                                    <p className="logButton logotext" onClick={this._handleLogoutClick}>
+                                        <Avatar size="xs" style={{marginRight: 10}} src={user.lastKnownAvatarURL}></Avatar>
+                                        Logout
+                                    </p>
+                                </Dropdown.Item>
+                            )}
+                        </Dropdown>
                     </div>
                     
                 </nav>
                 {(!authenticated || !user.premium) && (<Patreon/>)}
+                <div className="divider"></div>
             </div>
         )
     }
 
     _toggleNavbar = () => {
-        this.setState({toggled: !this.state.toggled})
+        
     }
 
     _handleLoginClick = () => {

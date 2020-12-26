@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../styles/Lootboxes.css';
-import { Button, Alert, Modal, Loader } from 'rsuite';
+import { Button, Alert, Modal, Loader, Panel } from 'rsuite';
 import MiniGrid from '../components/MiniGrid'
 
 export default class Lootboxes extends Component {
@@ -69,7 +69,8 @@ export default class Lootboxes extends Component {
         }
         
         return (
-            <div>
+            <div className="panels">
+                <Panel shaded className="panel">
                 {(listLootboxes.length > 0 && authenticated) ? (
                     <div>
                         <ul className="lootboxes-list">
@@ -81,6 +82,7 @@ export default class Lootboxes extends Component {
                     <p className="center">Nothing to open!</p>
                 )}
                 <RewardPopup reward={this.state.reward} show={this.state.show}></RewardPopup>
+                </Panel>
             </div>
         )
     }

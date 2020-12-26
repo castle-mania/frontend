@@ -1,0 +1,21 @@
+.panel {
+    display: flex;
+    justify-content: center;
+    width: 720px;
+    background-color: var(--darkBG);
+}
+
+.panels {
+    display: flex;  
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+@media screen and (max-width:769px) {
+
+    .panel {
+        display: block;
+        width: 90%;
+    }
+}

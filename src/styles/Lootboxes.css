@@ -5,13 +5,11 @@
 .lootboxes-list li {
     display: flex;
     justify-content: space-between;
-    margin: 0 auto;
-    width: 720px;
-    background-color: var(--darkBG);
+    width: 680px;
+    background-color: var(--lightBG);
     padding: 15px;
     border-radius: 5px;
     align-items: center; /* align vertical */
-    margin-bottom: 20px;
 }
 
 .lootboxes-list li Button {
@@ -39,7 +37,7 @@
     }
 
     .lootboxes-list li {
-        width: 90%;
+        width: 100%;
     }
 }
 

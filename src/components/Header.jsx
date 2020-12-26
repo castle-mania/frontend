@@ -6,7 +6,7 @@ export default class UserCard extends Component {
 
     render() {
         return (
-            <div className="Header centered">
+            <div className="Header">
                 <h1>Castle Mania</h1>
                 <div className="header-buttons">
                     <Button

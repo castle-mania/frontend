@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Grid from '../components/Grid';
 import UserCard from '../components/UserCard';
+import Leaderboard from '../components/Leaderboard'
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
 import '../styles/Sidenav.css'
 import { Alert, Placeholder } from 'rsuite';
-import Leaderboard from '../components/Leaderboard'
 
 export default class Castle extends Component {
 

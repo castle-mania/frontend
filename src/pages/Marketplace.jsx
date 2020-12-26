@@ -3,7 +3,7 @@ import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
 import '../styles/Leaderboards.css'
 import Listings from '../components/Listings'
-import { Input, InputGroup, Icon } from 'rsuite'
+import { Input, InputGroup, Icon, Panel } from 'rsuite'
   
 const styles = {
     width: 300,
@@ -32,7 +32,8 @@ export default class Marketplace extends Component {
         const { search } = this.state
 
         return (
-            <div>
+            <div className="panels">
+                <Panel shaded className="panel">
                 <div className="search-bar">
                     <InputGroup inside style={styles}>
                         <Input placeholder='Search for Generator' onPressEnter={(Event) => this._search(Event.target.value)}/>
@@ -41,7 +42,8 @@ export default class Marketplace extends Component {
                         </InputGroup.Button>
                     </InputGroup>
                 </div>
-                <Listings search={search}/>
+                    <Listings search={search}/>
+                </Panel>
             </div>
         )
     }
