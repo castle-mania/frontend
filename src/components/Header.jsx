@@ -16,10 +16,15 @@ export default class UserCard extends Component {
                     <Button 
                     appearance='primary'
                     style={{ padding: 10 }}
-                    href='/auth/login'>Login with Discord</Button>
+                    onClick={this._handleLoginClick}>Login with Discord</Button>
                 </div>
             </div>
         )
+    }
+
+    _handleLoginClick = () => {
+        window.localStorage.setItem('cstl-jwt-callback', window.location.href)
+        window.open("/auth/discord", "_self")
     }
 
     _openWindow(url) {
