@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import '../styles/Lootboxes.css';
 import { Button, Alert, Modal, Loader, Panel } from 'rsuite';
 import MiniGrid from '../components/MiniGrid'
+import regular from '../res/regular_gift.png'
+import legendary from '../res/legendary_gift.png'
+import epic from '../res/epic_gift.png'
 
 export default class Lootboxes extends Component {
 
@@ -57,14 +60,14 @@ export default class Lootboxes extends Component {
 
         if (authenticated && lootboxes != null) {
             listLootboxes = lootboxes.map((lootbox, index) => 
-                <li key={index} type={lootbox.type}>
-                    <p>📦 {lootbox.type} lootbox</p>
+                <div key={index} type={lootbox.type} className="lootbox-button">
                     <Button 
                         className={lootbox.type} 
                         onClick={() => {this.fetchLootbox(lootbox.id)}} 
                         style={{ padding: 10 }}>
-                    Unbox</Button>
-                </li>
+                    <img src={this.getImg(lootbox.type)} className="lootbox-img" alt={lootbox.type}></img>
+                    </Button>
+                </div>
             )
         }
         
@@ -73,10 +76,9 @@ export default class Lootboxes extends Component {
                 <Panel shaded className="panel">
                 {(listLootboxes.length > 0 && authenticated) ? (
                     <div>
-                        <ul className="lootboxes-list">
-                        {listLootboxes}
-                        </ul>
-                        
+                        <div className="lootboxes-grid">
+                            {listLootboxes}
+                        </div>
                     </div>
                 ) : (
                     <p className="center">Nothing to open!</p>
@@ -85,6 +87,17 @@ export default class Lootboxes extends Component {
                 </Panel>
             </div>
         )
+    }
+
+    getImg(tier) {
+        switch (tier) {
+            case 'legendary':
+                return legendary
+            case 'epic':
+                return epic
+            default:
+                return regular
+        }
     }
 
     fetchLootbox(id) {

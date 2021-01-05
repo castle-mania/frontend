@@ -1,46 +1,64 @@
-.lootboxes-list ul {
-    width: 30%;
-}
-
-.lootboxes-list li {
-    display: flex;
-    justify-content: space-between;
-    width: 680px;
-    background-color: var(--lightBG);
-    padding: 15px;
-    border-radius: 5px;
-    align-items: center; /* align vertical */
-}
-
-.lootboxes-list li Button {
-    width: 30%;
-}
 
 .legendary {
-    background-color: rgb(255,132,44);
-    background: linear-gradient(90deg, rgba(255,132,44,1) 0%, rgba(252,176,69,1) 100%);
+    background-color: var(--lightBG);
+    border: 2px solid transparent;
+    border-color: #edc361;
 }
 
 .epic {
-    background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-color: var(--lightBG);
+    border: 2px solid transparent;
+    border-color: #8e60eb;
 }
 
 .regular {
-    background-color: rgb(63,89,251);
-    background: linear-gradient(90deg, rgba(63,89,251,1) 0%, rgba(70,159,252,1) 100%);
-}
-
-@media screen and (max-width:769px) {
-
-    .lootboxes-list ul {
-        width: 90%;
-    }
-
-    .lootboxes-list li {
-        width: 100%;
-    }
+    background-color: var(--lightBG);
+    border: 2px solid transparent;
+    border-color: #5466a8;
 }
 
 .reward-info {
     margin: 20px;
 }
+
+.lootboxes-grid {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto;
+    gap: 10px
+}
+
+@media screen and (max-width:745px) {
+
+    .lootboxes-grid {
+        display: grid;
+        grid-template-columns: auto auto auto auto auto;
+        gap: 10px
+    }
+}
+
+@media screen and (max-width:622px) {
+
+    .lootboxes-grid {
+        display: grid;
+        grid-template-columns: auto auto auto auto;
+        gap: 10px
+    }
+}
+
+@media screen and (max-width:500px) {
+
+    .lootboxes-grid {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        gap: 10px
+    }
+}
+
+.lootbox-button button:hover {
+    background-color: #fff;
+}
+
+.lootbox-img {
+    width: 75px;
+}
+
