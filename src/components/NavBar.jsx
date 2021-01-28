@@ -15,7 +15,7 @@ export default class NavBar extends Component {
 
     componentDidMount() {
         const JWT = window.localStorage.getItem('castlemania-JWT')
-        
+        this.setState({loading: true})
         if (JWT != null) {
             fetch("/api/user", {
                 method: "GET",
@@ -106,7 +106,7 @@ export default class NavBar extends Component {
                                 return <IconButton icon={<Icon icon="plus" />} circle />;
                               }}
                             >
-                            { ( authenticated && !loading ) && (
+                            { ( authenticated ) && (
                                 <Dropdown.Item>
                                     <a href={'/castle?discordId=' + user.discordId}>🏰 Castle</a>
                                 </Dropdown.Item>
@@ -117,11 +117,15 @@ export default class NavBar extends Component {
                             <Dropdown.Item>
                                 <a href="/commands">📖 Commands</a>
                             </Dropdown.Item>
-                            { ( authenticated && !loading ) && (
+                            { authenticated ? (
                                 <Dropdown.Item>
                                     <a href={'/lootboxes'}>📦 Lootboxes</a>
                                 </Dropdown.Item>
-                            )}
+                            ) : (
+                                <Dropdown.Item>
+                                    <a href={'/lootboxes'}>📦 Lootboxes</a>
+                                </Dropdown.Item>
+                            ) }
                             <Dropdown.Item>
                                 <a href="https://www.patreon.com/castlemania?fan_landing=true">❤️ Premium</a>
                             </Dropdown.Item>
@@ -141,7 +145,7 @@ export default class NavBar extends Component {
                     </div>
                     
                 </nav>
-                {(!authenticated || !user.premium) && (<Patreon/>)}
+                {(!authenticated || !user.premium) && !this.state.loading && (<Patreon/>)}
                 <div className="divider"></div>
             </div>
         )

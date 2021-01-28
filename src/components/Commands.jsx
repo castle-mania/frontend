@@ -12,7 +12,7 @@ export default class Castle extends Component {
     }
 
     componentDidMount() {
-        fetch(`/api/commands`, {
+        fetch(`/api/commands?category=${this.props.category}`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -41,8 +41,10 @@ export default class Castle extends Component {
 
     render() {
 
+        const sub = this.props.category === undefined ? '' : this.props.category + ' '
+
         return (
-            <div>
+            <div className="panel">
                 <Table width={680} height={350} data={this.state.commands}>
                     <Column width={100} align="left" fixed>
                         <HeaderCell>Category</HeaderCell>
@@ -51,9 +53,9 @@ export default class Castle extends Component {
                     <Column width={150} align="left" fixed>
                         <HeaderCell>Command</HeaderCell>
                         <Cell>
-                            {rowData => (
-                                `!${rowData.name}`
-                            )}
+                            {rowData => 
+                                (`!${sub}${rowData.name}`)
+                            }
                         </Cell>
                     </Column>
                     <Column width={430} align="left" fixed>

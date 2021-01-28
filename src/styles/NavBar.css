@@ -25,10 +25,11 @@ a {
 
 .nav-links li {
     list-style: none;
+    
 }
 
 .nav-links a:hover {
-    color: var(--accent)
+    color: var(--accent);
 }
 
 .burger {

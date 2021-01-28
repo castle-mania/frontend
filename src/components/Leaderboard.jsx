@@ -52,10 +52,10 @@ export default class Leaderboard extends Component {
                         </Column>
                     </Table>
                     <div className="leaderboard-dropdown">
-                        <Dropdown title="Sort By">
+                        <Dropdown title="Sort By" appearance="default" placement="topStart" trigger={['click', 'hover']} noCaret>
                             <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/gps')}>Top GPS</Dropdown.Item>
                             <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/lvl')}>Top Level</Dropdown.Item>
-                            <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/gems')}>Top Castle</Dropdown.Item>
+                            <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/gems')}>Top Money</Dropdown.Item>
                             <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/kingdom')}>Top Kingdom</Dropdown.Item>
                         </Dropdown>
                     </div>

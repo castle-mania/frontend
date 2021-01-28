@@ -13,7 +13,9 @@ export default class Home extends Component {
                 <Panel shaded className="panel">
                     <Header/>
                 </Panel>
-                
+                <Panel shaded className="panel">
+                    Hello
+                </Panel>
             </div>
         )
     }

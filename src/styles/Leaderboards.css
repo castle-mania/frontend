@@ -31,11 +31,12 @@
 }
 
 .rs-table, .rs-table-cell {
-    background-color: var(--darkBG)
+    background-color: var(--darkBG);
+    
 }
 
 .rs-table-cell-header .rs-table-cell-content {
-    background-color: var(--darkBG)
+    background-color: var(--darkBG);
 }
 
 .leaderboard-dropdown {

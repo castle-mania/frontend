@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../styles/UserCard.css';
-import { Progress } from 'rsuite';
+import { Progress, Panel, Placeholder } from 'rsuite';
 import Moment from 'react-moment';
 import Currency from './Currency'
     
@@ -18,13 +18,17 @@ export default class UserCard extends Component {
              castle.multiplier === 1 ? '' : `x${castle.multiplier}`
         
         return (
-            <div className="user-card">
+            <Panel className="user-card" shaded>
                 <div className="details">
                     <div className="mini-details">  
                         <div>
-                            <img className="profile-icon" src={castle.lastKnownAvatarURL} alt={ castle.lastKnownUsername }/>
+                            { castle.lastKnownAvatarURL ? (
+                                <img className="profile-icon" src={castle.lastKnownAvatarURL} alt={ castle.lastKnownUsername }/>
+                            ) : ( <Placeholder.Graph active width={100} height={100} style={{borderRadius: 5}}/> )}
+                            
                         </div>
                         <div>
+                            { castle.lastKnownUsername ? (
                             <ul>
                                 <li className="highlight">{ castle.lastKnownUsername }</li>
                                 <li><Currency icon={true} value={castle.money}></Currency></li>
@@ -32,12 +36,29 @@ export default class UserCard extends Component {
                                 <li>{ castle.level } lvl</li>
                                 <li><Moment durationFromNow date={ castle.created }/></li>
                             </ul>
+                            ) : (
+                                <Placeholder.Graph active width={200} height={100} style={{borderRadius: 5}}/>
+                            )}
+                        </div>  
+                        <div>
+                            { castle.premium && (
+                                <div className="premium-indicator">
+                                    <a href="https://www.patreon.com/castlemania?fan_landing=true">PREMIUM</a>
+                                </div>
+                            )}
                         </div>
-                        
                     </div>
                 </div>
-                <Line percent={progress} strokeColor="var(--accent)"></Line>
-            </div>
+                { castle.level && (
+                    <div>
+                        <Line status="active" percent={progress} strokeColor="var(--accent)"></Line>
+                        <div className="level-flex">
+                            <p>{ castle.level } lvl</p>
+                            <p>{ castle.level + 1 } lvl</p>
+                        </div>
+                    </div>
+                ) }
+            </Panel>
         )
     }
 }

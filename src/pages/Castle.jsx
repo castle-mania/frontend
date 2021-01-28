@@ -5,7 +5,7 @@ import Leaderboard from '../components/Leaderboard'
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
 import '../styles/Sidenav.css'
-import { Alert, Placeholder } from 'rsuite';
+import { Alert, Placeholder, Panel } from 'rsuite';
 
 export default class Castle extends Component {
 
@@ -51,7 +51,6 @@ export default class Castle extends Component {
         
         return (
             <div>
-                { success ? (  
                 <div className="page-grid">
                     <div className="item-1">
                         <UserCard castle={castle}/>
@@ -63,20 +62,11 @@ export default class Castle extends Component {
                         <Grid className='item-3' grid={inventory}/>
                     </div>
                     <div className="item-4">
-                        <Leaderboard/>
+                        <Panel shaded className="small-panel">
+                            <Leaderboard/>
+                        </Panel>
                     </div>
-                </div> ) : 
-                <div className="page-grid">
-                    <div className="item-1">
-                        <Placeholder.Graph active />
-                    </div>
-                    <div className="item-2">
-                        <Placeholder.Graph active />
-                    </div>
-                    <div className="item-3">
-                        <Placeholder.Graph active />
-                    </div>
-                </div>}
+                </div> 
             </div>
         )
     }

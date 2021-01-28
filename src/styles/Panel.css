@@ -5,6 +5,22 @@
     background-color: var(--darkBG);
 }
 
+.small-panel {
+    display: flex;
+    justify-content: center;
+    width: 390px;
+    background-color: var(--darkBG);
+}
+
+.small-panel .rs-btn {
+
+    padding: 10px;
+}
+
+.grid-panel {
+    background-color: var(--darkBG)
+}
+
 .panels {
     display: flex;  
     flex-direction: column;
@@ -15,6 +31,11 @@
 @media screen and (max-width:769px) {
 
     .panel {
+        display: block;
+        width: 90%;
+    }
+
+    .small-panel {
         display: block;
         width: 90%;
     }
