@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import '../styles/Lootboxes.css';
 import { Button, Alert, Modal, Loader, Panel } from 'rsuite';
-import MiniGrid from '../components/MiniGrid'
 import regular from '../res/regular_gift.png'
 import legendary from '../res/legendary_gift.png'
 import epic from '../res/epic_gift.png'
+import TextPanel from '../components/TextPanel'
 
 export default class Lootboxes extends Component {
 
@@ -13,9 +13,10 @@ export default class Lootboxes extends Component {
         this.state = {
             lootboxes: [],
             error: null,
-            authenticated: false,
+            loaded: false,
             reward: {},
             show: false,
+            currentType: 'regular',
         }
     }
 
@@ -38,27 +39,25 @@ export default class Lootboxes extends Component {
         })
         .then(responseJSON => {
             this.setState({
-                authenticated: true, 
+                loaded: true, 
                 lootboxes: responseJSON
             });
         })
         .catch(error => {
             this.setState({
-                authenticated: false,
+                loaded: false,
                 error: "Authentication Failure"
             })
-            Alert.error('Not authenticated.')
-            this.props.history.push('/')
+            window.localStorage.setItem('cstl-jwt-callback', window.location.href)
+            window.open("/auth/discord", "_self")
         })
     }
 
     render() {
-        console.log(this.state)
-        const { authenticated, lootboxes } = this.state;
-
+        const { loaded, lootboxes } = this.state;
         let listLootboxes = []
 
-        if (authenticated && lootboxes != null) {
+        if (loaded && lootboxes != null) {
             listLootboxes = lootboxes.map((lootbox, index) => 
                 <div key={index} type={lootbox.type} className="lootbox-button">
                     <Button 
@@ -73,18 +72,28 @@ export default class Lootboxes extends Component {
         
         return (
             <div className="panels">
+                <TextPanel 
+                    title="Your Lootboxes"
+                    desc="Here is where you can unbox your loot, any unboxed loot will automatically be added to your castle or inventory. If you cannot open the boxes it may mean that your castle and inventory is full, try clearing some space!"
+                />
+                {(loaded) ? (
                 <Panel shaded className="panel">
-                {(listLootboxes.length > 0 && authenticated) ? (
-                    <div>
-                        <div className="lootboxes-grid">
-                            {listLootboxes}
+                    
+                    {(listLootboxes.length > 0) ? (
+                        <div>
+                            <div className="lootboxes-grid">
+                                {listLootboxes}
+                            </div>
                         </div>
-                    </div>
-                ) : (
-                    <p className="center">Nothing to open!</p>
-                )}
-                <RewardPopup reward={this.state.reward} show={this.state.show}></RewardPopup>
+                    ) : (
+                        <p className="center">Nothing to open!</p>
+                    )}
+                    <RewardPopup reward={this.state.reward} show={this.state.show}></RewardPopup>
+                    
                 </Panel>
+                ) : (
+                    <Panel shaded className="panel"><Loader speed="fast" content="Loading loot" /></Panel>
+                )}
             </div>
         )
     }
@@ -121,7 +130,6 @@ export default class Lootboxes extends Component {
         .then(responseJSON => {
             this.componentDidMount();
             if (responseJSON.success) {
-                Alert.success(responseJSON.message);
                 this.setState({ reward: responseJSON.reward });
             } else {
                 Alert.error(responseJSON.message);
@@ -168,27 +176,49 @@ class RewardPopup extends React.Component {
         this.setState({reward: props.reward})
     }
 
+    _levelColour (lvl) {
+        let colour
+        switch(true) {
+            case lvl > 50:
+                colour = '#edc361'
+                break
+            case lvl > 25:
+                colour = '#8e60eb'
+                break
+            default:
+                colour = '#5466a8'
+        }
+        return colour;
+    }
+
     render() {
       const { backdrop, show } = this.state;
       const { reward } = this.state;
       const success = !(Object.keys(reward).length === 0 && reward.constructor === Object)
+      const colour = success ? this._levelColour(reward.items[0].level) : "var(--lightBG)"
       return (
         <div className="modal-container">
-          <Modal  backdrop={backdrop} show={show} size="xs" onHide={this.close}>
+          <Modal style={{top: "10%"}} backdrop={backdrop} show={show} size="xs" onHide={this.close}>
             <Modal.Header>
-              <Modal.Title>You unboxed!</Modal.Title>
+              <Modal.Title>🎉 Congratulations!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 { success ? (
                     <div>
-                        <MiniGrid grid={reward.items}></MiniGrid>
-                        <p className="reward-info">The items above were added to your claims</p>
+                        <div className="unboxed-item">
+                        <img src={reward.items[0].url} alt={reward.items[0].name}/>
+                        </div>
+                        <Panel style={{backgroundColor: "var(--lightBG)", marginTop: 20}}>
+                            <p style={{color: colour}}>{reward.items[0].name}</p>  
+                            <p>Level: {reward.items[0].level}</p>  
+                            <p>GPS: {reward.items[0].moneypersecond}</p>                
+                        </Panel>
                     </div>
                 ) : (
                 <div className="center"><Loader content="Loading..."></Loader></div>)}
             </Modal.Body>
             <Modal.Footer>
-              <Button style={{ padding: 10 }} onClick={this.close} color="primary">
+              <Button style={{ padding: 10 }} onClick={this.close} color="blue">
                 Accept
               </Button>
               <Button style={{ padding: 10 }} onClick={this.close} appearance="subtle">

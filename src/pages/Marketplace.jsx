@@ -4,7 +4,8 @@ import '../styles/NavBar.css';
 import '../styles/Leaderboards.css'
 import Listings from '../components/Listings'
 import { Input, InputGroup, Icon, Panel } from 'rsuite'
-  
+import TextPanel from '../components/TextPanel'
+
 const styles = {
     width: 300,
     marginBottom: 10
@@ -33,6 +34,10 @@ export default class Marketplace extends Component {
 
         return (
             <div className="panels">
+                <TextPanel 
+                    title="Marketplace"
+                    desc="Welcome to the marketplace, here you can buy/sell to your fellow castles. As you hover over generators you will see specific statistics on each one, the top-left number indicates how much a generator is listed for. Once clicked the short id of a generator will be copied to your clipboard and from their you can buy it via Discord."
+                />
                 <Panel shaded className="panel">
                 <div className="search-bar">
                     <InputGroup inside style={styles}>

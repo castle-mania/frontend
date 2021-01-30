@@ -5,9 +5,10 @@ import Leaderboard from '../components/Leaderboard'
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
 import '../styles/Sidenav.css'
-import { Alert, Placeholder, Panel } from 'rsuite';
+import { Alert, Panel } from 'rsuite';
 
 export default class Castle extends Component {
+
 
     state = {
         success: false,
@@ -17,7 +18,8 @@ export default class Castle extends Component {
     }
 
     componentDidMount() {
-        fetch(`/api/castle${this.props.location.search}`, {
+        const search = this.props.location.search
+        fetch(`/api/castle${search}`, {
             method: "GET",
             credentials: "include",
             headers: {
@@ -40,13 +42,14 @@ export default class Castle extends Component {
                 authenticated: false,
                 error: "Authentication Failure"
             })
-            Alert.error('Failed to find castle')
+            this.props.history.push('/')
+            Alert.error('Could not fetch user')
         })
     }
 
     render() {
 
-        const { castle, success } = this.state
+        const { castle } = this.state
         const { generators, inventory } = castle
         
         return (
@@ -63,7 +66,7 @@ export default class Castle extends Component {
                     </div>
                     <div className="item-4">
                         <Panel shaded className="small-panel">
-                            <Leaderboard/>
+                            <Leaderboard handler = {this.handler}/>
                         </Panel>
                     </div>
                 </div> 

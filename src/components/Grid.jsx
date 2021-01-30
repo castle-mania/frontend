@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import '../styles/Grid.css';
-import PropTypes from 'prop-types'; 
 import { Popover, Whisper, Button, Panel } from 'rsuite';
 
 const tooltip = function (generator) {
@@ -30,10 +29,6 @@ const CustomComponent = ({ placement, generator, url }) => (
 );
   
 export default class Grid extends Component {
-
-    static propTypes = {
-        grid: PropTypes.array.isRequired,
-    }
 
     render() {
         const { grid } = this.props;

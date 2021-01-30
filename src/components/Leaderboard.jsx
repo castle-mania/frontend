@@ -10,7 +10,7 @@ const ImageCell = ({ rowData, dataKey, ...props }) => (
         {rowData[dataKey] ? (
             <img className="leaderboard-icon" src={rowData[dataKey]} alt="icon"/>
         ) : ( <p>🏰</p> )} 
-        
+
     </Cell>
   );
 

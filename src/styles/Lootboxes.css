@@ -62,3 +62,14 @@
     width: 75px;
 }
 
+.modal-container {
+    position: fixed; /* or absolute */
+    top: 50%;
+    left: 50%;
+}
+
+.unboxed-item {
+    justify-content: center;
+    display: flex;
+}
+

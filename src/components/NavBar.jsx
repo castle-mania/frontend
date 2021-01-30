@@ -64,7 +64,7 @@ export default class NavBar extends Component {
                     <div>
                         <a href="/" className="logotext">
                             <img src={gem} className="logo" alt="gem"></img>
-                            <h5>Castle Mania</h5>
+                            <h5>CastleMania</h5>
                         </a>
                     </div>
                     <ul className="nav-links">

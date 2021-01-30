@@ -1,0 +1,30 @@
+.landing-page-main {
+    width: 25%;
+    margin: 10%;
+}
+
+.landing-page-main b {
+    background-color: var(--accent);
+}
+
+.landing-page-main .main-text {
+    margin-bottom: 25px;
+}
+
+@media screen and (max-width:1350px) {
+    .landing-page-main {
+        width: 40%;
+    }
+
+    .landing-page {
+        display: block;
+        gap: 10%;
+        margin-top: 10%;
+    }
+}
+
+@media screen and (max-width:960px) {
+    .landing-page-main {
+        width: 80%;
+    }
+}
