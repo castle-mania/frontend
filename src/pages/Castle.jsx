@@ -66,7 +66,7 @@ export default class Castle extends Component {
                     </div>
                     <div className="item-4">
                         <Panel shaded className="small-panel">
-                            <Leaderboard handler = {this.handler}/>
+                            <Leaderboard/>
                         </Panel>
                     </div>
                 </div> 
