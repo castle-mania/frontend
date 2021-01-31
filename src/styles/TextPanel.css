@@ -1,0 +1,35 @@
+.text-panel-image {
+    width: 250px;
+    vertical-align: middle;
+}
+
+.text-panel-flex {
+    display: flex;
+    column-gap: 50px;
+}
+
+@media screen and (max-width:800px) {
+
+    .text-panel-flex {
+        display: flex;
+        column-gap: 50px;
+        row-gap: 25px;
+        flex-direction: column;
+    }
+
+    .text-panel-image {
+        width: 50%;
+        vertical-align: middle;
+    }
+    
+}
+
+@media screen and (max-width:600px) {
+
+    .text-panel-image {
+        width: 100%;
+        vertical-align: middle;
+    }
+    
+}
+

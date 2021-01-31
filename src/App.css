@@ -23,7 +23,7 @@
 }
 
 body {
-    background-color: var(--lightBG);
+    background: var(--lightBG);
 }
 
 a:link {

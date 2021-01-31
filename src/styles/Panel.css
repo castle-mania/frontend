@@ -28,10 +28,10 @@
     gap: 20px;
 }
 
-@media screen and (max-width:769px) {
+@media screen and (max-width:800px) {
 
     .panel {
         display: block;
-        width: 90%;
+        width: 80%;
     }
 }

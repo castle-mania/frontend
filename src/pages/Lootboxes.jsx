@@ -74,7 +74,7 @@ export default class Lootboxes extends Component {
             <div className="panels">
                 <TextPanel 
                     title="Your Lootboxes"
-                    desc="Here is where you can unbox your loot, any unboxed loot will automatically be added to your castle or inventory. If you cannot open the boxes it may mean that your castle and inventory is full, try clearing some space!"
+                    desc="Here is where any loot boxes you have will appear! Open your boxes for the contents to automatically be sent to your castle or inventory. If you are unable to open your boxes, it may be due to limited space in your castle/inventory, so try clearing some space!"
                 />
                 {(loaded) ? (
                 <Panel shaded className="panel">

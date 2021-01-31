@@ -36,7 +36,7 @@ export default class Marketplace extends Component {
             <div className="panels">
                 <TextPanel 
                     title="Marketplace"
-                    desc="Welcome to the marketplace, here you can buy/sell to your fellow castles. As you hover over generators you will see specific statistics on each one, the top-left number indicates how much a generator is listed for. Once clicked the short id of a generator will be copied to your clipboard and from their you can buy it via Discord."
+                    desc="Welcome to the marketplace! Here you can buy and sell generators to and from your fellow players. Hover over the available generators to see their statistics such as the ID and pricing! Click on the generator you're looking for to copy the short ID to your clipboard. From there you can purchase said generator via discord!"
                 />
                 <Panel shaded className="panel">
                 <div className="search-bar">
