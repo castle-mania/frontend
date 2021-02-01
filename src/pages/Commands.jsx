@@ -10,15 +10,18 @@ export default class Home extends Component {
         return (
             <div className="panels">
                 <Panel shaded className="panel">
-                    <h1 style={{marginLeft: 25}}>Commands</h1>
+                    <h4 className="highlight">Main Commands</h4>
+                    <p>You must prefix these commands with !</p>
                     <Commands/>
                 </Panel>
                 <Panel shaded className="panel">
-                    <h1 style={{marginLeft: 25}}>Listing Commands</h1>
+                    <h4 className="highlight">Listing Commands</h4>
+                    <p>You must prefix these commands with !listing</p>
                     <Commands category="listing"/>
                 </Panel>
                 <Panel shaded className="panel">
-                    <h1 style={{marginLeft: 25}}>Kingdom Commands</h1>
+                    <h4 className="highlight">Kingdom Commands</h4>
+                    <p>You must prefix these commands with !kingdom</p>
                     <Commands category="kingdom"/>
                 </Panel>
             </div>

@@ -4,7 +4,6 @@ import UserCard from '../components/UserCard';
 import Leaderboard from '../components/Leaderboard'
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
-import '../styles/Sidenav.css'
 import { Alert, Panel } from 'rsuite';
 
 export default class Castle extends Component {

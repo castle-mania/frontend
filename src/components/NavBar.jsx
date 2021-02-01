@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import '../styles/NavBar.css'
 import gem from '../res/gem.png'
-import Patreon from './Patreon'
 import { Avatar, Dropdown, Icon, IconButton } from 'rsuite'
+import { Link } from 'react-router-dom';
     
 export default class NavBar extends Component {
 
@@ -70,18 +70,18 @@ export default class NavBar extends Component {
                     <ul className="nav-links">
                         { ( authenticated && !loading ) && (
                             <li>
-                                <a href={'/castle?discordId=' + user.discordId}>🏰 Castle</a>
+                                <Link to={'/castle?discordId=' + user.discordId}>🏰 Castle</Link>
                             </li>
                         )}
                         <li>
-                            <a href="/marketplace">🛍️ Marketplace</a>
+                            <Link to="/marketplace">🛍️ Marketplace</Link>
                         </li>
                         <li>
-                            <a href="/commands">📖 Commands</a>
+                            <Link to="/commands">📖 Commands</Link>
                         </li>
                         { ( authenticated && !loading ) && (
                             <li>
-                                <a href={'/lootboxes'}>📦 Lootboxes</a>
+                                <Link to='/lootboxes'>📦 Lootboxes</Link>
                             </li>
                         )}
                         <li>
@@ -115,17 +115,11 @@ export default class NavBar extends Component {
                                 <a href="/marketplace">🛍️ Marketplace</a>
                             </Dropdown.Item>
                             <Dropdown.Item>
-                                <a href="/commands">📖 Commands</a>
+                                <Link to="/commands">📖 Commands</Link>
                             </Dropdown.Item>
-                            { authenticated ? (
-                                <Dropdown.Item>
-                                    <a href={'/lootboxes'}>📦 Lootboxes</a>
-                                </Dropdown.Item>
-                            ) : (
-                                <Dropdown.Item>
-                                    <a href={'/lootboxes'}>📦 Lootboxes</a>
-                                </Dropdown.Item>
-                            ) }
+                            <Dropdown.Item>
+                                <Link to='/lootboxes'>📦 Lootboxes</Link>
+                            </Dropdown.Item>
                             <Dropdown.Item>
                                 <a href="https://www.patreon.com/castlemania?fan_landing=true">❤️ Premium</a>
                             </Dropdown.Item>
@@ -145,7 +139,6 @@ export default class NavBar extends Component {
                     </div>
                     
                 </nav>
-                {(!authenticated || !user.premium) && !this.state.loading && (<Patreon/>)}
                 <div className="divider"></div>
             </div>
         )

@@ -3,13 +3,55 @@ import React, { Component } from 'react'
 
 const { Column, HeaderCell, Cell } = Table;
 
-export default class Castle extends Component {
+export default class CommandsTable extends Component {
 
-    state = {
-        success: false,
-        commands: [],
-        loggedIn: false,
-    }
+    constructor(props) {
+        super(props);
+        this.state = {
+            addColumn: false,
+            success: false,
+            data: [],
+            loggedIn: false,
+        };
+        this.handleSortColumn = this.handleSortColumn.bind(this);
+      }
+    
+      getData() {
+        const { data, sortColumn, sortType } = this.state;
+    
+        if (sortColumn && sortType) {
+          return data.sort((a, b) => {
+            let x = a[sortColumn];
+            let y = b[sortColumn];
+            if (typeof x === 'string') {
+              x = x.charCodeAt();
+            }
+            if (typeof y === 'string') {
+              y = y.charCodeAt();
+            }
+            if (sortType === 'asc') {
+              return x - y;
+            } else {
+              return y - x;
+            }
+          });
+        }
+        return data;
+      }
+    
+      handleSortColumn(sortColumn, sortType) {
+        this.setState({
+          loading: true
+        });
+    
+        setTimeout(() => {
+          this.setState({
+            sortColumn,
+            sortType,
+            loading: false
+          });
+        }, 500);
+      }
 
     componentDidMount() {
         fetch(`/api/commands?category=${this.props.category}`, {
@@ -27,7 +69,7 @@ export default class Castle extends Component {
         .then(responseJSON => {
             this.setState({
                 success: true,
-                commands: responseJSON.filter(c => c.admin === false)
+                data: responseJSON.filter(c => c.admin === false)
             });
         })
         .catch(error => {
@@ -41,24 +83,28 @@ export default class Castle extends Component {
 
     render() {
 
-        const sub = this.props.category === undefined ? '' : this.props.category + ' '
+        // const sub = this.props.category === undefined ? '' : this.props.category + ' '
 
         return (
-            <div className="panel">
-                <Table width={680} height={350} data={this.state.commands}>
+            <div className="big-panel">
+                <Table 
+                    width={650} 
+                    autoHeight
+                    data={this.getData()}
+                    sortColumn={this.state.sortColumn}
+                    sortType={this.state.sortType}
+                    onSortColumn={this.handleSortColumn}
+                    loading={this.state.loading}
+                >
                     <Column width={100} align="left" fixed>
                         <HeaderCell>Category</HeaderCell>
                         <Cell dataKey="category" />
                     </Column>
-                    <Column width={150} align="left" fixed>
+                    <Column width={150} align="left" fixed sortable>
                         <HeaderCell>Command</HeaderCell>
-                        <Cell>
-                            {rowData => 
-                                (`!${sub}${rowData.name}`)
-                            }
-                        </Cell>
+                        <Cell dataKey="name" />
                     </Column>
-                    <Column width={430} align="left" fixed>
+                    <Column width={400} align="left" fixed>
                         <HeaderCell>Description</HeaderCell>
                         <Cell dataKey="description"/>
                     </Column>
