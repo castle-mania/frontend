@@ -62,10 +62,10 @@ export default class NavBar extends Component {
             <div>
                 <nav>
                     <div>
-                        <a href="/" className="logotext">
+                        <Link to="/" className="logotext">
                             <img src={gem} className="logo" alt="gem"></img>
                             <h5>CastleMania</h5>
-                        </a>
+                        </Link>
                     </div>
                     <ul className="nav-links">
                         { ( authenticated && !loading ) && (
@@ -108,11 +108,11 @@ export default class NavBar extends Component {
                             >
                             { ( authenticated ) && (
                                 <Dropdown.Item>
-                                    <a href={'/castle?discordId=' + user.discordId}>🏰 Castle</a>
+                                    <Link to={'/castle?discordId=' + user.discordId}>🏰 Castle</Link>
                                 </Dropdown.Item>
                             )}
                             <Dropdown.Item>
-                                <a href="/marketplace">🛍️ Marketplace</a>
+                                <Link to="/marketplace">🛍️ Marketplace</Link>
                             </Dropdown.Item>
                             <Dropdown.Item>
                                 <Link to="/commands">📖 Commands</Link>
