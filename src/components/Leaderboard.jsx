@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
 import { Alert, Table, Dropdown } from 'rsuite';
+import { Link } from 'react-router-dom';
 
 const { Column, HeaderCell, Cell } = Table;
 
@@ -46,7 +47,7 @@ export default class Leaderboard extends Component {
                             <HeaderCell>Name</HeaderCell>
                             <Cell>
                                 {rowData => (
-                                    <a href={`/castle?discordId=${rowData._id}`}>{rowData.name}</a>
+                                    <Link to={`/castle?discordId=${rowData._id}`}>{rowData.name}</Link>
                                 )}
                             </Cell>
                         </Column>
