@@ -18,6 +18,20 @@
     padding: 0;
 }
 
+.empty {
+    background-color: var(--BG);
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+}
+
+.locked {
+    background-color: var(--lightBG);
+    width: 100%;
+    height: 50px;
+    border-radius: 5px;
+}
+
 
 .rs-btn {
     padding: 2px;

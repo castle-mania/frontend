@@ -31,12 +31,10 @@ const CustomComponent = ({ placement, generator, url }) => (
 export default class Grid extends Component {
 
     render() {
-        const { grid } = this.props;
-        const generators = new Array(36).fill(
-            <div>
-                <img className="generator-icon" src="https://i.imgur.com/hQ8ivGn.png" alt='blank'/>
-            </div>
-        )
+        const { grid, slots } = this.props;
+        const generators = slots ? 
+            new Array(36).fill(<div><div className="locked"/></div>).fill(<div><div className="empty"/></div>, 0, slots) :
+            new Array(36).fill(<div><div className="empty"/></div>)
 
         if (grid) {
             for (const [index, value] of grid.entries())
