@@ -34,6 +34,10 @@ a:link:hover {
     color: var(--accent);
 }
 
+.copy {
+    cursor: pointer;
+}
+
 .highlight {
     color: var(--accent);
     font-weight: 1000;

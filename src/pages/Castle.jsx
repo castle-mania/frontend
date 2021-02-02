@@ -4,7 +4,11 @@ import UserCard from '../components/UserCard';
 import Leaderboard from '../components/Leaderboard'
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
-import { Alert, Panel } from 'rsuite';
+import { Alert, Panel, Input, InputGroup, Icon } from 'rsuite';
+
+const styles = {
+    width: 300,
+};
 
 export default class Castle extends Component {
 
@@ -79,6 +83,16 @@ export default class Castle extends Component {
                         <Grid className='item-3' grid={inventory}/>
                     </div>
                     <div className="item-4">
+                        <Panel shaded className="small-panel">
+                            <div className="search-bar">
+                                <InputGroup inside style={styles}>
+                                    <Input placeholder='Enter discord ID' onPressEnter={(Event) => this.handler(Event.target.value)}/>
+                                    <InputGroup.Button>
+                                        <Icon icon="search" />
+                                    </InputGroup.Button>
+                                </InputGroup>
+                            </div>
+                        </Panel>
                         <Panel shaded className="small-panel">
                             <Leaderboard handler={this.handler}/>
                         </Panel>

@@ -4,7 +4,7 @@
     margin: 0 auto;
     grid-gap: 20px;
     justify-content: center;
-    grid-template-areas: "e a a d"
+    grid-template-areas: "f a a d"
                          "f b c d";
 }
 
@@ -24,6 +24,9 @@
 
 .page-grid  .item-4 {
     grid-area: d;
+    display: flex;
+    flex-direction: column;
+    row-gap: 25px;
 }
 
 .page-grid .item-5 {
