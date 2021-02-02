@@ -8,16 +8,31 @@ import { Alert, Panel } from 'rsuite';
 
 export default class Castle extends Component {
 
+    constructor(props) {
+        super(props)
+        this.handler = this.handler.bind(this)
+    }
+
+    handler(id) {
+        this.setState({
+            success: false,
+            castle: {},
+            user: {},
+        })
+        this.getData(`?discordId=${id}`)
+    }
 
     state = {
         success: false,
         castle: {},
         user: {},
-        loggedIn: false,
     }
 
     componentDidMount() {
-        const search = this.props.location.search
+        this.getData(this.props.location.search)
+    }
+
+    getData(search) {
         fetch(`/api/castle${search}`, {
             method: "GET",
             credentials: "include",
@@ -65,7 +80,7 @@ export default class Castle extends Component {
                     </div>
                     <div className="item-4">
                         <Panel shaded className="small-panel">
-                            <Leaderboard/>
+                            <Leaderboard handler={this.handler}/>
                         </Panel>
                     </div>
                 </div> 

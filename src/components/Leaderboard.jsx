@@ -3,7 +3,6 @@ import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
 import { Alert, Table, Dropdown } from 'rsuite';
 import { Link } from 'react-router-dom';
-
 const { Column, HeaderCell, Cell } = Table;
 
 const ImageCell = ({ rowData, dataKey, ...props }) => (
@@ -47,7 +46,7 @@ export default class Leaderboard extends Component {
                             <HeaderCell>Name</HeaderCell>
                             <Cell>
                                 {rowData => (
-                                    <Link to={`/castle?discordId=${rowData._id}`}>{rowData.name}</Link>
+                                    <Link onClick={() => this.props.handler(rowData._id)}>{rowData.name}</Link>
                                 )}
                             </Cell>
                         </Column>
