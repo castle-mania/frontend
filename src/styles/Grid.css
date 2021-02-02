@@ -11,6 +11,7 @@
 
 .grid-container button {
     padding: 0;
+    background-color: var(--BG);
 }
 
 .empty {
@@ -26,15 +27,6 @@
 .grid-icon {
     width: 50px;
     height: 50px;
-}
-
-
-.rs-btn {
-    padding: 2px;
-}
-
-.generator-btn {
-    padding: 20;
 }
 
 .generator-info {
