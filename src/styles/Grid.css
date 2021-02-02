@@ -1,13 +1,8 @@
 .grid-container {
     display: grid;
     grid-template-columns: auto auto auto auto auto auto;
-    gap: 5px;
+    gap: 10px;
     width: 350px;
-    padding: 15px;
-    padding-bottom: 0px;
-    background-color: var(--darkBG);
-    border-radius: 5px;
-    padding: 15px;
 }
 
 .grid-container div img {
@@ -20,16 +15,17 @@
 
 .empty {
     background-color: var(--BG);
-    width: 50px;
-    height: 50px;
     border-radius: 5px;
 }
 
 .locked {
     background-color: var(--lightBG);
+    border-radius: 5px;
+}
+
+.grid-icon {
     width: 50px;
     height: 50px;
-    border-radius: 5px;
 }
 
 

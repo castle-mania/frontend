@@ -23,7 +23,7 @@ const CustomComponent = ({ placement, generator, url }) => (
         speaker={tooltip(generator)}
     >
         <Button appearance="subtle">
-            <img className="generator-icon" src={url} alt='blank'/>
+            <img src={url} alt='blank'/>
         </Button>
     </Whisper>
 );
@@ -33,8 +33,8 @@ export default class Grid extends Component {
     render() {
         const { grid, slots } = this.props;
         const generators = slots ? 
-            new Array(36).fill(<div><div className="locked"/></div>).fill(<div><div className="empty"/></div>, 0, slots) :
-            new Array(36).fill(<div><div className="empty"/></div>)
+            new Array(36).fill(<div className="grid-icon locked"/>).fill(<div className="grid-icon  empty"/>, 0, slots) :
+            new Array(36).fill(<div className="grid-icon empty"/>)
 
         if (grid) {
             for (const [index, value] of grid.entries())
@@ -42,7 +42,7 @@ export default class Grid extends Component {
                 const url = `https://cdn.discordapp.com/emojis/${value.emoji.replace(/\D+/g, '')}.gif`
                 value.url = url
                 generators[index] = (
-                    <div key={index}>
+                    <div className="grid-icon" key={index}>
                         <CustomComponent placement="top" generator={value} url={url}/>
                     </div>
                 )
