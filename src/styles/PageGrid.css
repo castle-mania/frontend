@@ -4,14 +4,13 @@
     margin: 0 auto;
     grid-gap: 20px;
     justify-content: center;
-    grid-template-areas: "f a a d"
-                         "f b c d";
+    grid-template-areas: "g a a d"
+                         "g b c d";
 }
 
 
 .page-grid  .item-1 {
     grid-area: a;
-    min-width: 720px;
 }
 
 .page-grid .item-2 {
