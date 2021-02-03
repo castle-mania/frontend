@@ -23,7 +23,7 @@ export default class UserCard extends Component {
              castle.multiplier === 1 ? '' : `x${castle.multiplier}`
         
         return (
-            <Panel className="user-card" shaded>
+            <Panel className="user-card" shaded style={{minHeight: 226}}>
                 <div className="details">
                     <div className="mini-details">  
                         <div>

@@ -60,7 +60,7 @@ export default class Leaderboard extends Component {
                         </Dropdown>
                     </div>
                 </div>
-                ) : (<Table width={480} height={520} loading={true}/>)}
+                ) : (<Table width={350} height={425} loading={true}/>)}
             </div>
         )
     }

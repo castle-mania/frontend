@@ -36,6 +36,7 @@ export default class Castle extends Component {
         this.getData(this.props.location.search)
     }
 
+
     getData(search) {
         fetch(`/api/castle${search}`, {
             method: "GET",
