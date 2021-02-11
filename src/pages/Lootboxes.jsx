@@ -5,6 +5,7 @@ import regular from '../res/regular_gift.png'
 import legendary from '../res/legendary_gift.png'
 import epic from '../res/epic_gift.png'
 import TextPanel from '../components/TextPanel'
+import Currency from '../components/Currency'
 
 export default class Lootboxes extends Component {
 
@@ -191,6 +192,32 @@ class RewardPopup extends React.Component {
         return colour;
     }
 
+    _sellGenerator (tier) {
+        const JWT = window.localStorage.getItem('castlemania-JWT')
+
+        fetch("/api/castle/sell", {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                Accept: "application/json",
+                Authorization: "Bearer " + JWT,
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": true
+            },
+            body: JSON.stringify(tier)
+        }).then(response => {
+            if (response.status === 200) return response.json()
+            throw new Error("Authentication Failure")
+        })
+        .then(responseJSON => {
+            Alert.success(<div style={{display: "flex", columnGap: 5}}>Sold {responseJSON.generator} for <Currency icon={true} value={responseJSON.value}/></div>)
+        })
+        .catch(error => {
+            console.log(error)
+            Alert.error('Failed to sell generator')
+        })
+    }
+
     render() {
       const { backdrop, show } = this.state;
       const { reward } = this.state;
@@ -217,12 +244,12 @@ class RewardPopup extends React.Component {
                 ) : (
                 <div className="center"><Loader content="Loading..."></Loader></div>)}
             </Modal.Body>
-            <Modal.Footer>
-              <Button style={{ padding: 10 }} onClick={this.close} color="blue">
+            <Modal.Footer className="lootbox-footer">
+              <Button style={{ padding: 10, width: 100, backgroundColor: "var(--accent)" }} onClick={ () => {Alert.success('Added to your inventory or castle'); this.close()}}>
                 Accept
               </Button>
-              <Button style={{ padding: 10 }} onClick={this.close} appearance="subtle">
-                Cancel
+              <Button style={{ padding: 10, width: 100 }} onClick={() => {this._sellGenerator(reward.items[0].tier); this.close()}}  color="red">
+                Sell
               </Button>
             </Modal.Footer>
           </Modal>

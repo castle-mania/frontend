@@ -21,6 +21,11 @@
     margin: 20px;
 }
 
+.lootbox-footer {
+    display: flex;
+    
+}
+
 .lootboxes-grid {
     display: grid;
     grid-template-columns: auto auto auto auto auto auto;

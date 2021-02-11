@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../castlemania"
+		},
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"git.ignoreLimitWarning": true
+	}
+}
