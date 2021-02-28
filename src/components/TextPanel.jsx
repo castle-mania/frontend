@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import '../styles/TextPanel.css'
 import { Panel } from 'rsuite';
-    
+import '../styles/Panel.css'
+
 export default class UserCard extends Component {
 
     render() {

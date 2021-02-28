@@ -19,8 +19,6 @@ export default class UserCard extends Component {
                         ? 100
                         : Math.floor(((XP - baseLevelXP) / (nextLevelXP - baseLevelXP)) * 100);
 
-        const multiplier =
-             castle.multiplier === 1 ? '' : `x${castle.multiplier}`
         
         return (
             <Panel className="user-card" shaded style={{minHeight: 226}}>
@@ -36,7 +34,7 @@ export default class UserCard extends Component {
                             <ul>
                                 <li className="highlight copy" onClick={() => this._copyToClipboard(castle.discordId)}>{ castle.lastKnownUsername }</li>
                                 <li><Currency icon={true} value={castle.money}></Currency></li>
-                                <li>{ castle.GPS }/s {multiplier}</li>
+                                <li>{ castle.GPS }/s</li>
                                 <li>{ castle.level } lvl</li>
                                 <li><Moment durationFromNow date={ castle.created }/></li>
                             </ul>

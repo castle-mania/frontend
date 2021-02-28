@@ -1,4 +1,4 @@
-import { Alert, Table,  } from 'rsuite';
+import { Alert, Table, Dropdown } from 'rsuite';
 import React, { Component } from 'react'
 
 const { Column, HeaderCell, Cell } = Table;
@@ -12,6 +12,7 @@ export default class CommandsTable extends Component {
             success: false,
             data: [],
             loggedIn: false,
+            loading: true,
         };
         this.handleSortColumn = this.handleSortColumn.bind(this);
       }
@@ -54,31 +55,37 @@ export default class CommandsTable extends Component {
       }
 
     componentDidMount() {
-        fetch(`/api/commands?category=${this.props.category}`, {
-            method: "GET",
-            credentials: "include",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "Access-Control-Allow-Credentials": true
-            }
-        }).then(response => {
-            if (response.status === 200) return response.json()
-            throw new Error(response.json())
+        this._changeCategory('commands');
+    }
+
+    _changeCategory(category) {
+      this.setState({loading: true})
+      fetch(`/api/commands?category=${category}`, {
+        method: "GET",
+        credentials: "include",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Credentials": true
+        }
+    }).then(response => {
+        if (response.status === 200) return response.json()
+        throw new Error(response.json())
+    })
+    .then(responseJSON => {
+        this.setState({
+            success: true,
+            loading: false,
+            data: responseJSON.filter(c => c.admin === false)
+        });
+    })
+    .catch(error => {
+        this.setState({
+            authenticated: false,
+            error: 'Failed to fetch commands'
         })
-        .then(responseJSON => {
-            this.setState({
-                success: true,
-                data: responseJSON.filter(c => c.admin === false)
-            });
-        })
-        .catch(error => {
-            this.setState({
-                authenticated: false,
-                error: 'Failed to fetch commands'
-            })
-            Alert.error('Failed to fetch commands')
-        })
+        Alert.error('Failed to fetch commands')
+    })
     }
 
     render() {
@@ -87,6 +94,12 @@ export default class CommandsTable extends Component {
 
         return (
             <div className="big-panel">
+              <Dropdown title="Category">
+                    <Dropdown.Item onSelect={() => this._changeCategory("commands")}>Commands</Dropdown.Item>
+                    <Dropdown.Item onSelect={() => this._changeCategory("kingdom")}>Kingdom</Dropdown.Item>
+                    <Dropdown.Item onSelect={() => this._changeCategory("listing")}>Listing</Dropdown.Item>
+                    <Dropdown.Item onSelect={() => this._changeCategory("pet")}>Pet</Dropdown.Item>
+                </Dropdown>
                 <Table 
                     width={650} 
                     autoHeight

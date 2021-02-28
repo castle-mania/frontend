@@ -68,6 +68,7 @@ a:link:hover {
     align-items: center;
     color: var(--white);
     text-decoration: none;
+    column-gap: 5px;
 }
 
 .center {

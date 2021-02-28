@@ -78,10 +78,10 @@ export default class Castle extends Component {
                         <UserCard castle={castle}/>
                     </div>
                     <div className="item-2">
-                        <Grid className='item-2' grid={generators} slots={castle.slotsUnlocked}/>
+                        <Grid className='item-2' grid={generators} slots={castle.slotsUnlocked} premium={castle.premium}/>
                     </div>
                     <div className="item-3">
-                        <Grid className='item-3' grid={inventory}/>
+                        <Grid className='item-3' grid={inventory} premium={castle.premium}/>
                     </div>
                     <div className="item-4">
                         <Panel shaded className="small-panel">

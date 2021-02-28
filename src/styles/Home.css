@@ -1,7 +1,25 @@
 .landing-page-main {
     width: 400px;
     margin-top: 100px;
-    margin-left: 10%;
+    margin-left: 20%;
+    display: flex;
+}
+
+.front-video {
+    border-radius: 35px;
+    position: absolute;
+    left: 70%;
+    transform: translate(-50%, -5%);
+}
+
+.phone-info {
+    position: absolute;
+    transform: scale(0.9);
+    top: 10%;
+}
+
+.front-video img {
+    width: 400px
 }
 
 .landing-page-main b {
@@ -20,6 +38,7 @@
 .tutorial-indicator {
     position: absolute;
     left: 50%;
+    transform: translate(-50%, 0);
     top: 70%;
     z-index: 99;
 }
@@ -30,6 +49,38 @@
     row-gap: 25px;
     align-items: center;
     justify-content: center;
+    z-index: 50;
+}
+
+
+@media screen and (max-width:1364px) {
+    .front-video {
+        left: 70%;
+    }
+    .landing-page-main {
+        margin-left: 10%;
+    }
+}
+
+@media screen and (max-width:955px) {
+    .front-video img {
+        width: 300px;
+    }
+}
+
+@media screen and (max-width:905px) {
+    .front-video img {
+        width: 200px;
+    }
+    .front-video {
+        left: 80%;
+    }
+}
+
+@media screen and (max-width:690px) {
+    .front-video {
+        visibility: hidden;
+    }
 }
 
 @media screen and (max-width:800px) {

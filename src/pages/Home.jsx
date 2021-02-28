@@ -3,28 +3,51 @@ import { Button, Icon, Panel } from 'rsuite'
 import '../styles/Home.css';
 import TextPanel from '../components/TextPanel'
 import '../styles/Wave.css'
+import Commands from '../components/Commands'
+import phone from '../res/phone.png'
+
+const images = [
+    "https://media.discordapp.net/attachments/768872642874572810/769625789460774912/CastleExample1_2.gif",
+    "https://media.discordapp.net/attachments/768872642874572810/769625929864970290/ShopExample.gif",
+    "https://media.discordapp.net/attachments/768872642874572810/769626707610042378/dungeonExample.gif"
+]
+
 export default class Home extends Component {
+    
 
     render() {
+        const image = images[Math.floor(Math.random() * images.length)]
         return (
+
             <div className="landing-page">
                 <div class="wave-container">
-    
+
+                
+                        
                     <Panel className="landing-page-main">
-                        <h1 className="main-text">Meet the Most Addictive bot on Discord</h1>
-                        <p>A Unique Global Currency game that allows you to Buy, Sell, Raid and Gamble your way to the top of the leaderboard! and much more!</p>
-                        <div className="landing-page-buttons">
-                            <Button
-                                onClick={() => this._openWindow('https://discord.com/api/oauth2/authorize?client_id=757120026867138580&permissions=2176&scope=bot')}
-                                style={{padding: 10, backgroundColor: "var(--accent)", marginTop: 25}}>
-                                <Icon icon="plus"/> Add to Discord
-                            </Button>
-                            <Button
-                                onClick={() => this._handleLoginClick()}
-                                style={{padding: 10, marginTop: 25 }}>
-                                <Icon icon="user-plus" /> Login with Discord
-                            </Button>
+                        
+                        <div className="front-video">
+                            <img className="phone-info" src={image} alt="phone-info"/>
+                            <img className="phone-background" src={phone} alt="phone-background"/>
                         </div>
+                        
+                        <div>
+                            <h1 className="main-text">Meet the Most <div className="highlight">Competitive</div> Bot on Discord</h1>
+                            <p>A Unique Global Currency game that allows you to Buy, Sell, Raid and Gamble your way to the top of the leaderboard! and much more!</p>
+                            <div className="landing-page-buttons">
+                                <Button
+                                    onClick={() => this._openWindow('https://discord.com/api/oauth2/authorize?client_id=757120026867138580&permissions=2176&scope=bot')}
+                                    style={{padding: 10, backgroundColor: "var(--accent)", marginTop: 25}}>
+                                    <Icon icon="plus"/> Add to Discord
+                                </Button>
+                                <Button
+                                    onClick={() => this._handleLoginClick()}
+                                    style={{padding: 10, marginTop: 25 }}>
+                                    <Icon icon="user-plus" /> Login with Discord
+                                </Button>
+                            </div>
+                        </div>
+                        
                     </Panel>
                     <div className="tutorial-indicator">
                         <Icon icon="angle-down" size="3x"/>
@@ -58,6 +81,11 @@ export default class Home extends Component {
                         desc="Dungeon runs are probably one of the most lucrative ways to create money, you will receive a lootbox on completion!"
                         image="https://media.discordapp.net/attachments/768872642874572810/769626707610042378/dungeonExample.gif"
                     />
+                    <Panel shaded className="panel">
+                        <h4 className="highlight">Commands</h4>
+                        <p>You must prefix these commands with !</p>
+                        <Commands/>
+                    </Panel>
                 </div>
             </div>
             
@@ -78,4 +106,5 @@ export default class Home extends Component {
         window.open(url)
     }
 }
+
     

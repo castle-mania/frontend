@@ -3,6 +3,9 @@ import '../styles/NavBar.css'
 import gem from '../res/gem.png'
 import { Avatar, Dropdown, Icon, IconButton } from 'rsuite'
 import { Link } from 'react-router-dom';
+
+import box from '../res/epic_gift.png'
+import crown from '../res/crown.png'
     
 export default class NavBar extends Component {
 
@@ -68,24 +71,23 @@ export default class NavBar extends Component {
                         </Link>
                     </div>
                     <ul className="nav-links">
-                        { ( authenticated && !loading ) && (
+                        { ( authenticated && !loading ) ? (
                             <li>
                                 <Link to={'/castle?discordId=' + user.discordId}>🏰 Castle</Link>
                             </li>
+                        ) : (
+                            <li>
+                                <a style={{cursor: "pointer", textDecoration: "none" }} onClick={this._handleLoginClick}><p>🏰 Castle</p></a>
+                            </li>
                         )}
+                        <li>
+                            <a className="logotext" href='https://www.patreon.com/join/castlemania?'><img width={20} src={crown}/><p>Premium</p></a>
+                        </li>
                         <li>
                             <Link to="/marketplace">🛍️ Marketplace</Link>
                         </li>
                         <li>
-                            <Link to="/commands">📖 Commands</Link>
-                        </li>
-                        { ( authenticated && !loading ) && (
-                            <li>
-                                <Link to='/lootboxes'>📦 Lootboxes</Link>
-                            </li>
-                        )}
-                        <li>
-                            <a href="https://www.patreon.com/castlemania?fan_landing=true">❤️ Premium</a>
+                            <Link className="logotext" to='/lootboxes'><img width={20} src={box}/>Lootboxes</Link>
                         </li>
                         { (!authenticated && !loading ) ? (
                             <li className="login">
@@ -101,27 +103,28 @@ export default class NavBar extends Component {
                         )}
                     </ul>
                     <div className="burger">
-                        <Dropdown  placement="bottomEnd" noCaret size="lg"
+                        <Dropdown placement="bottomEnd" noCaret size="lg"
                             renderTitle={() => {
                                 return <IconButton icon={<Icon icon="plus" />} circle />;
                               }}
                             >
-                            { ( authenticated ) && (
+                            { ( authenticated ) ? (
                                 <Dropdown.Item>
                                     <Link to={'/castle?discordId=' + user.discordId}>🏰 Castle</Link>
                                 </Dropdown.Item>
+                            ) : (
+                                <Dropdown.Item>
+                                    <a style={{cursor: "pointer", textDecoration: "none" }} onClick={this._handleLoginClick}><p>🏰 Castle</p></a>
+                                    </Dropdown.Item>
                             )}
                             <Dropdown.Item>
                                 <Link to="/marketplace">🛍️ Marketplace</Link>
                             </Dropdown.Item>
                             <Dropdown.Item>
-                                <Link to="/commands">📖 Commands</Link>
+                                <Link className="logotext" to='/lootboxes'><img width={20} src={box}/>Lootboxes</Link>
                             </Dropdown.Item>
                             <Dropdown.Item>
-                                <Link to='/lootboxes'>📦 Lootboxes</Link>
-                            </Dropdown.Item>
-                            <Dropdown.Item>
-                                <a href="https://www.patreon.com/castlemania?fan_landing=true">❤️ Premium</a>
+                                <a className="logotext" href='https://www.patreon.com/join/castlemania?'><img width={20} src={crown}/><p>Premium</p></a>
                             </Dropdown.Item>
                             { (!authenticated && !loading ) ? (
                                 <Dropdown.Item className="login">

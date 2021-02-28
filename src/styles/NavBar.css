@@ -5,6 +5,7 @@ nav {
     height: 70px;
     background-color: var(--darkBG);
     position: relative;
+    z-index: 50;
 }
 
 .nav-links {

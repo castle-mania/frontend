@@ -74,6 +74,14 @@
     }
 }
 
+@media screen and (max-width:400px) {
+    .listing-grid {
+        display: grid;
+        grid-template-columns: auto auto;
+        justify-content: center;
+    }
+}
+
 .page-btns {
     margin-top: 10px;
     display: flex;
