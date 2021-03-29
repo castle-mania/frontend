@@ -1,12 +1,18 @@
 .user-card {
-    border-radius: 5px;
     background-color: var(--darkBG);
+    min-width: 785px;
 }
+
 .user-card .details {
     padding: 10px;
     display: flex;
     gap: 25px;
     justify-content: space-between;
+}
+
+.user-card .kingdom-info {
+    display: flex;
+    column-gap: 30px;
 }
 
 .user-card .mini-details {
@@ -15,11 +21,17 @@
     justify-content: space-between;
 }
 
+.user-card .level {
+    color: var(--white);
+    font-size: 50%;
+}
+
 .user-card .profile-icon {
     border-radius: 5%;
-    width: 100px;
+    width: 115px;
     display: flex;
     align-items: center;
+    background-color: var(--lightBG);
 }
 
 .user-card ul {
@@ -54,11 +66,18 @@
     color: var(--darkBG);
 }
 
+@media screen and (max-width:1469px) {
+
+    .user-card {
+        min-width: 0px;
+    }
+}
+
+
 @media screen and (max-width:769px) {
 
     .user-card .details {
         display: grid;
-        
     }
 }
 

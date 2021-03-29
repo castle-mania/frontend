@@ -32,11 +32,10 @@ export default class UserCard extends Component {
                         <div>
                             { castle.lastKnownUsername ? (
                             <ul>
-                                <li className="highlight copy" onClick={() => this._copyToClipboard(castle.discordId)}>{ castle.lastKnownUsername }</li>
+                                <h4 className="highlight copy" onClick={() => this._copyToClipboard(castle.discordId)}>{ castle.lastKnownUsername }</h4>
                                 <li><Currency icon={true} value={castle.money}></Currency></li>
                                 <li>{ castle.GPS }/s</li>
-                                <li>{ castle.level } lvl</li>
-                                <li><Moment durationFromNow date={ castle.created }/></li>
+                                <li>Created <Moment durationFromNow date={ castle.created }/> ago</li>
                             </ul>
                             ) : (
                                 <Placeholder.Graph active width={200} height={100} style={{borderRadius: 5}}/>
@@ -55,8 +54,8 @@ export default class UserCard extends Component {
                     <div>
                         <Line status="active" percent={progress} strokeColor="var(--accent)"></Line>
                         <div className="level-flex">
-                            <p>{ castle.level } lvl</p>
-                            <p>{ castle.level + 1 } lvl</p>
+                            <p>level { castle.level }</p>
+                            <p>level { castle.level + 1 }</p>
                         </div>
                     </div>
                 ) }

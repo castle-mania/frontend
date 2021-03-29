@@ -36,7 +36,7 @@ export default class Home extends Component {
                             <p>A Unique Global Currency game that allows you to Buy, Sell, Raid and Gamble your way to the top of the leaderboard! and much more!</p>
                             <div className="landing-page-buttons">
                                 <Button
-                                    onClick={() => this._openWindow('https://discord.com/api/oauth2/authorize?client_id=757120026867138580&permissions=2176&scope=bot')}
+                                    onClick={() => this._openWindow('https://discord.com/api/oauth2/authorize?client_id=757120026867138580&permissions=2147756096&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fdiscord%2Fcallback&scope=applications.commands%20bot')}
                                     style={{padding: 10, backgroundColor: "var(--accent)", marginTop: 25}}>
                                     <Icon icon="plus"/> Add to Discord
                                 </Button>

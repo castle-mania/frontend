@@ -1,0 +1,96 @@
+.kingdom-grid {
+    display: grid;
+    width: 30%;
+    margin: 0 auto;
+    grid-gap: 5px;
+    justify-content: center;
+    grid-template-areas: "g a a d"
+                         "g b b d"
+                         "g e e d"
+}                        
+
+
+.kingdom-grid  .item-1 {
+    grid-area: a;
+}
+
+.kingdom-grid .item-2 {
+    grid-area: b;
+}
+
+.kingdom-grid  .item-3 {
+    grid-area: c;
+}
+
+.kingdom-grid  .item-4 {
+    grid-area: d;
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.kingdom-grid .item-5 {
+    grid-area: e;
+}
+
+.kingdom-users {
+    list-style-type: none;
+}
+
+.kingdom-users {
+    display: grid;
+    grid-template-columns: auto auto;
+    gap: 10px;
+    min-width: 300px;
+}
+
+.kingdom-users li {
+    display: flex;
+    background-color: var(--lightBG);
+    padding: 10px;
+    border-radius: 3px;
+    gap: 10px;
+    align-items: center;
+}
+
+.kingdom-users li img {
+    height: 30px;
+    border-radius: 3px;
+}
+
+.kingdom-users-panel {
+    background-color: var(--darkBG);
+}
+
+@media screen and (max-width:1469px) {
+
+    .kingdom-grid {
+        grid-template-columns: auto auto;
+        grid-template-areas: "a a"
+                             "b d"
+    }
+
+    .kingdom-grid .item-1 {
+        min-width: 30%;
+        grid-area: a;
+    }
+
+    .kingdom-users {
+        grid-template-columns: auto;
+    }
+}
+
+@media screen and (max-width:769px) {
+
+    .kingdom-grid {
+        grid-template-columns: auto;
+        grid-template-areas: "a"
+                              "b"
+                              "d";
+    }
+
+    .kingdom-grid  .item-1 {
+        min-width: 30%;
+        grid-area: a;
+    }
+}

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import '../styles/Lootboxes.css';
-import { Button, Alert, Modal, Loader, Panel } from 'rsuite';
+import { Button, Alert, Modal, Loader, Panel, Notification } from 'rsuite';
 import regular from '../res/regular_gift.png'
 import legendary from '../res/legendary_gift.png'
 import epic from '../res/epic_gift.png'
@@ -73,6 +73,7 @@ export default class Lootboxes extends Component {
         
         return (
             <div className="panels">
+                
                 <TextPanel 
                     title="Your Lootboxes"
                     desc="Here is where any loot boxes you have will appear! Open your boxes for the contents to automatically be sent to your castle or inventory. If you are unable to open your boxes, it may be due to limited space in your castle/inventory, so try clearing some space!"
@@ -129,9 +130,12 @@ export default class Lootboxes extends Component {
             throw new Error(response.json())
         })
         .then(responseJSON => {
-            this.componentDidMount();
             if (responseJSON.success) {
-                this.setState({ reward: responseJSON.reward });
+                const newLootboxes = this.state.lootboxes.filter(lootbox => lootbox.id !== id);
+                this.setState({ 
+                    lootboxes: newLootboxes,
+                    reward: responseJSON.reward 
+                });
             } else {
                 Alert.error(responseJSON.message);
                 this.setState({show: false})
@@ -210,7 +214,7 @@ class RewardPopup extends React.Component {
             throw new Error("Authentication Failure")
         })
         .then(responseJSON => {
-            Alert.success(<div style={{display: "flex", columnGap: 5}}>Sold {responseJSON.generator} for <Currency icon={true} value={responseJSON.value}/></div>)
+            successMessage(<div style={{display: "flex", columnGap: 5, width: 320}}>Sold {responseJSON.generator} for <Currency icon={true} value={responseJSON.value}/> </div>)
         })
         .catch(error => {
             console.log(error)
@@ -245,7 +249,7 @@ class RewardPopup extends React.Component {
                 <div className="center"><Loader content="Loading..."></Loader></div>)}
             </Modal.Body>
             <Modal.Footer className="lootbox-footer">
-              <Button style={{ padding: 10, width: 100, backgroundColor: "var(--accent)" }} onClick={ () => {Alert.success('Added to your inventory or castle'); this.close()}}>
+              <Button style={{ padding: 10, width: 100, backgroundColor: "var(--accent)" }} onClick={ () => {successMessage('Added to your inventory or castle'); this.close()}}>
                 Accept
               </Button>
               <Button style={{ padding: 10, width: 100 }} onClick={() => {this._sellGenerator(reward.items[0].tier); this.close()}}  color="red">
@@ -256,5 +260,14 @@ class RewardPopup extends React.Component {
         </div>
       );
     }
+  }
+
+  function successMessage(description) {
+    Notification.success({
+        title: 'Success', 
+        style: {width: 500},
+        placement: 'bottomEnd',
+        description: description
+    });
   }
   

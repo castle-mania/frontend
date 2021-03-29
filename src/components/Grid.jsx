@@ -32,7 +32,7 @@ export default class Grid extends Component {
 
     render() {
         const { grid, slots, premium } = this.props;
-        const slotsB = slots ? slots : premium ? 54 : 36;
+        const slotsB = slots ? slots : premium ? 49 : 36;
         const generators = premium ? 
             new Array(54).fill(<div className="grid-icon locked"/>).fill(<div className="grid-icon empty"/>, 0, slotsB) :
             new Array(36).fill(<div className="grid-icon locked"/>).fill(<div className="grid-icon empty"/>, 0, slotsB)

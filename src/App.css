@@ -43,6 +43,12 @@ a:link:hover {
     font-weight: 1000;
 }
 
+.icon-text {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+}
+
 .middle {
     position: absolute;
     top: 25%;

@@ -17,6 +17,10 @@
     padding: 10px;
 }
 
+.rs-panel {
+    border-radius: 3px;
+}
+
 .grid-panel {
     background-color: var(--darkBG)
 }

@@ -8,12 +8,12 @@ import Marketplace from './pages/Marketplace'
 import NavBar from './components/NavBar'
 import DiscordAuth from './pages/DiscordAuth'
 import Footer from './components/Footer'
+import Kingdom from './pages/Kingdom'
 
 function App() {
   return (
     <div className="page-container">
       <div className="content">
-      
       <Router>
         <NavBar/>
         <Switch>
@@ -21,6 +21,7 @@ function App() {
           <Route path="/Castle" exact component={Castle}/>
           <Route path="/Lootboxes" exact component={Lootboxes}/>
           <Route path="/Marketplace" exact component={Marketplace}/>
+          <Route path="/Kingdom" exact component={Kingdom}/>
           <Route path="/discord/callback" exact component={DiscordAuth}/>
         </Switch>
       </Router>

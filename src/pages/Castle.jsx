@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Grid from '../components/Grid';
 import UserCard from '../components/UserCard';
 import Leaderboard from '../components/Leaderboard'
+import KingdomCard from '../components/KingdomCard'
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
 import { Alert, Panel, Input, InputGroup, Icon } from 'rsuite';
@@ -20,22 +21,27 @@ export default class Castle extends Component {
     handler(id) {
         this.setState({
             success: false,
+            kingdomSuccess: false,
             castle: {},
+            kingdom: {},
             user: {},
+            search: undefined,
         })
         this.getData(`?discordId=${id}`)
     }
 
     state = {
         success: false,
+        kingdomSuccess: false,
         castle: {},
         user: {},
+        kingdom: {},
+        search: undefined,
     }
 
     componentDidMount() {
         this.getData(this.props.location.search)
     }
-
 
     getData(search) {
         fetch(`/api/castle${search}`, {
@@ -55,6 +61,42 @@ export default class Castle extends Component {
                 success: true,
                 castle: responseJSON
             });
+            if (responseJSON.kingdom) {
+               this.getKingdomData(`?kingdomId=${responseJSON.kingdom}`) 
+            } else {
+                this.setState({
+                    kingdom: 'none',
+                })
+            }
+        })
+        .catch(error => {
+            this.setState({
+                authenticated: false,
+                error: "Authentication Failure"
+            })
+            this.props.history.push('/')
+            Alert.error('Could not fetch user')
+        })
+    }
+
+    getKingdomData(search) {
+        fetch(`/api/kingdom${search}`, {
+            method: "GET",
+            credentials: "include",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "Access-Control-Allow-Credentials": true
+            }
+        }).then(response => {
+            if (response.status === 200) return response.json()
+            throw new Error(response.json())
+        })
+        .then(responseJSON => {
+            this.setState({
+                kingdomSuccess: true,
+                kingdom: responseJSON
+            });
         })
         .catch(error => {
             this.setState({
@@ -68,7 +110,7 @@ export default class Castle extends Component {
 
     render() {
 
-        const { castle } = this.state
+        const { castle, kingdom, kingdomSuccess} = this.state
         const { generators, inventory } = castle
         
         return (
@@ -97,6 +139,9 @@ export default class Castle extends Component {
                         <Panel shaded className="small-panel">
                             <Leaderboard handler={this.handler}/>
                         </Panel>
+                    </div>
+                    <div className="item-5">
+                        <KingdomCard kingdom={kingdom} success={kingdomSuccess}></KingdomCard>
                     </div>
                 </div> 
             </div>
