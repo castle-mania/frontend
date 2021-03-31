@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
-import { Alert, Table, Dropdown } from 'rsuite';
+import { Alert, Table, Dropdown, Button } from 'rsuite';
 import { Link } from 'react-router-dom';
 const { Column, HeaderCell, Cell } = Table;
 
@@ -52,7 +52,10 @@ export default class Leaderboard extends Component {
                         </Column>
                     </Table>
                     <div className="leaderboard-dropdown">
-                        <Dropdown title="Sort By" appearance="default" placement="topStart" trigger={['click', 'hover']} noCaret>
+                        <Dropdown title="Sort By" placement="topStart" trigger={['click', 'hover']} noCaret
+                            renderTitle={children => {
+                            return <Button appearance='subtle'>{children} </Button>;
+                          }}>
                             <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/gps')}>Top GPS</Dropdown.Item>
                             <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/lvl')}>Top Level</Dropdown.Item>
                             <Dropdown.Item onSelect={() => this._changeLeaderboard('/api/leaderboard/gems')}>Top Money</Dropdown.Item>

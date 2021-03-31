@@ -4,9 +4,10 @@
     margin: 0 auto;
     grid-gap: 5px;
     justify-content: center;
-    grid-template-areas: "g a a d"
-                         "g b c d"
-                         "g e e d"
+    grid-template-areas: "f a a d"
+                         "f b c d"
+                         "f e e d"
+                         "f g g d"
 }                        
 
 
@@ -20,6 +21,14 @@
 
 .page-grid  .item-3 {
     grid-area: c;
+}
+
+.page-grid  .item-6 {
+    grid-area: g;
+}
+
+.user-listing-panel {
+    background-color: var(--darkBG);
 }
 
 .page-grid  .item-4 {
@@ -39,7 +48,9 @@
         grid-template-columns: auto auto;
         grid-template-areas: "a a"
                              "b c"
-                             "d e"
+                             "e e"
+                             "g g"
+                             "d d"
     }
 
     .page-grid  .item-1 {
@@ -56,6 +67,7 @@
                               "b"
                               "c"
                               "e"
+                              "g"
                               "d";
     }
 

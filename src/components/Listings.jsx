@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../styles/PageGrid.css';
 import '../styles/NavBar.css';
 import '../styles/Leaderboards.css'
-import { Alert, Loader } from 'rsuite'
+import { Loader } from 'rsuite'
 import ListingPanel from './ListingPanel'
 import InfiniteScroll from 'react-infinite-scroller';
   
@@ -13,7 +13,7 @@ export default class ListingPanels extends Component {
         listings: [],
         hasMore: true,
         limit: 36,
-        offset: 0,
+        offset:  0,
         loaded: false,
         search: this.props.search || 'generator',
         user: this.props.user
@@ -104,10 +104,8 @@ export default class ListingPanels extends Component {
         })
         .catch(error => {
             this.setState({
-                authenticated: false,
-                error: "Authentication Failure"
+                hasMore: false,
             })
-            Alert.error('Unable to fetch')
         })
     }
 }

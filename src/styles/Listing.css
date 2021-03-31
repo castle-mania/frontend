@@ -50,18 +50,10 @@
         width: 90%;
     }
 }
-@media screen and (max-width:750px) {
+@media screen and (max-width:769px) {
     .listing-grid {
         display: grid;
-        grid-template-columns: auto auto auto auto auto;
-        justify-content: center;
-    }
-}
-
-@media screen and (max-width:618px) {
-    .listing-grid {
-        display: grid;
-        grid-template-columns: auto auto auto auto;
+        grid-template-columns: auto auto auto;
         justify-content: center;
     }
 }

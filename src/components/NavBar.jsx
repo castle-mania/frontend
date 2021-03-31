@@ -18,7 +18,9 @@ export default class NavBar extends Component {
 
     componentDidMount() {
         const JWT = window.localStorage.getItem('castlemania-JWT')
+        const { setUser } = this.props;
         this.setState({loading: true})
+
         if (JWT != null) {
             fetch("/api/user", {
                 method: "GET",
@@ -39,6 +41,7 @@ export default class NavBar extends Component {
                     loading: false,
                     user: responseJSON, 
                 });
+                setUser(this.state.user);
             })
             .catch(error => {
                 this.setState({
@@ -145,10 +148,6 @@ export default class NavBar extends Component {
                 <div className="divider"></div>
             </div>
         )
-    }
-
-    _toggleNavbar = () => {
-        
     }
 
     _handleLoginClick = () => {
