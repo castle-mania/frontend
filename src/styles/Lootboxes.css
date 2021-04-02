@@ -1,19 +1,19 @@
 
 .legendary {
     background-color: var(--lightBG);
-    border: 2px solid transparent;
+    border: 3px solid transparent;
     border-color: #edc361;
 }
 
 .epic {
     background-color: var(--lightBG);
-    border: 2px solid transparent;
+    border: 3px solid transparent;
     border-color: #8e60eb;
 }
 
 .regular {
     background-color: var(--lightBG);
-    border: 2px solid transparent;
+    border: 3px solid transparent;
     border-color: #5466a8;
 }
 
@@ -23,12 +23,27 @@
 
 .lootbox-footer {
     display: flex;
-    
+}
+
+.lootbox-panels {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+}
+
+.panel-lootboxes {
+    background-color: var(--darkBG);
+    width: 700px;
+    height: 300px;
+    overflow: scroll;
+    display: flex;
+    justify-content: center;
 }
 
 .lootboxes-grid {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     gap: 10px
 }
 

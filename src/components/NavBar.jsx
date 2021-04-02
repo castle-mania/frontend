@@ -94,7 +94,7 @@ export default class NavBar extends Component {
                         </li>
                         { (!authenticated && !loading ) ? (
                             <li className="login">
-                                <p className="logButton" onClick={this._handleLoginClick}>Login</p>
+                                <p className="logButton" onClick={this._handleLoginClick}>Login with Discord</p>
                             </li>
                         ) : ( 
                             <li className="login">
@@ -131,7 +131,7 @@ export default class NavBar extends Component {
                             </Dropdown.Item>
                             { (!authenticated && !loading ) ? (
                                 <Dropdown.Item className="login">
-                                    <p className="logButton" onClick={this._handleLoginClick}>Login</p>
+                                    <p className="logButton" onClick={this._handleLoginClick}>Login with Discord</p>
                                 </Dropdown.Item>
                             ) : ( 
                                 <Dropdown.Item className="login">

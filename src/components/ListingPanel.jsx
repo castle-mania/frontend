@@ -90,7 +90,8 @@ export default class ListingPanel extends Component {
                     <Panel bodyFill className='listing-panel'
                         style={{ 
                             background: this._levelColour(generator.level),
-                            borderColor:  this._levelBorderColour(generator.level)
+                            borderColor:  this._levelBorderColour(generator.level),
+                            borderBlockWidth: 3,
                         }}>
                         <img className="listing-icon" src={url} alt={generator.name}/>
                         <div className="listing-info">

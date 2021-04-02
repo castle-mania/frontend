@@ -1,0 +1,21 @@
+.info-grid {
+    display: grid;
+    width: 30%;
+    margin: 0 auto;
+    grid-gap: 5px;
+    justify-content: center;
+    grid-template-areas: "f a b b"
+}
+
+.info-panel {
+    width: 400px;
+    background-color: var(--darkBG);
+}
+
+.info-grid  .item-1 {
+    grid-area: a;
+}
+
+.info-grid .item-2 {
+    grid-area: b;
+}

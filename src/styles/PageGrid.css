@@ -29,6 +29,8 @@
 
 .user-listing-panel {
     background-color: var(--darkBG);
+    display: flex;
+    justify-content: center;
 }
 
 .page-grid  .item-4 {

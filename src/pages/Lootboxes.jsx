@@ -6,6 +6,7 @@ import legendary from '../res/legendary_gift.png'
 import epic from '../res/epic_gift.png'
 import TextPanel from '../components/TextPanel'
 import Currency from '../components/Currency'
+import '../styles/InfoGrid.css'
 
 export default class Lootboxes extends Component {
 
@@ -72,12 +73,11 @@ export default class Lootboxes extends Component {
         }
         
         return (
-            <div className="panels">
-                
-                <TextPanel 
-                    title="Your Lootboxes"
-                    desc="Here is where any loot boxes you have will appear! Open your boxes for the contents to automatically be sent to your castle or inventory. If you are unable to open your boxes, it may be due to limited space in your castle/inventory, so try clearing some space!"
-                />
+            <div className='panels'>
+                <Panel shaded className='panel'>
+                    <h4 className='highlight'>Lootboxes</h4>
+                    <p>Here is where any loot boxes you have will appear! Open your boxes for the contents to automatically be sent to your castle or inventory. If you are unable to open your boxes, it may be due to limited space in your castle/inventory, so try clearing some space!</p>
+                </Panel>
                 {(loaded) ? (
                 <Panel shaded className="panel">
                     
@@ -94,7 +94,7 @@ export default class Lootboxes extends Component {
                     
                 </Panel>
                 ) : (
-                    <Panel shaded className="panel"><Loader speed="fast" content="Loading loot" /></Panel>
+                    <Panel shaded className="panel-lootboxes"><Loader speed="fast" content="Loading loot" /></Panel>
                 )}
             </div>
         )
