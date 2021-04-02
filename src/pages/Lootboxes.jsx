@@ -94,7 +94,7 @@ export default class Lootboxes extends Component {
                     
                 </Panel>
                 ) : (
-                    <Panel shaded className="panels"><Loader speed="fast" content="Loading loot" /></Panel>
+                    <Panel shaded className="panel"><Loader speed="fast" content="Loading loot" /></Panel>
                 )}
             </div>
         )
