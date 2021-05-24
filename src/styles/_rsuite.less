@@ -1,0 +1,96 @@
+@import '~rsuite/lib/styles/themes/dark/index.less';
+
+@base-color: #57f287;
+
+@font-face {
+  font-family: SourceSansPro;
+  src: url('/public/SourceSansPro-SemiBold.ttf');
+}
+
+body {
+  font-family: SourceSansPro, 'Lucida Grande', sans-serif;
+  font-size: 16px;
+
+  ::-webkit-scrollbar {
+    border-radius: 6px;
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.157);
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #191c23;
+  }
+}
+
+.currency {
+  display: flex;
+  vertical-align: middle;
+}
+
+.login-panel {
+  width: 25%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 400px;
+  min-height: 300px;
+
+  h2,
+  p {
+    margin: 0;
+  }
+
+  p {
+    opacity: 50%;
+  }
+}
+
+.item-grid {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+}
+
+.item {
+  width: 100%;
+}
+
+.item-popover-buttons {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.item-popover {
+  display: flex;
+  column-gap: 10px;
+  width: 250px;
+
+  .item-popover-info {
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.popover-item-image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.item-popover-info h2 {
+  margin: 0;
+  width: 200px;
+}
+
+
+.listing-create-buttons {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
