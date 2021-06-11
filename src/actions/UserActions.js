@@ -29,3 +29,33 @@ export function sellItemByIndex(item, place, index) {
     index,
   });
 }
+
+export function unbox(place, index) {
+  dispatcher.dispatch({
+    type: 'UNBOX',
+    place,
+    index,
+  });
+}
+
+export function moveItem(place, index) {
+  dispatcher.dispatch({
+    type: 'MOVE',
+    place,
+    index,
+  });
+}
+
+export function setCastle(items) {
+  dispatcher.dispatch({
+    type: 'CASTLE',
+    items,
+  });
+}
+
+export function setInventory(items) {
+  dispatcher.dispatch({
+    type: 'INVENTORY',
+    items,
+  });
+}

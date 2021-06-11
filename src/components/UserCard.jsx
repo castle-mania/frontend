@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import {
-  Panel, Placeholder, Icon, IconButton, Badge, Whisper, Tooltip,
+  Panel, Placeholder, Icon, IconButton, Whisper, Tooltip,
 } from 'rsuite';
 import { setColor } from '../actions/UserActions.js';
 import ColorPicker from './ColorPicker.jsx';
@@ -18,9 +18,6 @@ export default function Card() {
       setUser({ ...userStore.getUser() });
     });
   }, []);
-
-  const totalBoxes = Object.values(user.lootboxes).reduce((a, b) => a + b, 0);
-  const badgeCount = totalBoxes > 0 ? totalBoxes : false;
 
   if (!isLogged) {
     return (
@@ -42,7 +39,7 @@ export default function Card() {
         <img src={user.avatar} alt={user.username} style={{ borderRadius: 50, width: 100 }} />
         <div className="name">
           <h1>{user.username}</h1>
-          <p>{currency(user.gems)}</p>
+          <p>{currency(user.gems.toFixed(2))}</p>
         </div>
       </div>
       <div className="usercard-buttons" style={{ backgroundColor: `#${user.color.toString(16)}` }}>
@@ -54,9 +51,7 @@ export default function Card() {
           color={user.color}
         />
         <Whisper trigger="hover" placement="bottom" speaker={<Tooltip>Lootboxes</Tooltip>}>
-          <Badge content={badgeCount}>
-            <IconButton icon={<Icon icon="gift" />} />
-          </Badge>
+          <IconButton icon={<Icon icon="gift" />} />
         </Whisper>
         <Whisper trigger="hover" placement="bottom" speaker={<Tooltip>Listings</Tooltip>}>
           <IconButton icon={<Icon icon="cart-plus" />} />

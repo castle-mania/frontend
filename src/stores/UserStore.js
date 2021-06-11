@@ -1,5 +1,6 @@
 import { EventEmitter } from 'events';
 import { Notification } from 'rsuite';
+import uuid from 'uuid/v4';
 import dispatcher from '../dispatcher.js';
 import api from '../request.js';
 
@@ -11,10 +12,41 @@ class User extends EventEmitter {
     this.user = null;
 
     this.fetchUser();
+
+    this.on('change', () => this.updateInventories());
   }
 
   getUser() {
     return this.user;
+  }
+
+  updateInventories() {
+    this.castle = {};
+    for (const item of this.user.items.castle) {
+      this.castle[uuid()] = item;
+    }
+    this.inventory = {};
+    for (const item of this.user.items.inventory) {
+      this.inventory[uuid()] = item;
+    }
+  }
+
+  getCastle() {
+    return this.castle;
+  }
+
+  getInventory() {
+    return this.inventory;
+  }
+
+  async setCastle(items) {
+    this.user.items.castle = items;
+    await api.POST('/user/castle', { items });
+  }
+
+  async setInventory(items) {
+    this.user.items.inventory = items;
+    await api.POST('/user/inventory', { items });
   }
 
   async fetchUser() {
@@ -25,7 +57,6 @@ class User extends EventEmitter {
 
   async buyItem({ key, name, cost }) {
     const res = await api.POST('/user/buy', { item: key, amount: 1 });
-    console.log(res);
     if (!res.data.error) {
       this.user = res.data.user;
       this.emit('change');
@@ -41,7 +72,6 @@ class User extends EventEmitter {
 
   async sellItem({ key, name, sell }) {
     const res = await api.POST('/user/sell', { item: key, amount: 1 });
-    console.log(res);
     if (!res.data.error) {
       this.user = res.data.user;
       this.emit('change');
@@ -56,12 +86,7 @@ class User extends EventEmitter {
   }
 
   async sellItemByIndex({ key, name, sell }, place, index) {
-    console.log('im here');
-    const res = await api
-      .POST('/user/sellIndex', { item: key, place, index })
-      .catch((err) => console.log(err.message));
-    console.log('here');
-    console.log(res);
+    const res = await api.POST('/user/sellIndex', { item: key, place, index });
     if (!res.data.error) {
       this.user = res.data.user;
       this.emit('change');
@@ -73,6 +98,18 @@ class User extends EventEmitter {
     } else {
       Notification.error({ placement: 'bottomEnd', title: 'Error', description: res.data.error });
     }
+  }
+
+  async unbox(place, index) {
+    const res = await api.POST('/user/unbox', { place, index }).catch(console.log);
+    this.user = res.data.user;
+    this.emit('change');
+  }
+
+  async move(place, index) {
+    const res = await api.POST('/user/move', { place, index }).catch(console.log);
+    this.user = res.data.user;
+    this.emit('change');
   }
 
   async setColor(color) {
@@ -94,6 +131,18 @@ class User extends EventEmitter {
         break;
       case 'SELL_ITEM_INDEX':
         this.sellItemByIndex(action.item, action.place, action.index);
+        break;
+      case 'UNBOX':
+        this.unbox(action.place, action.index);
+        break;
+      case 'MOVE':
+        this.move(action.place, action.index);
+        break;
+      case 'INVENTORY':
+        this.setInventory(action.items);
+        break;
+      case 'CASTLE':
+        this.setCastle(action.items);
         break;
       default:
     }

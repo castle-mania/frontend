@@ -7,6 +7,10 @@
   src: url('/public/SourceSansPro-SemiBold.ttf');
 }
 
+.rs-icon.fill-colour use {
+  fill: currentColor;
+}
+
 body {
   font-family: SourceSansPro, 'Lucida Grande', sans-serif;
   font-size: 16px;
@@ -29,25 +33,6 @@ body {
 .currency {
   display: flex;
   vertical-align: middle;
-}
-
-.login-panel {
-  width: 25%;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-width: 400px;
-  min-height: 300px;
-
-  h2,
-  p {
-    margin: 0;
-  }
-
-  p {
-    opacity: 50%;
-  }
 }
 
 .item-grid {
@@ -87,7 +72,6 @@ body {
   margin: 0;
   width: 200px;
 }
-
 
 .listing-create-buttons {
   display: flex;

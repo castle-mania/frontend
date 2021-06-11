@@ -16,7 +16,7 @@ export function profileImage(url) {
   );
 }
 
-export function brandImage() {
+export function brandImage(d = 20) {
   const url = 'https://cdn.discordapp.com/attachments/278201582997209089/840327064279711754/greengem_tilted.png';
   return (
     <img
@@ -26,7 +26,8 @@ export function brandImage() {
         marginBottom: 4,
         marginRight: 10,
         borderRadius: 3,
-        width: 20,
+        width: d,
+        height: d,
       }}
       src={url}
     />
@@ -36,7 +37,7 @@ export function brandImage() {
 export function currency(cost) {
   const url = 'https://cdn.discordapp.com/attachments/278201582997209089/840327064279711754/greengem_tilted.png';
   return (
-    <div className="currency">
+    <span className="currency">
       <img
         alt={url}
         style={{
@@ -49,6 +50,6 @@ export function currency(cost) {
         src={url}
       />
       {cost}
-    </div>
+    </span>
   );
 }

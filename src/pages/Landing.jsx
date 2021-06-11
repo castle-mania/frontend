@@ -15,7 +15,7 @@ export default function Landing() {
           </div>
           <div className="items-grid">
             <ItemGrid />
-            <ItemGrid inventory />
+            <ItemGrid isInventory />
           </div>
         </div>
         <div className="landing-right-sidebar">

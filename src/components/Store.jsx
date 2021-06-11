@@ -12,18 +12,18 @@ import {
 } from 'rsuite';
 import api from '../request.js';
 import { currency } from '../utils.jsx';
-import '../styles/shop.less';
 import { buyItem } from '../actions/UserActions.js';
 import ItemPopover from './ItemPopover.jsx';
+import styles from '../styles/shop.module.less';
 
 function renderItem(item) {
   return (
-    <Panel bodyFill>
-      <div className="item-panel">
+    <Panel bodyFill key={item.name}>
+      <div className={styles.itemPanel}>
         <div>
           <h2>{item.name}</h2>
           <p style={{ marginTop: 0 }}>{currency(item.cost)}</p>
-          <div className="item-buttons">
+          <div className={styles.itemButtons}>
             <Button appearance="primary" style={{ width: 100 }} onClick={() => buyItem(item)}>
               Purchase
             </Button>
@@ -32,7 +32,7 @@ function renderItem(item) {
             </Whisper>
           </div>
         </div>
-        <div className="item-image">
+        <div className={styles.itemImage}>
           <img src={item.url} alt={item.name} />
         </div>
       </div>
@@ -49,12 +49,15 @@ function Search({ value, onChange, autocomplete }) {
         onChange={(newValue) => onChange(newValue)}
         placeholder="Search for an item..."
       />
+      <InputGroup.Addon>
+        <Icon icon="search" />
+      </InputGroup.Addon>
     </InputGroup>
   );
 }
 
 export default function Store() {
-  const HEIGHT = 500;
+  const HEIGHT = 538;
   const [req, setReq] = useState({
     loading: true,
     error: false,
@@ -108,10 +111,10 @@ export default function Store() {
         onChange={(value) => setSearch(value)}
       />
       <br />
-      <div className="item-group">
-        <div className="items">
+      <div className={styles.itemGroup}>
+        <div className={styles.items}>
           {items
-            .filter((item) => item.name.toLowerCase().includes(search))
+            .filter((item) => item.name.toLowerCase().includes(search.toLowerCase()))
             .map((item) => renderItem(item))}
         </div>
       </div>

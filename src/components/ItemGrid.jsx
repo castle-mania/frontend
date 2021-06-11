@@ -1,23 +1,47 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
-import {
-  Panel, Placeholder, Button, Whisper,
-} from 'rsuite';
+import { Panel } from 'rsuite';
 import '../styles/usercard.less';
+import { SortableContainer, SortableElement } from 'react-sortable-hoc';
+import arrayMove from 'array-move';
 import userStore from '../stores/UserStore.js';
 import itemStore from '../stores/ItemStore.js';
-import ItemPopover from './ItemPopover.jsx';
-import ListingModal from './ListingModal.jsx';
+import styles from '../styles/item.module.less';
+import { setCastle, setInventory } from '../actions/UserActions.js';
 
-export default function ItemGrid({ inventory }) {
-  const [user, setUser] = useState(userStore.getUser());
+const SortableItem = SortableElement((props) => {
+  const { value, ...restProps } = props;
+  const item = itemStore.get(value);
+  return (
+    <div {...restProps}>
+      <img src={item.url} className={styles.item} alt={item.name} />
+    </div>
+  );
+});
+
+const SortableList = SortableContainer((props) => {
+  const { items, ...restProps } = props;
+
+  return (
+    <Panel shaded className={styles.panel}>
+      <div className={styles.items}>
+        {Object.entries(items).map(([key, item], index) => (
+          <SortableItem key={key} index={index} value={item} {...restProps} />
+        ))}
+      </div>
+    </Panel>
+  );
+});
+
+export default function ItemGrid({ isInventory }) {
+  const [inventory, setInventoryState] = useState(userStore.getInventory());
+  const [castle, setCastleState] = useState(userStore.getCastle());
   const [loaded, setLoaded] = useState(itemStore.getLoaded());
-  const listingState = useState(false);
-  const isLogged = user !== null;
 
   useEffect(() => {
     userStore.on('change', () => {
-      setUser({ ...userStore.getUser() });
+      setInventory(userStore.getInventory());
+      setCastle(userStore.getCastle());
     });
   }, []);
 
@@ -27,45 +51,34 @@ export default function ItemGrid({ inventory }) {
     });
   }, []);
 
-  if (!isLogged || !loaded) {
-    return (
-      <Panel>
-        <Placeholder.Graph active />
-      </Panel>
-    );
+  if (!loaded) return null;
+
+  const userItems = isInventory ? inventory : castle;
+
+  function onSortEnd({ oldIndex, newIndex }) {
+    document.body.style.cursor = 'default';
+    const newItems = {};
+    for (const [key, value] of arrayMove(Object.entries(userItems), oldIndex, newIndex)) {
+      newItems[key] = value;
+    }
+    if (isInventory) {
+      setInventory(newItems);
+      setInventoryState(newItems);
+    } else {
+      setCastle(newItems);
+      setCastleState(newItems);
+    }
   }
 
-  const renderItem = (id, index) => {
-    const item = itemStore.get(id);
-    return (
-      <Whisper
-        trigger="click"
-        placement="auto"
-        speaker={(
-          <ItemPopover
-            item={item}
-            index={index}
-            place={inventory ? 'inventory' : 'castle'}
-            listingState={listingState}
-            sell
-          />
-        )}
-      >
-        <Button appearance="subtle" style={{ padding: '10%' }}>
-          <img className="item" src={item.url} alt={item.name} />
-        </Button>
-      </Whisper>
-    );
-  };
-
-  const userItems = inventory ? user.items.inventory : user.items.castle;
-
   return (
-    <>
-      <Panel shaded style={{ backgroundColor: '#1a1d24' }}>
-        <div className="item-grid">{userItems.map((item, index) => renderItem(item, index))}</div>
-      </Panel>
-      <ListingModal listingState={listingState} />
-    </>
+    <SortableList
+      axis="xy"
+      items={userItems}
+      helperClass={styles.sortableHelper}
+      onSortEnd={onSortEnd}
+      onSortStart={() => {
+        document.body.style.cursor = 'grabbing';
+      }}
+    />
   );
 }
