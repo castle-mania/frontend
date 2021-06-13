@@ -59,3 +59,9 @@ export function setInventory(items) {
     items,
   });
 }
+
+export function sortItems() {
+  dispatcher.dispatch({
+    type: 'SORT',
+  });
+}

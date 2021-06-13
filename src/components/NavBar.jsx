@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { Navbar, Nav, Icon } from 'rsuite';
-import { Link } from 'react-router-dom';
+import { Navbar, Icon } from 'rsuite';
+import Nav from '@rsuite/responsive-nav';
 import { brandImage } from '../utils.jsx';
-import UserDropdown from './UserDropdown.jsx';
 import styles from '../styles/nav.module.less';
-
-export const Pages = {
-  HOME: 0,
-  MARKET: 1,
-  PREMIUM: 2,
-  LOOT: 3,
-};
+import { Pages } from '../pages.js';
+import UserDropdown from './UserDropdown.jsx';
 
 export default function NavBar() {
   const [page, setPage] = useState(Pages.HOME);
+  const [appearance, setAppearance] = useState('subtle');
+
+  window.onscroll = () => {
+    if (window.pageYOffset === 0) setAppearance('subtle');
+    else setAppearance('default');
+  };
 
   return (
-    <Navbar className={styles.nav} appearance="subtle">
+    <Navbar className={styles.nav} appearance={appearance}>
       <Navbar.Header className={styles.navbarBrand}>
         {brandImage()}
         <b>CastleMania</b>
@@ -29,10 +29,13 @@ export default function NavBar() {
           <Nav.Item eventKey={Pages.MARKET} icon={<Icon icon="shopping-bag" />}>
             Marketplace
           </Nav.Item>
+          <Nav.Item eventKey={Pages.COMMANDS} icon={<Icon icon="cog" />}>
+            Commands
+          </Nav.Item>
           <Nav.Item eventKey={Pages.PREMIUM} icon={<Icon icon="star" />}>
             Premium
           </Nav.Item>
-          <UserDropdown />
+          <UserDropdown page={page} setPage={setPage} />
         </Nav>
       </Navbar.Body>
     </Navbar>

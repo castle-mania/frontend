@@ -1,19 +1,11 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, useState } from 'react';
 import {
-  Panel,
-  InputGroup,
-  AutoComplete,
-  Button,
-  Placeholder,
-  IconButton,
-  Icon,
-  Whisper,
+  Panel, InputGroup, AutoComplete, Button, Placeholder, Icon,
 } from 'rsuite';
 import api from '../request.js';
 import { currency } from '../utils.jsx';
 import { buyItem } from '../actions/UserActions.js';
-import ItemPopover from './ItemPopover.jsx';
 import styles from '../styles/shop.module.less';
 
 function renderItem(item) {
@@ -27,9 +19,6 @@ function renderItem(item) {
             <Button appearance="primary" style={{ width: 100 }} onClick={() => buyItem(item)}>
               Purchase
             </Button>
-            <Whisper trigger="click" speaker={<ItemPopover buy item={item} />}>
-              <IconButton icon={<Icon icon="info-circle" />} />
-            </Whisper>
           </div>
         </div>
         <div className={styles.itemImage}>
@@ -99,12 +88,7 @@ export default function Store() {
   const items = req.items.filter((item) => item.buyable);
 
   return (
-    <Panel
-      shaded
-      style={{
-        backgroundColor: '#1a1d24',
-      }}
-    >
+    <Panel shaded className={styles.panel}>
       <Search
         autocomplete={items.map((item) => item.name)}
         value={search}

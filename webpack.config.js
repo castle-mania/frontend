@@ -35,13 +35,28 @@ export default async () => ({
   module: {
     rules: [
       {
-        test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
+        test: /\.(png|jpg|jpeg|gif|ico)$/,
         exclude: /node_modules/,
         use: ['file-loader?name=[name].[ext]'], // ?name=[name].[ext] is only necessary to preserve the original file name
       },
       {
         test: /\.(woff|woff2|eot|ttf)$/,
         loader: 'url-loader?limit=100000',
+      },
+      {
+        test: /\.mp4$/,
+        use: 'file-loader?name=videos/[name].[ext]',
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-sprite-loader',
+            options: {
+              symbolId: 'icon-[name]',
+            },
+          },
+        ],
       },
       {
         test: /\.(js|jsx)$/,

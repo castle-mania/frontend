@@ -1,25 +1,41 @@
 import React from 'react';
-import { Panel, Button } from 'rsuite';
-import { handleLoginClick } from '../login.js';
+import { Button, Icon, IconButton } from 'rsuite';
+import styles from '../styles/landing.module.less';
 import { brandImage } from '../utils.jsx';
-import styles from '../styles/login.module.less';
 
-export default function Login() {
+export default function Landing() {
   return (
-    <Panel className={styles.loginPanel} shaded>
-      <div className={styles.brand}>
-        {brandImage(35)}
-        <h1>CastleMania</h1>
+    <>
+      <div className={styles.sectionOne}>
+        <div className={styles.welcome}>
+          <div className={styles.header}>
+            {brandImage(90)}
+            <p className={styles.headerText}>CastleMania</p>
+          </div>
+          <div className={styles.blurb}>
+            <p>
+              A Unique Global Currency game that allows you to Buy, Sell, Raid and Gamble your way
+              to the top of the leaderboard/ Personalise your castle with the newest generators,
+              take risks and place bets, form kingdoms with friends, and much more
+            </p>
+          </div>
+          <div className={styles.buttons}>
+            <IconButton icon={<Icon icon="plus" />}>Add to Discord</IconButton>
+            <Button appearance="primary">Login with Discord</Button>
+          </div>
+          <IconButton className={styles.caret} icon={<Icon icon="down" />} appearance="subtle" />
+        </div>
       </div>
-      <p>To access CastleMania, you must connect your Discord Account</p>
-      <p className={styles.muted}>
-        A Unique Global Currency game that allows you to Buy, Sell, Raid and Gamble your way to the
-        top of the leaderboard! and much more!
-      </p>
-      <br />
-      <Button className={styles.button} onClick={() => handleLoginClick()}>
-        Login with Discord
-      </Button>
-    </Panel>
+      <div className={styles.sectionTwo}>
+        <div className={styles.welcome}>
+          <div className={styles.header}>
+            <p className={styles.headerText}>We are in 3000 Servers</p>
+          </div>
+          <div className={styles.blurb}>
+            <p>Our community is ever expanding</p>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

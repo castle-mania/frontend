@@ -1,5 +1,4 @@
 import { EventEmitter } from 'events';
-import { Notification } from 'rsuite';
 import uuid from 'uuid/v4';
 import dispatcher from '../dispatcher.js';
 import api from '../request.js';
@@ -12,7 +11,6 @@ class User extends EventEmitter {
     this.user = null;
 
     this.fetchUser();
-
     this.on('change', () => this.updateInventories());
   }
 
@@ -31,6 +29,17 @@ class User extends EventEmitter {
     }
   }
 
+  async sortItems() {
+    const newItems = {
+      castle: Object.values(this.getCastle()).sort((a, b) => b - a),
+      inventory: Object.values(this.getInventory()).sort((a, b) => b - a),
+    };
+    this.user.items = newItems;
+    this.updateInventories();
+    this.emit('change');
+    await api.POST('/user/items', newItems);
+  }
+
   getCastle() {
     return this.castle;
   }
@@ -39,75 +48,44 @@ class User extends EventEmitter {
     return this.inventory;
   }
 
-  async setCastle(items) {
-    this.user.items.castle = items;
-    await api.POST('/user/castle', { items });
-  }
-
-  async setInventory(items) {
-    this.user.items.inventory = items;
-    await api.POST('/user/inventory', { items });
-  }
-
   async fetchUser() {
     const response = await api.GET('/user');
     this.user = response.data;
     this.emit('change');
   }
 
-  async buyItem({ key, name, cost }) {
+  async setItems(place, items) {
+    const newItems = Object.values(items);
+    this.user.items.castle = newItems;
+    await api.POST('/user/items', { [place]: newItems });
+  }
+
+  async buyItem({ key }) {
     const res = await api.POST('/user/buy', { item: key, amount: 1 });
-    if (!res.data.error) {
-      this.user = res.data.user;
-      this.emit('change');
-      Notification.success({
-        placement: 'bottomEnd',
-        title: 'Success',
-        description: `Sucessfully bought ${name} for ${cost}`,
-      });
-    } else {
-      Notification.error({ placement: 'bottomEnd', title: 'Error', description: res.data.error });
-    }
+    this.user = res.data.user;
+    this.emit('change');
   }
 
-  async sellItem({ key, name, sell }) {
+  async sellItem({ key }) {
     const res = await api.POST('/user/sell', { item: key, amount: 1 });
-    if (!res.data.error) {
-      this.user = res.data.user;
-      this.emit('change');
-      Notification.success({
-        placement: 'bottomEnd',
-        title: 'Success',
-        description: `Sucessfully sold ${name} for ${sell}`,
-      });
-    } else {
-      Notification.error({ placement: 'bottomEnd', title: 'Error', description: res.data.error });
-    }
+    this.user = res.data.user;
+    this.emit('change');
   }
 
-  async sellItemByIndex({ key, name, sell }, place, index) {
+  async sellItemByIndex({ key }, place, index) {
     const res = await api.POST('/user/sellIndex', { item: key, place, index });
-    if (!res.data.error) {
-      this.user = res.data.user;
-      this.emit('change');
-      Notification.success({
-        placement: 'bottomEnd',
-        title: 'Success',
-        description: `Sucessfully sold ${name} for ${sell}`,
-      });
-    } else {
-      Notification.error({ placement: 'bottomEnd', title: 'Error', description: res.data.error });
-    }
+    this.user = res.data.user;
+    this.emit('change');
   }
 
   async unbox(place, index) {
-    const res = await api.POST('/user/unbox', { place, index }).catch(console.log);
+    const res = await api.POST('/user/unbox', { place, index });
     this.user = res.data.user;
     this.emit('change');
   }
 
   async move(place, index) {
-    const res = await api.POST('/user/move', { place, index }).catch(console.log);
+    const res = await api.POST('/user/move', { place, index });
     this.user = res.data.user;
     this.emit('change');
   }
@@ -139,10 +117,13 @@ class User extends EventEmitter {
         this.move(action.place, action.index);
         break;
       case 'INVENTORY':
-        this.setInventory(action.items);
+        this.setItems('inventory', action.items);
         break;
       case 'CASTLE':
-        this.setCastle(action.items);
+        this.setItems('castle', action.items);
+        break;
+      case 'SORT':
+        this.sortItems();
         break;
       default:
     }

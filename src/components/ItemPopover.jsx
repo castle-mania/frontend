@@ -1,74 +1,60 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Popover, Button, Icon } from 'rsuite';
+import { Popover, IconButton, Icon, Panel, Divider } from 'rsuite';
 import {
   buyItem, sellItemByIndex, unbox, moveItem,
 } from '../actions/UserActions.js';
 import styles from '../styles/popover.module.less';
 
 export default function ItemPopover(props) {
-  const {
-    item, sellable, place, index, buyable, unboxable, moveable,
-  } = props;
-
+  const { item, place, index } = props;
   const buttons = [];
 
-  if (buyable === 1) {
+  if (item.buyable) {
     buttons.push(
-      <Button appearance="primary" onClick={() => buyItem(item)}>
-        <div className={styles.button}>
-          <Icon icon="shopping-cart" />
-          {item.cost}
-        </div>
-      </Button>,
+      <IconButton onClick={() => buyItem(item)} icon={<Icon icon="shopping-cart" />}>
+        <div className={styles.button}>Buy Another</div>
+      </IconButton>,
     );
   }
 
-  if (sellable === 1) {
+  if (item.sellable) {
     buttons.push(
-      <Button
-        appearance="primary"
-        color="red"
+      <IconButton
+        icon={<Icon icon="money" />}
         className={styles.button}
         onClick={() => sellItemByIndex(item, place, index)}
       >
-        <div className={styles.button}>
-          <Icon icon="money" />
-          {item.sell}
-        </div>
-      </Button>,
+        <div className={styles.button}>Sell</div>
+      </IconButton>,
     );
   }
 
-  if (unboxable === 1) {
-    <Button
-      appearance="primary"
-      className={styles.button}
-      onClick={() => {
-        unbox(place, index);
-      }}
-    >
-      <div className={styles.button}>
-        <Icon icon="gift" />
-        Unbox
-      </div>
-    </Button>;
+  if (item.type === 'lootbox') {
+    buttons.push(
+      <IconButton
+        icon={<Icon icon="gift" />}
+        className={styles.button}
+        onClick={() => {
+          unbox(place, index);
+        }}
+      >
+        <div className={styles.button}>Unbox this</div>
+      </IconButton>,
+    );
   }
 
-  if (moveable === 1) {
+  if (item.movable) {
     buttons.push(
-      <Button
-        color="blue"
+      <IconButton
+        icon={<Icon icon="exchange" />}
         className={styles.button}
         onClick={() => {
           moveItem(place, index);
         }}
       >
-        <div className={styles.button}>
-          <Icon icon="exchange" />
-          Move
-        </div>
-      </Button>,
+        <div className={styles.button}>Swap</div>
+      </IconButton>,
     );
   }
 
@@ -76,6 +62,9 @@ export default function ItemPopover(props) {
 
   return (
     <Popover {...props}>
+      <h2>{item.name}</h2>
+      <p>{`${item.gpm} Gems Per Minute`}</p>
+      <Divider/>
       <div className={styles.popover}>{buttons}</div>
     </Popover>
   );
