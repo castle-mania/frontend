@@ -8,8 +8,8 @@ export function profileImage(url) {
         verticalAlign: 'middle',
         marginBottom: 1,
         marginRight: 10,
-        borderRadius: 3,
-        width: 20,
+        borderRadius: '100%',
+        width: 25,
       }}
       src={url}
     />

@@ -19,6 +19,7 @@ export default async () => ({
     hot: true,
     proxy: {
       '/api': 'http://localhost:5555',
+      '/documentation': 'http://localhost:5555',
       '/auth': 'http://localhost:5555',
     },
   },

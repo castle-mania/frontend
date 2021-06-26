@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
-import { Popover, IconButton, Icon, Panel, Divider } from 'rsuite';
+import {
+  Popover, IconButton, Icon, Divider,
+} from 'rsuite';
 import {
   buyItem, sellItemByIndex, unbox, moveItem,
 } from '../actions/UserActions.js';
@@ -64,7 +66,7 @@ export default function ItemPopover(props) {
     <Popover {...props}>
       <h2>{item.name}</h2>
       <p>{`${item.gpm} Gems Per Minute`}</p>
-      <Divider/>
+      <Divider />
       <div className={styles.popover}>{buttons}</div>
     </Popover>
   );

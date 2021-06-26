@@ -46,7 +46,7 @@ function Search({ value, onChange, autocomplete }) {
 }
 
 export default function Store() {
-  const HEIGHT = 538;
+  const HEIGHT = 636;
   const [req, setReq] = useState({
     loading: true,
     error: false,

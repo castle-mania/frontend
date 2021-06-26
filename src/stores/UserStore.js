@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import { useEffect, useState } from 'react';
 import uuid from 'uuid/v4';
 import dispatcher from '../dispatcher.js';
 import api from '../request.js';
@@ -7,11 +8,23 @@ class User extends EventEmitter {
   constructor() {
     super();
     this.authenticated = false;
-    this.notLogged = false;
+    this.loggedIn = false;
     this.user = null;
 
     this.fetchUser();
     this.on('change', () => this.updateInventories());
+  }
+
+  isLogged() {
+    return this.user !== null;
+  }
+
+  isUser({ discordId }) {
+    if (!this.isLogged()) {
+      return false;
+    }
+
+    return discordId === this.user.discordId;
   }
 
   getUser() {
@@ -36,7 +49,7 @@ class User extends EventEmitter {
     };
     this.user.items = newItems;
     this.updateInventories();
-    this.emit('change');
+    this.emit('change', this.user);
     await api.POST('/user/items', newItems);
   }
 
@@ -51,48 +64,49 @@ class User extends EventEmitter {
   async fetchUser() {
     const response = await api.GET('/user');
     this.user = response.data;
-    this.emit('change');
+    this.emit('change', this.user);
   }
 
   async setItems(place, items) {
     const newItems = Object.values(items);
-    this.user.items.castle = newItems;
+    this.user.items[place] = newItems;
+    this.emit('change', this.user);
     await api.POST('/user/items', { [place]: newItems });
   }
 
   async buyItem({ key }) {
     const res = await api.POST('/user/buy', { item: key, amount: 1 });
     this.user = res.data.user;
-    this.emit('change');
+    this.emit('change', this.user);
   }
 
   async sellItem({ key }) {
     const res = await api.POST('/user/sell', { item: key, amount: 1 });
     this.user = res.data.user;
-    this.emit('change');
+    this.emit('change', this.user);
   }
 
   async sellItemByIndex({ key }, place, index) {
     const res = await api.POST('/user/sellIndex', { item: key, place, index });
     this.user = res.data.user;
-    this.emit('change');
+    this.emit('change', this.user);
   }
 
   async unbox(place, index) {
     const res = await api.POST('/user/unbox', { place, index });
     this.user = res.data.user;
-    this.emit('change');
+    this.emit('change', this.user);
   }
 
   async move(place, index) {
     const res = await api.POST('/user/move', { place, index });
     this.user = res.data.user;
-    this.emit('change');
+    this.emit('change', this.user);
   }
 
   async setColor(color) {
     this.user.color = color;
-    this.emit('change');
+    this.emit('change', this.user);
     await api.POST('/user/color', { color });
   }
 
@@ -133,4 +147,15 @@ class User extends EventEmitter {
 const userStore = new User();
 dispatcher.register(userStore.handleActions.bind(userStore));
 window.dispatcher = dispatcher;
+
+export function useUserState() {
+  const [user, setUser] = useState(userStore.getUser());
+
+  useEffect(() => {
+    userStore.on('change', () => setUser({ ...userStore.getUser() }));
+  }, []);
+
+  return [user, setUser];
+}
+
 export default userStore;

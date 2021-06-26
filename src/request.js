@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 const JWT = window.localStorage.getItem('castlemania-JWT');
+
 const HEADERS = {
   Accept: 'application/json',
   Authorization: `Bearer ${JWT}`,

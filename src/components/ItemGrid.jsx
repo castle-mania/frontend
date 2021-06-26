@@ -1,38 +1,35 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import React, { useState, useEffect } from 'react';
 import { Panel, Whisper } from 'rsuite';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
-import userStore from '../stores/UserStore.js';
+import uuid from 'uuid/v4';
 import itemStore from '../stores/ItemStore.js';
 import styles from '../styles/item.module.less';
 import { setCastle, setInventory } from '../actions/UserActions.js';
 import ItemPopover from './ItemPopover.jsx';
+import userStore from '../stores/UserStore.js';
 
-export default function ItemGrid({ isInventory }) {
-  const getItems = () => (isInventory ? userStore.getInventory() : userStore.getCastle());
-  const setItems = isInventory ? setInventory : setCastle;
-  const [loaded, setLoaded] = useState(itemStore.getLoaded());
-  const [items, setItemsState] = useState(getItems());
-
-  function updateItems(newItems) {
-    setItemsState(newItems || getItems());
-    if (newItems) setItems(newItems);
-  }
+export default function ItemGrid({ user, isInventory }) {
+  const [loaded, setLoaded] = useState(itemStore.isLoaded());
+  const itemKey = isInventory ? 'inventory' : 'castle';
 
   useEffect(() => {
-    userStore.on('change', updateItems);
     itemStore.on('loaded', () => setLoaded(true));
   }, []);
 
-  if (!loaded) return null;
+  if (!loaded || !user) {
+    return null;
+  }
+
+  const items = user.items[itemKey];
+  const auth = userStore.isUser(user);
 
   const SortableItem = SortableElement((props) => {
-    const { value } = props;
-    const [index, itemId] = value;
+    const { itemId, index, ...restProps } = props;
     const item = itemStore.get(itemId);
+
     return (
-      <div {...props}>
+      <div {...restProps}>
         <Whisper
           enterable
           trigger="hover"
@@ -49,13 +46,19 @@ export default function ItemGrid({ isInventory }) {
   });
 
   const SortableList = SortableContainer((props) => {
-    const { ...restProps } = props;
+    const { items: userItems, ...restProps } = props;
 
     return (
       <Panel shaded className={styles.panel}>
         <div className={styles.items}>
-          {Object.entries(items).map(([key, item], index) => (
-            <SortableItem key={key} index={index} value={[index, item]} {...restProps} />
+          {userItems.map((item, index) => (
+            <SortableItem
+              disabled={!auth}
+              key={uuid()}
+              index={index}
+              itemId={item}
+              {...restProps}
+            />
           ))}
         </div>
       </Panel>
@@ -64,11 +67,9 @@ export default function ItemGrid({ isInventory }) {
 
   function onSortEnd({ oldIndex, newIndex }) {
     document.body.style.cursor = 'default';
-    const newItems = {};
-    for (const [key, value] of arrayMove(Object.entries(items), oldIndex, newIndex)) {
-      newItems[key] = value;
-    }
-    updateItems(newItems);
+    const grid = arrayMove(items, oldIndex, newIndex);
+    if (isInventory) setInventory(grid);
+    else setCastle(grid);
   }
 
   return (

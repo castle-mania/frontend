@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Dropdown, Icon, Nav } from 'rsuite';
+import { useHistory } from 'react-router-dom';
 import userStore from '../stores/UserStore.js';
 import { currency, profileImage } from '../utils.jsx';
 import { handleLogoutClick, handleLoginClick } from '../login.js';
 import styles from '../styles/nav.module.less';
-import { Pages } from '../pages.js';
+import { Pages, Paths } from '../pages.js';
 
 export default function userDropdown({ page, setPage }) {
+  const history = useHistory();
   const [user, setUser] = useState(userStore.getUser());
   const isLogged = user !== null;
 
@@ -38,19 +40,48 @@ export default function userDropdown({ page, setPage }) {
         {currency(user.gems)}
       </Dropdown.Item>
       <Dropdown.Item divider />
-      <Dropdown.Item icon={<Icon icon="home" />} eventKey={Pages.HOME}>
+      <Dropdown.Item
+        icon={<Icon icon="home" />}
+        eventKey={Pages.HOME}
+        onSelect={() => history.push(Paths[Pages.HOME])}
+      >
         Home
       </Dropdown.Item>
-      <Dropdown.Item icon={<Icon icon="people-group" />} eventKey={Pages.FRIENDS}>
+      {user.kingdom !== null && (
+        <Dropdown.Item
+          icon={<Icon icon="home" />}
+          eventKey={Pages.KINGDOM}
+          onSelect={() => history.push(`${Paths[Pages.KINGDOM]}?id=${user.kingdom}`)}
+        >
+          My Kingdom
+        </Dropdown.Item>
+      )}
+      <Dropdown.Item
+        icon={<Icon icon="people-group" />}
+        eventKey={Pages.FRIENDS}
+        onSelect={() => history.push(Paths[Pages.FRIENDS])}
+      >
         My Friends
       </Dropdown.Item>
-      <Dropdown.Item icon={<Icon icon="shopping-bag" />} eventKey={Pages.MARKET}>
+      <Dropdown.Item
+        icon={<Icon icon="shopping-bag" />}
+        eventKey={Pages.MARKET}
+        onSelect={() => history.push(Paths[Pages.MARKET])}
+      >
         My Listings
       </Dropdown.Item>
-      <Dropdown.Item icon={<Icon icon="heart" />} eventKey={Pages.PETS}>
+      <Dropdown.Item
+        icon={<Icon icon="heart" />}
+        eventKey={Pages.PETS}
+        onSelect={() => history.push(Paths[Pages.PETS])}
+      >
         My Pets
       </Dropdown.Item>
-      <Dropdown.Item icon={<Icon icon="star" />} eventKey={Pages.PREMIUM}>
+      <Dropdown.Item
+        icon={<Icon icon="star" />}
+        eventKey={Pages.PREMIUM}
+        onSelect={() => history.push(Paths[Pages.PREMIUM])}
+      >
         Premium
       </Dropdown.Item>
       <Dropdown.Item divider />

@@ -20,6 +20,7 @@
     "no-empty": "off",
     "max-classes-per-file": "off",
     "react/prop-types": "off",
-    "max-len": 0
+    "max-len": 0,
+    "react/jsx-props-no-spreading": 0
   }
 }
