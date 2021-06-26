@@ -3,18 +3,20 @@ import React from 'react';
 import {
   Panel, Icon, IconButton, Whisper, Tooltip, Placeholder,
 } from 'rsuite';
-import { setColor, sortItems } from '../actions/UserActions.js';
-import ColorPicker from './ColorPicker.jsx';
-import styles from '../styles/usercard.module.less';
-import { currency } from '../utils.jsx';
-import userStore from '../stores/UserStore.js';
+import { setColor, sortItems } from '../../actions/UserActions.js';
+import ColorPicker from '../color-picker/ColorPicker.jsx';
+import styles from '../../styles/usercard.module.less';
+import { currency } from '../../utils.jsx';
+import userStore from '../../stores/UserStore.js';
 
 export default function Card({ user }) {
   if (!user) {
-    return <Placeholder.Graph active />;
+    return (
+      <Panel shaded bodyFill className={styles.usercardPanel}>
+        <Placeholder.Graph active />
+      </Panel>
+    );
   }
-
-  const auth = userStore.isUser(user);
 
   return (
     <Panel shaded bodyFill className={styles.usercardPanel}>
@@ -30,17 +32,22 @@ export default function Card({ user }) {
         style={{ backgroundColor: `#${user.color.toString(16)}` }}
       >
         <div className={styles.left}>
-          {auth && (
+          {userStore.isAuth(user) && (
             <>
+              <Whisper trigger="hover" placement="bottom" speaker={<Tooltip>Premium</Tooltip>}>
+                <IconButton onClick={sortItems} icon={<Icon icon="star" />} />
+              </Whisper>
               <ColorPicker
                 onChange={(value) => setColor(parseInt(value.hex.replace('#', '0x'), 16))}
                 color={user.color}
               />
               <Whisper trigger="hover" placement="bottom" speaker={<Tooltip>Listings</Tooltip>}>
-                <IconButton icon={<Icon icon="cart-plus" />} />
+                <IconButton icon={<Icon icon="cart-plus" />}>Listings</IconButton>
               </Whisper>
               <Whisper trigger="hover" placement="bottom" speaker={<Tooltip>Sort Items</Tooltip>}>
-                <IconButton onClick={sortItems} icon={<Icon icon="refresh" />} />
+                <IconButton onClick={sortItems} icon={<Icon icon="refresh" />}>
+                  Sort
+                </IconButton>
               </Whisper>
             </>
           )}

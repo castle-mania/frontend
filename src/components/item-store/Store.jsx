@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import {
   Panel, InputGroup, AutoComplete, Button, Placeholder, Icon,
 } from 'rsuite';
-import api from '../request.js';
-import { currency } from '../utils.jsx';
-import { buyItem } from '../actions/UserActions.js';
-import styles from '../styles/shop.module.less';
+import api from '../../request.js';
+import { currency } from '../../utils.jsx';
+import { buyItem } from '../../actions/UserActions.js';
+import styles from '../../styles/shop.module.less';
 
 function renderItem(item) {
   return (

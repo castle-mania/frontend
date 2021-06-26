@@ -3,11 +3,11 @@ import { Panel, Whisper } from 'rsuite';
 import { SortableContainer, SortableElement } from 'react-sortable-hoc';
 import arrayMove from 'array-move';
 import uuid from 'uuid/v4';
-import itemStore from '../stores/ItemStore.js';
-import styles from '../styles/item.module.less';
-import { setCastle, setInventory } from '../actions/UserActions.js';
-import ItemPopover from './ItemPopover.jsx';
-import userStore from '../stores/UserStore.js';
+import itemStore from '../../stores/ItemStore.js';
+import styles from '../../styles/item.module.less';
+import { setCastle, setInventory } from '../../actions/UserActions.js';
+import ItemPopover from '../item-popover/ItemPopover.jsx';
+import userStore from '../../stores/UserStore.js';
 
 export default function ItemGrid({ user, isInventory }) {
   const [loaded, setLoaded] = useState(itemStore.isLoaded());
@@ -22,7 +22,7 @@ export default function ItemGrid({ user, isInventory }) {
   }
 
   const items = user.items[itemKey];
-  const auth = userStore.isUser(user);
+  const auth = userStore.isAuth(user);
 
   const SortableItem = SortableElement((props) => {
     const { itemId, index, ...restProps } = props;

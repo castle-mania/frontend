@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Dropdown, Icon, Nav } from 'rsuite';
 import { useHistory } from 'react-router-dom';
-import userStore from '../stores/UserStore.js';
-import { currency, profileImage } from '../utils.jsx';
-import { handleLogoutClick, handleLoginClick } from '../login.js';
-import styles from '../styles/nav.module.less';
-import { Pages, Paths } from '../pages.js';
+import userStore from '../../stores/UserStore.js';
+import { currency, profileImage } from '../../utils.jsx';
+import { handleLogoutClick, handleLoginClick } from '../../login.js';
+import styles from '../../styles/nav.module.less';
+import { Pages, Paths } from '../../pages.js';
 
 export default function userDropdown({ page, setPage }) {
   const history = useHistory();

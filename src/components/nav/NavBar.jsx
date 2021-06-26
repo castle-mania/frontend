@@ -3,10 +3,10 @@ import { Navbar, Icon } from 'rsuite';
 import Nav from '@rsuite/responsive-nav';
 import { useHistory } from 'react-router-dom';
 
-import { brandImage } from '../utils.jsx';
-import styles from '../styles/nav.module.less';
-import { getCurrent, Pages, Paths } from '../pages.js';
-import UserDropdown from './UserDropdown.jsx';
+import { brandImage } from '../../utils.jsx';
+import styles from '../../styles/nav.module.less';
+import { getCurrent, Pages, Paths } from '../../pages.js';
+import UserDropdown from '../user-dropdown/UserDropdown.jsx';
 
 export default function NavBar() {
   const history = useHistory();

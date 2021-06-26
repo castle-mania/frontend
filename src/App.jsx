@@ -4,8 +4,8 @@ import {
   BrowserRouter as Router, Route, Switch, useHistory,
 } from 'react-router-dom';
 import { Container, Header, Content } from 'rsuite';
-import Footer from './components/Footer.jsx';
-import Navbar from './components/NavBar.jsx';
+import Footer from './components/footer/Footer.jsx';
+import Navbar from './components/nav/NavBar.jsx';
 import './styles/_rsuite.less';
 import styles from './styles/app.module.less';
 

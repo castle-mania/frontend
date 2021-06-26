@@ -1,8 +1,8 @@
 import React from 'react';
-import UserCard from '../components/UserCard.jsx';
-import ItemGrid from '../components/ItemGrid.jsx';
+import UserCard from '../components/user-card/UserCard.jsx';
+import ItemGrid from '../components/item-grid/ItemGrid.jsx';
 import styles from '../styles/landing.module.less';
-import KingdomCard from '../components/KingdomCard.jsx';
+import KingdomCard from '../components/kingdom-card/KingdomCard.jsx';
 import { useUserState } from '../stores/UserStore.js';
 
 export default function Home() {

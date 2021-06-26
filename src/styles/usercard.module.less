@@ -28,6 +28,7 @@
 
 .usercardPanel {
   background-color: #13171f;
+  height: 196px;
 }
 
 .buttonFloat {
@@ -45,30 +46,38 @@
 
 .kingdomCard {
   width: 100%;
-  height: 200px;
   background-color: #13171f;
 
-  .body {
+  .card {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    row-gap: 26px;
+    flex-direction: column;
+    justify-content: space-around;
 
-    .placeholder {
-      border-radius: 5px;
-      padding: 30px;
-    }
+    .body {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-    .avatar {
-      display: inline-block;
-      border-radius: 50%;
-      overflow: hidden;
-      width: 50px;
-      border: 3px #13171f solid;
-    }
+      .placeholder {
+        border-radius: 5px;
+        padding: 30px;
+      }
 
-    .avatar img {
-      width: 100%;
-      display: block;
+      .avatar {
+        display: inline-block;
+        border-radius: 50%;
+        overflow: hidden;
+        width: 50px;
+        border: 3px #13171f solid;
+      }
+
+      .avatar img {
+        width: 100%;
+        display: block;
+      }
     }
   }
 }

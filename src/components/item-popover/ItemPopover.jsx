@@ -5,8 +5,8 @@ import {
 } from 'rsuite';
 import {
   buyItem, sellItemByIndex, unbox, moveItem,
-} from '../actions/UserActions.js';
-import styles from '../styles/popover.module.less';
+} from '../../actions/UserActions.js';
+import styles from '../../styles/popover.module.less';
 
 export default function ItemPopover(props) {
   const { item, place, index } = props;

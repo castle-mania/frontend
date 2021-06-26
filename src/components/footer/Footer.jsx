@@ -1,6 +1,6 @@
 import React from 'react';
 import { Footer } from 'rsuite';
-import styles from '../styles/footer.module.less';
+import styles from '../../styles/footer.module.less';
 
 export default function FooterModule() {
   return (
