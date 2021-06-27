@@ -26,7 +26,7 @@ class UserStore extends EventEmitter {
   }
 
   getUser(id) {
-    if (id == null && this.isLogged()) return this.user;
+    if (id == null) return this.user;
 
     if (id in this.users) {
       return this.users[id];

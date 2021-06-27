@@ -1,6 +1,6 @@
 import React from 'react';
 import { Footer } from 'rsuite';
-import styles from '../../styles/footer.module.less';
+import styles from './styles.module.less';
 
 export default function FooterModule() {
   return (
@@ -10,6 +10,9 @@ export default function FooterModule() {
         <ul className={styles.list}>
           <li>
             <a href="/google.com">Invite the Bot</a>
+          </li>
+          <li>
+            <a href="/documentation">Documentation</a>
           </li>
           <li>
             <a href="/google.com">Login with Discord</a>

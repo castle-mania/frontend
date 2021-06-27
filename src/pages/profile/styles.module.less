@@ -1,0 +1,33 @@
+.body {
+  margin-top: 70px;
+  margin-bottom: 70px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    row-gap: 16px;
+  }
+
+  .grids {
+    display: flex;
+    gap: 16px;
+  }
+
+  @media screen and (max-width: 800px) {
+    .content {
+      width: 95%;
+    }
+  }
+
+  @media screen and (max-width: 750px) {
+    .grids {
+      flex-direction: column;
+    }
+  }
+}

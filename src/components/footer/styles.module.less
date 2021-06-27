@@ -1,0 +1,23 @@
+.footer {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #13171f;
+  height: 300px;
+  padding: 50px;
+
+  .button {
+    margin: 0px;
+  }
+
+  .list {
+    text-decoration: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .footer {
+    flex-direction: column;
+    row-gap: 20px;
+    height: 400px;
+  }
+}

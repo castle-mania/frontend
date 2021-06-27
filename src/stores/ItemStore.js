@@ -24,12 +24,12 @@ class Items extends EventEmitter {
   }
 
   get(id) {
-    return this.items.find((item) => parseInt(item.key, 10) === id);
+    return this.items[id];
   }
 
   async fetchItems() {
     const res = await api.GET('/items');
-    this.items = res.data.items;
+    this.items = res.data;
     this.loaded = true;
     this.emit('loaded');
   }

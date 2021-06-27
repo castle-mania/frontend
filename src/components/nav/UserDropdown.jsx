@@ -1,22 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Dropdown, Icon, Nav } from 'rsuite';
 import { useHistory } from 'react-router-dom';
-import userStore from '../../stores/UserStore.js';
+import userStore, { useUserState } from '../../stores/UserStore.js';
 import { currency, profileImage } from '../../utils.jsx';
 import { handleLogoutClick, handleLoginClick } from '../../login.js';
-import styles from '../../styles/nav.module.less';
+import styles from './styles.module.less';
 import { Pages, Paths } from '../../pages.js';
 
 export default function userDropdown({ page, setPage }) {
   const history = useHistory();
-  const [user, setUser] = useState(userStore.getUser());
-  const isLogged = user !== null;
+  const [user] = useUserState();
 
-  useEffect(() => {
-    userStore.on('change', () => setUser({ ...userStore.getUser() }));
-  }, []);
-
-  if (!isLogged) {
+  if (!userStore.isLogged()) {
     return (
       <Nav.Item active onSelect={() => handleLoginClick()}>
         Login with Discord
@@ -25,13 +20,7 @@ export default function userDropdown({ page, setPage }) {
   }
 
   return (
-    <Dropdown
-      title={user.username}
-      placement="bottomEnd"
-      icon={profileImage(user.avatar)}
-      activeKey={page}
-      onSelect={setPage}
-    >
+    <Dropdown title={user.username} placement="bottomEnd" activeKey={page} onSelect={setPage}>
       <Dropdown.Item panel className={styles.user} eventKey={Pages.HOME}>
         <div>
           {profileImage(user.avatar)}

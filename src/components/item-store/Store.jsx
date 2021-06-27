@@ -88,7 +88,7 @@ export default function Store() {
   const items = req.items.filter((item) => item.buyable);
 
   return (
-    <Panel shaded className={styles.panel}>
+    <Panel className={styles.panel}>
       <Search
         autocomplete={items.map((item) => item.name)}
         value={search}

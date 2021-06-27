@@ -18,7 +18,7 @@ export default function ItemGrid({ user, isInventory }) {
   }, []);
 
   if (!loaded || !user) {
-    return null;
+    return <Panel className={styles.panel} />;
   }
 
   const items = user.items[itemKey];
@@ -35,9 +35,14 @@ export default function ItemGrid({ user, isInventory }) {
           trigger="hover"
           placement="auto"
           delay={400}
-          speaker={
-            <ItemPopover index={index} item={item} place={isInventory ? 'inventory' : 'castle'} />
-          }
+          speaker={(
+            <ItemPopover
+              index={index}
+              item={item}
+              auth={auth}
+              place={isInventory ? 'inventory' : 'castle'}
+            />
+          )}
         >
           <img src={item.url} className={styles.item} alt={item.name} />
         </Whisper>
@@ -49,7 +54,7 @@ export default function ItemGrid({ user, isInventory }) {
     const { items: userItems, ...restProps } = props;
 
     return (
-      <Panel shaded className={styles.panel}>
+      <Panel className={styles.panel}>
         <div className={styles.items}>
           {userItems.map((item, index) => (
             <SortableItem

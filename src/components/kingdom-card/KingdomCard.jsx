@@ -1,27 +1,28 @@
 import React from 'react';
-import { Panel, Placeholder, Button } from 'rsuite';
+import { Panel, Button } from 'rsuite';
 import { Link } from 'react-router-dom';
 import styles from '../../styles/usercard.module.less';
 import { currency } from '../../utils.jsx';
 import kingdomStore, { useKingdomState } from '../../stores/KingdomStore.js';
 import { useUserState } from '../../stores/UserStore.js';
 
-export default function KingdomCard({ id }) {
+export default function KingdomCard({ user }) {
+  if (!user) {
+    return <Panel bodyFill className={styles.kingdomCard} />;
+  }
+
+  const { kingdom: id } = user;
   const [kingdom] = useKingdomState({ id });
   const [temp] = useUserState();
 
   if (!kingdom) {
-    return (
-      <Panel shaded bodyFill className={styles.kingdomCard}>
-        <Placeholder.Graph active height={200} className={styles.placeholder} />
-      </Panel>
-    );
+    return <Panel bodyFill className={styles.kingdomCard} />;
   }
 
   const isMember = kingdomStore.hasMember(id, temp.id);
 
   return (
-    <Panel shaded className={styles.kingdomCard}>
+    <Panel className={styles.kingdomCard}>
       <div className={styles.card}>
         <div className={styles.body}>
           <div>
@@ -30,14 +31,14 @@ export default function KingdomCard({ id }) {
           </div>
           <div className={styles.avatars}>
             {kingdom.members
-              .map((user, i) => (
+              .map((member, i) => (
                 <Link
-                  to={`/profile/${user.id}`}
+                  to={`/profile/${member.id}`}
                   className={styles.avatar}
                   style={{ marginLeft: -16 * i }}
-                  key={user.id}
+                  key={member.id}
                 >
-                  <img src={user.avatar} alt={user.username} />
+                  <img src={member.avatar} alt={member.username} />
                 </Link>
               ))
               .splice(0, 5)}

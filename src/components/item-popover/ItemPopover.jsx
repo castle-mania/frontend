@@ -9,7 +9,9 @@ import {
 import styles from '../../styles/popover.module.less';
 
 export default function ItemPopover(props) {
-  const { item, place, index } = props;
+  const {
+    item, place, index, auth,
+  } = props;
   const buttons = [];
 
   if (item.buyable) {
@@ -66,8 +68,12 @@ export default function ItemPopover(props) {
     <Popover {...props}>
       <h2>{item.name}</h2>
       <p>{`${item.gpm} Gems Per Minute`}</p>
-      <Divider />
-      <div className={styles.popover}>{buttons}</div>
+      {auth && (
+        <>
+          <Divider />
+          <div className={styles.popover}>{buttons}</div>
+        </>
+      )}
     </Popover>
   );
 }

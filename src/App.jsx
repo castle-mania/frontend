@@ -11,8 +11,8 @@ import styles from './styles/app.module.less';
 
 import DiscordAuth from './pages/Auth.jsx';
 import Login from './pages/Login.jsx';
-import User from './pages/User.jsx';
-import Home from './pages/Home.jsx';
+import User from './pages/profile/User.jsx';
+import Home from './pages/profile/Profile.jsx';
 import userStore from './stores/UserStore.js';
 
 function ProtectedRoute(props) {

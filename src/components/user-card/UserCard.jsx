@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react';
 import {
-  Panel, Icon, IconButton, Whisper, Tooltip, Placeholder,
+  Panel, Icon, IconButton, Whisper, Tooltip,
 } from 'rsuite';
 import { setColor, sortItems } from '../../actions/UserActions.js';
 import ColorPicker from '../color-picker/ColorPicker.jsx';
@@ -11,15 +11,11 @@ import userStore from '../../stores/UserStore.js';
 
 export default function Card({ user }) {
   if (!user) {
-    return (
-      <Panel shaded bodyFill className={styles.usercardPanel}>
-        <Placeholder.Graph active />
-      </Panel>
-    );
+    return <Panel bodyFill className={styles.usercardPanel} />;
   }
 
   return (
-    <Panel shaded bodyFill className={styles.usercardPanel}>
+    <Panel bodyFill className={styles.usercardPanel}>
       <div className={styles.usercardTop}>
         <img src={user.avatar} alt={user.username} className={styles.userImage} />
         <div>
