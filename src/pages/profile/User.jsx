@@ -18,7 +18,7 @@ export default function Profile() {
           <ItemGrid user={user} />
           <ItemGrid user={user} isInventory />
         </div>
-        <KingdomCard user={user} />
+        <KingdomCard id={user?.kingdom} />
       </div>
     </div>
   );

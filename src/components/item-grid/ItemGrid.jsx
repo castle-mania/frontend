@@ -5,7 +5,6 @@ import arrayMove from 'array-move';
 import uuid from 'uuid/v4';
 import itemStore from '../../stores/ItemStore.js';
 import styles from '../../styles/item.module.less';
-import { setCastle, setInventory } from '../../actions/UserActions.js';
 import ItemPopover from '../item-popover/ItemPopover.jsx';
 import userStore from '../../stores/UserStore.js';
 
@@ -17,7 +16,7 @@ export default function ItemGrid({ user, isInventory }) {
     itemStore.on('loaded', () => setLoaded(true));
   }, []);
 
-  if (!loaded || !user) {
+  if (!user || !loaded) {
     return <Panel className={styles.panel} />;
   }
 
@@ -34,7 +33,7 @@ export default function ItemGrid({ user, isInventory }) {
           enterable
           trigger="hover"
           placement="auto"
-          delay={400}
+          delay={300}
           speaker={(
             <ItemPopover
               index={index}
@@ -73,8 +72,7 @@ export default function ItemGrid({ user, isInventory }) {
   function onSortEnd({ oldIndex, newIndex }) {
     document.body.style.cursor = 'default';
     const grid = arrayMove(items, oldIndex, newIndex);
-    if (isInventory) setInventory(grid);
-    else setCastle(grid);
+    return grid;
   }
 
   return (

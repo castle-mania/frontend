@@ -4,14 +4,13 @@ import { Link } from 'react-router-dom';
 import styles from '../../styles/usercard.module.less';
 import { currency } from '../../utils.jsx';
 import kingdomStore, { useKingdomState } from '../../stores/KingdomStore.js';
-import { useUserState } from '../../stores/UserStore.js';
+import userStore, { useUserState } from '../../stores/UserStore.js';
 
-export default function KingdomCard({ user }) {
-  if (!user) {
-    return <Panel bodyFill className={styles.kingdomCard} />;
+export default function KingdomCard({ id }) {
+  if (!id) {
+    return null;
   }
 
-  const { kingdom: id } = user;
   const [kingdom] = useKingdomState({ id });
   const [temp] = useUserState();
 
@@ -19,7 +18,7 @@ export default function KingdomCard({ user }) {
     return <Panel bodyFill className={styles.kingdomCard} />;
   }
 
-  const isMember = kingdomStore.hasMember(id, temp.id);
+  const isMember = temp && kingdomStore.hasMember(id, temp.id);
 
   return (
     <Panel className={styles.kingdomCard}>
@@ -44,15 +43,17 @@ export default function KingdomCard({ user }) {
               .splice(0, 5)}
           </div>
         </div>
-        <div className={styles.buttons}>
-          {!isMember ? (
-            <Button appearance="primary" disabled={kingdom.closed}>
-              Join
-            </Button>
-          ) : (
-            <Button disabled={kingdom.closed}>Leave</Button>
-          )}
-        </div>
+        {userStore.isLogged() && (
+          <div className={styles.buttons}>
+            {!isMember ? (
+              <Button appearance="primary" disabled={kingdom.closed}>
+                Join
+              </Button>
+            ) : (
+              <Button disabled={kingdom.closed}>Leave</Button>
+            )}
+          </div>
+        )}
       </div>
     </Panel>
   );

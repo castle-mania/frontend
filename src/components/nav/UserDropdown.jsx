@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Dropdown, Icon, Nav } from 'rsuite';
 import { useHistory } from 'react-router-dom';
 import userStore, { useUserState } from '../../stores/UserStore.js';
@@ -36,15 +36,6 @@ export default function userDropdown({ page, setPage }) {
       >
         Home
       </Dropdown.Item>
-      {user.kingdom !== null && (
-        <Dropdown.Item
-          icon={<Icon icon="home" />}
-          eventKey={Pages.KINGDOM}
-          onSelect={() => history.push(`${Paths[Pages.KINGDOM]}?id=${user.kingdom}`)}
-        >
-          My Kingdom
-        </Dropdown.Item>
-      )}
       <Dropdown.Item
         icon={<Icon icon="people-group" />}
         eventKey={Pages.FRIENDS}

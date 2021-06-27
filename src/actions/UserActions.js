@@ -1,66 +1,44 @@
 import dispatcher from '../dispatcher.js';
 
-export function setColor(color) {
+export function setColor({ color }) {
   dispatcher.dispatch({
     type: 'SET_COLOR',
     color,
   });
 }
 
-export function buyItem(item) {
+export function buy({ key }) {
   dispatcher.dispatch({
-    type: 'BUY_ITEM',
-    item,
+    type: 'BUY',
+    key,
   });
 }
 
-export function sellItem(item) {
+export function sell({ inventory, index }) {
   dispatcher.dispatch({
-    type: 'SELL_ITEM',
-    item,
-  });
-}
-
-export function sellItemByIndex(item, place, index) {
-  dispatcher.dispatch({
-    type: 'SELL_ITEM_INDEX',
-    item,
-    place,
+    type: 'SELL',
+    inventory,
     index,
   });
 }
 
-export function unbox(place, index) {
+export function unbox({ inventory, index }) {
   dispatcher.dispatch({
     type: 'UNBOX',
-    place,
+    inventory,
     index,
   });
 }
 
-export function moveItem(place, index) {
+export function move({ inventory, index }) {
   dispatcher.dispatch({
     type: 'MOVE',
-    place,
+    inventory,
     index,
   });
 }
 
-export function setCastle(items) {
-  dispatcher.dispatch({
-    type: 'CASTLE',
-    items,
-  });
-}
-
-export function setInventory(items) {
-  dispatcher.dispatch({
-    type: 'INVENTORY',
-    items,
-  });
-}
-
-export function sortItems() {
+export function sort() {
   dispatcher.dispatch({
     type: 'SORT',
   });

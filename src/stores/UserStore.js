@@ -6,10 +6,11 @@ import api from '../request.js';
 class UserStore extends EventEmitter {
   constructor() {
     super();
-    this.users = {};
-    this.loggedIn = false;
-    this.user = null;
 
+    this.user = null;
+    this.loggedIn = false;
+
+    this.users = {}; // collection of all fetched users
     this.fetchUser();
   }
 
@@ -26,7 +27,7 @@ class UserStore extends EventEmitter {
   }
 
   getUser(id) {
-    if (id == null) return this.user;
+    if (id == null || id === this.user?.id) return this.user;
 
     if (id in this.users) {
       return this.users[id];
@@ -52,7 +53,9 @@ class UserStore extends EventEmitter {
     this.emit('change', this.user);
   }
 
-  handleActions(action) {}
+  handleActions(action) {
+    console.log(action);
+  }
 }
 
 const userStore = new UserStore();
