@@ -13,6 +13,14 @@
   },
   "plugins": ["react"],
   "rules": {
-    "no-empty": "off"
+    "no-empty": "off",
+    "no-underscore-dangle": "off",
+    "no-param-reassign": [
+      "error",
+      {
+        "props": true,
+        "ignorePropertyModificationsFor": ["state"]
+      }
+    ]
   }
 }
