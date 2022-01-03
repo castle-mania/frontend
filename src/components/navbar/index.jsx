@@ -4,7 +4,7 @@ import {MdNightlight} from 'react-icons/md';
 import {faDiscord} from '@fortawesome/free-brands-svg-icons/faDiscord';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import styles from './style.module.css';
-import {login} from '../../utils/login';
+import Login from './login';
 
 export default function NavBar() {
   const {toggleColorMode} = useColorMode();
@@ -14,11 +14,13 @@ export default function NavBar() {
       <Heading size="sm">CastleMania v2</Heading>
       <div className={styles.buttons}>
         <Button size="sm">Invite Bot</Button>
-        <IconButton size="sm" icon={<FontAwesomeIcon icon={faDiscord} />} onClick={toggleColorMode} />
+        <IconButton
+          size="sm"
+          icon={<FontAwesomeIcon icon={faDiscord} />}
+          onClick={() => window.open('https://discord.gg/SuHeZVDaTD')}
+        />
         <IconButton size="sm" icon={<MdNightlight />} onClick={toggleColorMode} />
-        <Button size="sm" colorScheme="teal" onClick={() => login()}>
-          Login
-        </Button>
+        <Login />
       </div>
     </div>
   );
