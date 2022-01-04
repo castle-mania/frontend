@@ -9,6 +9,9 @@ import DiscordAuth from './auth';
 import Home from './pages/home';
 import {login, userSlice} from './stores/user';
 import api from './utils/api';
+import Succes from './pages/payments/success';
+import Cancel from './pages/payments/cancel';
+import Store from './pages/store';
 
 const store = createStore(
   userSlice.reducer,
@@ -31,6 +34,9 @@ function Router() {
       <Routes>
         <Route path="/discord/callback" exact element={<DiscordAuth />} />
         <Route path="/" element={<Home />} />
+        <Route path="/store" element={<Store />} />
+        <Route path="/payment/success" element={<Succes />} />
+        <Route path="/payment/cancel" element={<Cancel />} />
       </Routes>
     </BrowserRouter>
   );

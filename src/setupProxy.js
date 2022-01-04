@@ -8,4 +8,12 @@ module.exports = (app) => {
       changeOrigin: true,
     })
   );
+
+  app.use(
+    '/stripe',
+    createProxyMiddleware({
+      target: 'http://localhost:8000',
+      changeOrigin: true,
+    })
+  );
 };
