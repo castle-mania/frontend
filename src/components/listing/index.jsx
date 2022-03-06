@@ -1,12 +1,8 @@
-import {Badge, Box, Button, Image} from '@chakra-ui/react';
+import {Badge, Box, Image} from '@chakra-ui/react';
 import React from 'react';
-import {useSelector} from 'react-redux';
-import login from '../../utils/login';
 import styles from './styles.module.css';
 
-export default function Listing({name, description, price, onCheckout}) {
-  const user = useSelector((state) => state?.user?.payload);
-
+export default function Listing({name, description}) {
   return (
     <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
       <Box p="6">
@@ -20,7 +16,7 @@ export default function Listing({name, description, price, onCheckout}) {
           </Badge>
         </Box>
         <Box className={styles.description}>{description}</Box>
-        {user != null ? (
+        {/* {user != null ? (
           <Button onClick={() => onCheckout()} colorScheme="teal" className={styles.button} size="sm">
             Checkout {price}
           </Button>
@@ -28,7 +24,7 @@ export default function Listing({name, description, price, onCheckout}) {
           <Button size="sm" mt="5" colorScheme="teal" className={styles.button} onClick={() => login()}>
             Login
           </Button>
-        )}
+        )} */}
       </Box>
     </Box>
   );

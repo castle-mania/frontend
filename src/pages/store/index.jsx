@@ -1,6 +1,6 @@
 import {Container} from '@chakra-ui/react';
 import React from 'react';
-import Listing from '../../components/listing';
+import Listing from '../../components/Listing';
 import api from '../../utils/api';
 
 export default function Store() {

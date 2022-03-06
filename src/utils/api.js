@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-let accessToken = window.localStorage.getItem('jwt-token');
+let accessToken = localStorage.getItem('jwt-token');
 
 function request(method, path, data = {}) {
   const url = `/api${path}`;
@@ -38,7 +38,7 @@ export default {
     return request('DELETE', path, options);
   },
 
-  SET_TOKEN(token) {
+  setToken(token) {
     accessToken = token;
   },
 };
