@@ -23,7 +23,7 @@ export default function Home() {
           Buying & Selling
         </Checkbox>
         <Checkbox isChecked={false} colorScheme="teal">
-          Kingdoms
+          Groups
         </Checkbox>
         <Checkbox isChecked={false} colorScheme="teal">
           Raiding
