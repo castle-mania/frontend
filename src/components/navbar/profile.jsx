@@ -1,10 +1,9 @@
 import {Avatar, Menu, MenuButton, MenuItem, MenuList} from '@chakra-ui/react';
 import React from 'react';
+import {UserContext} from '../../contexts/UserContext';
 
 export default function Profile({username, avatar}) {
-  function handleLogout() {
-    localStorage.removeItem('jwt-token');
-  }
+  const {logout} = React.useContext(UserContext);
 
   return (
     <Menu>
@@ -12,7 +11,7 @@ export default function Profile({username, avatar}) {
         <Avatar name={username} src={avatar} size="sm" />
       </MenuButton>
       <MenuList>
-        <MenuItem onClick={() => handleLogout()}>Logout</MenuItem>
+        <MenuItem onClick={() => logout()}>Logout</MenuItem>
       </MenuList>
     </Menu>
   );

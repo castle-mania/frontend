@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Succes from './pages/Payments/success';
 import Cancel from './pages/Payments/cancel';
 import Store from './pages/Store';
+import UserProvider from './contexts/UserContext';
 
 function Router() {
   return (
@@ -27,7 +28,9 @@ function Router() {
 function App() {
   return (
     <ChakraProvider>
-      <Router />
+      <UserProvider>
+        <Router />
+      </UserProvider>
     </ChakraProvider>
   );
 }

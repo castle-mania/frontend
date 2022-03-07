@@ -14,6 +14,7 @@ export default function Store() {
       <Listing
         name="5x Gifts"
         price="$4.99"
+        url="/imgs/bundle.png"
         description="Five gifts each containing a random surprise with the chance of being exceedingly rare!"
         onCheckout={() => createPaymentSession()}
       />

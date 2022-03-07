@@ -4,9 +4,11 @@ import React, {useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import styles from './auth.module.css';
 import api from '../utils/api';
+import {UserContext} from '../contexts/UserContext';
 
 export default function DiscordAuth() {
   const navigate = useNavigate();
+  const {login} = React.useContext(UserContext);
   const toast = useToast();
 
   useEffect(async () => {
@@ -14,8 +16,7 @@ export default function DiscordAuth() {
       const {data} = await axios.get(`/auth/discord/callback${window.location.search}`);
       api.setToken(data.token);
       localStorage.setItem('jwt-token', data.token);
-      const res = await api.GET('/users');
-      console.log(res);
+      login();
 
       toast({
         title: 'Account connected.',

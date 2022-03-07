@@ -7,6 +7,9 @@ import {useNavigate} from 'react-router-dom';
 import styles from './style.module.css';
 import Login from './login';
 
+const INVITE_URL =
+  'https://discord.com/api/oauth2/authorize?client_id=757120026867138580&permissions=414464657408&scope=applications.commands%20bot';
+
 export default function NavBar() {
   const {toggleColorMode} = useColorMode();
   const navigate = useNavigate();
@@ -14,10 +17,12 @@ export default function NavBar() {
   return (
     <div className={styles.navBar}>
       <Button size="lg" variant="ghost" onClick={() => navigate('/')}>
-        CastleMania v2
+        Castle Mania v2
       </Button>
       <div className={styles.buttons}>
-        <Button size="sm">Invite Bot</Button>
+        <Button size="sm" onClick={() => window.open(INVITE_URL)}>
+          Invite Bot
+        </Button>
         <IconButton
           size="sm"
           icon={<FontAwesomeIcon icon={faDiscord} />}
