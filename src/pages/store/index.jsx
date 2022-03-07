@@ -13,9 +13,9 @@ export default function Store() {
     <Container w="sm">
       <Listing
         name="5x Gifts"
-        price="$4.99"
+        price="$9.99"
         url="/imgs/bundle.png"
-        description="Five gifts each containing a random surprise with the chance of being exceedingly rare!"
+        description="5 gifts each containing a random surprise with the chance of being exceedingly rare!"
         onCheckout={() => createPaymentSession()}
       />
     </Container>

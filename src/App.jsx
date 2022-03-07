@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './App.css';
 import {ChakraProvider} from '@chakra-ui/react';
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
@@ -25,14 +26,13 @@ function Router() {
   );
 }
 
-function App() {
-  return (
+ReactDOM.render(
+  <React.StrictMode>
     <ChakraProvider>
       <UserProvider>
         <Router />
       </UserProvider>
     </ChakraProvider>
-  );
-}
-
-export default App;
+  </React.StrictMode>,
+  document.getElementById('root')
+);
