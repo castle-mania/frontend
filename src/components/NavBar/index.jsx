@@ -18,7 +18,7 @@ export default function NavBar() {
   return (
     <div className={styles.navBar}>
       <Button size="lg" variant="ghost" onClick={() => navigate('/')}>
-        Castle Mania v2
+        Castle Mania
       </Button>
       <div className={styles.buttons}>
         <Button size="sm" onClick={() => window.open(INVITE_URL)}>
