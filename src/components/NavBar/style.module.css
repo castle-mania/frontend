@@ -10,3 +10,23 @@
   display: flex;
   column-gap: 8px;
 }
+
+.drawer {
+  display: none;
+}
+
+.drawerContent {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 16px;
+}
+
+@media only screen and (max-width: 600px) {
+  .buttons {
+    display: none;
+  }
+  .drawer {
+    display: block;
+  }
+}

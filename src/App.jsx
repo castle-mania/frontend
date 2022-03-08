@@ -10,6 +10,8 @@ import Succes from './pages/Payments/success';
 import Cancel from './pages/Payments/cancel';
 import Store from './pages/Store';
 import UserProvider from './contexts/UserContext';
+import PrivacyPolicy from './pages/Privacy';
+import Terms from './pages/Terms';
 
 function Router() {
   return (
@@ -18,6 +20,8 @@ function Router() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/store" element={<Store />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/terms" element={<Terms />} />
         <Route path="/payment/success" element={<Succes />} />
         <Route path="/payment/cancel" element={<Cancel />} />
         <Route path="/discord/callback" exact element={<DiscordAuth />} />

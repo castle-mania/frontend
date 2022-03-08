@@ -4,7 +4,8 @@ let accessToken = localStorage.getItem('jwt-token');
 
 function request(method, path, data = {}) {
   const url = `/api${path}`;
-  return axios({
+
+  const options = {
     method,
     headers: {
       Accept: 'application/json',
@@ -14,7 +15,9 @@ function request(method, path, data = {}) {
     },
     url,
     data,
-  });
+  };
+
+  return axios(options);
 }
 
 export default {
