@@ -7,9 +7,7 @@ import {useNavigate} from 'react-router-dom';
 import styles from './style.module.css';
 import Login from './login';
 import DrawerNavbar from './drawer';
-
-const INVITE_URL =
-  'https://discord.com/api/oauth2/authorize?client_id=757120026867138580&permissions=414464657408&scope=applications.commands%20bot';
+import {DISCORD_INVITE, INVITE_URL} from '../../constants';
 
 export default function NavBar() {
   const {toggleColorMode} = useColorMode();
@@ -24,10 +22,7 @@ export default function NavBar() {
         <Button size="sm" onClick={() => window.open(INVITE_URL)}>
           Invite Bot
         </Button>
-        <IconButton
-          size="sm"
-          icon={<FontAwesomeIcon icon={faDiscord} />}
-          onClick={() => window.open('https://discord.gg/SuHeZVDaTD')}>
+        <IconButton size="sm" icon={<FontAwesomeIcon icon={faDiscord} />} onClick={() => window.open(DISCORD_INVITE)}>
           Discord
         </IconButton>
         <IconButton size="sm" icon={<MdNightlight />} onClick={toggleColorMode} />
