@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, IconButton, useColorMode} from '@chakra-ui/react';
+import {Button, Container, IconButton, useColorMode} from '@chakra-ui/react';
 import {MdNightlight} from 'react-icons/md';
 import {faDiscord} from '@fortawesome/free-brands-svg-icons/faDiscord';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
@@ -13,7 +13,7 @@ export default function NavBar() {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.navBar}>
+    <Container className={styles.navBar} maxW="container.xl">
       <Button size="lg" variant="ghost" onClick={() => navigate('/')}>
         Castle Mania
       </Button>
@@ -27,6 +27,6 @@ export default function NavBar() {
         <IconButton size="sm" icon={<MdNightlight />} onClick={toggleColorMode} />
         <Login />
       </div>
-    </div>
+    </Container>
   );
 }

@@ -6,7 +6,7 @@ export default function Profile({username, avatar}) {
   const {logout} = React.useContext(UserContext);
 
   return (
-    <Menu>
+    <Menu placement="bottom-end">
       <MenuButton>
         <Avatar name={username} src={avatar} size="sm" />
       </MenuButton>

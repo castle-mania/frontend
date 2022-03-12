@@ -1,6 +1,5 @@
 import {Badge, Box, Button, Image} from '@chakra-ui/react';
 import React from 'react';
-import styles from './styles.module.css';
 import {UserContext} from '../../contexts/UserContext';
 import login from '../../utils/login';
 
@@ -15,17 +14,17 @@ export default function Listing({name, description, url, onCheckout, price}) {
           <Box fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
             {name}
           </Box>
-          <Badge borderRadius="full" px="2" colorScheme="teal">
+          <Badge borderRadius="full" px={2} colorScheme="teal">
             Popular
           </Badge>
         </Box>
-        <Box className={styles.description}>{description}</Box>
+        <Box mt={4}>{description}</Box>
         {user != null ? (
-          <Button onClick={() => onCheckout()} colorScheme="teal" className={styles.button} size="sm">
-            Checkout {price}
+          <Button onClick={() => onCheckout()} colorScheme="teal" mt={4} size="sm">
+            Checkout ${price}
           </Button>
         ) : (
-          <Button size="sm" mt="5" colorScheme="teal" className={styles.button} onClick={() => login()}>
+          <Button size="sm" mt={4} colorScheme="teal" onClick={login}>
             Login
           </Button>
         )}

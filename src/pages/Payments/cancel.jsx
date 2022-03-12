@@ -4,7 +4,7 @@ import React from 'react';
 export default function Cancel() {
   return (
     <Container>
-      <Alert status="info">
+      <Alert status="info" borderRadius="full">
         <AlertIcon />
         Sorry, come back again!
       </Alert>

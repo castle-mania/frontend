@@ -16,6 +16,8 @@
     "no-empty": "off",
     "no-underscore-dangle": "off",
     "react/prop-types": "off",
+    "no-restricted-syntax": "off",
+    "camelcase": "off",
     "no-param-reassign": [
       "error",
       {
