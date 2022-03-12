@@ -11,7 +11,7 @@ async function fetchUser() {
       return null;
     }
 
-    const fetchedUser = await api.GET('/users');
+    const fetchedUser = await api.GET('users');
     return fetchedUser.data.user;
   } catch (err) {
     return null;

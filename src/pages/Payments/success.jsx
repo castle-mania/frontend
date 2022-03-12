@@ -4,7 +4,7 @@ import React from 'react';
 export default function Succes() {
   return (
     <Container>
-      <Alert status="success">
+      <Alert status="success" borderRadius="full">
         <AlertIcon />
         Success, thank you for your purchase!
       </Alert>

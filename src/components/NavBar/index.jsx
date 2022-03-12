@@ -1,12 +1,11 @@
 import React from 'react';
-import {Button, IconButton, useColorMode} from '@chakra-ui/react';
+import {Button, Container, IconButton, useColorMode} from '@chakra-ui/react';
 import {MdNightlight} from 'react-icons/md';
 import {faDiscord} from '@fortawesome/free-brands-svg-icons/faDiscord';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useNavigate} from 'react-router-dom';
 import styles from './style.module.css';
 import Login from './login';
-import DrawerNavbar from './drawer';
 import {DISCORD_INVITE, INVITE_URL} from '../../constants';
 
 export default function NavBar() {
@@ -14,7 +13,7 @@ export default function NavBar() {
   const navigate = useNavigate();
 
   return (
-    <div className={styles.navBar}>
+    <Container className={styles.navBar} maxW="container.xl">
       <Button size="lg" variant="ghost" onClick={() => navigate('/')}>
         Castle Mania
       </Button>
@@ -28,7 +27,6 @@ export default function NavBar() {
         <IconButton size="sm" icon={<MdNightlight />} onClick={toggleColorMode} />
         <Login />
       </div>
-      <DrawerNavbar />
-    </div>
+    </Container>
   );
 }
