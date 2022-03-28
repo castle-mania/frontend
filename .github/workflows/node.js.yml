@@ -19,7 +19,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
-      - run: npm ci
+      - run: npm ci --max-old-space-size=1000 
       - name: Build
         run: npm run build
       - name: PM2 Restart
