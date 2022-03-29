@@ -21,7 +21,7 @@ import LoginButton from '../LoginButton';
 
 const LINKS = [
   {href: '/', name: 'Home'},
-  {href: '/store', name: 'Store'},
+  // {href: '/store', name: 'Store'},
   {href: '/leaderboards', name: 'Leaderboards'},
 ];
 

@@ -16,6 +16,8 @@ import {DISCORD_INVITE, INVITE_URL} from './constants';
 import Footer from './components/Footer';
 import StoreProvider from './contexts/StoreContext';
 import theme from './theme';
+import Leaderboard from './pages/Leaderboards';
+import LeaderboardProvider from './contexts/LeaderboardContext';
 
 function Redirect({to}) {
   useEffect(() => {
@@ -31,6 +33,7 @@ function Router() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/store" element={<Store />} />
+        <Route path="/leaderboards" element={<Leaderboard />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<Terms />} />
         <Route path="/payment/success" element={<Succes />} />
@@ -49,7 +52,9 @@ ReactDOM.render(
     <ChakraProvider theme={theme}>
       <UserProvider>
         <StoreProvider>
-          <Router />
+          <LeaderboardProvider>
+            <Router />
+          </LeaderboardProvider>
         </StoreProvider>
       </UserProvider>
     </ChakraProvider>
