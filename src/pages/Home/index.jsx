@@ -14,12 +14,10 @@ export default function Home() {
         direction={{base: 'column-reverse', lg: 'row'}}
         rowGap={8}
         wrap="no-wrap"
-        minH="70vh"
-        px={8}
-        mb={16}>
-        <Stack spacing={4} w={{base: '100%', lg: '40%'}} align={['left', 'left', 'flex-start', 'flex-start']}>
+        minH="70vh">
+        <Stack spacing={4} w={{base: 'md', xl: '40%'}} align={['left', 'left', 'flex-start', 'flex-start']}>
           <Heading size="3xl">Accelerate Your Guild&apos;s Retention</Heading>
-          <Text maxW={{base: '50%', lg: '100%'}}>
+          <Text>
             Castle Mania is a Unique Global Currency game that allows you to Buy, Sell, Raid and Gamble your way to the
             top of the leaderboard!
           </Text>

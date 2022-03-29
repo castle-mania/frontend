@@ -13,6 +13,9 @@ import UserProvider from './contexts/UserContext';
 import PrivacyPolicy from './pages/Privacy';
 import Terms from './pages/Terms';
 import {DISCORD_INVITE, INVITE_URL} from './constants';
+import Footer from './components/Footer';
+import StoreProvider from './contexts/StoreContext';
+import theme from './theme';
 
 function Redirect({to}) {
   useEffect(() => {
@@ -36,15 +39,18 @@ function Router() {
         <Route path="/invite" exact element={<Redirect to={INVITE_URL} />} />
         <Route path="/discord" exact element={<Redirect to={DISCORD_INVITE} />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }
 
 ReactDOM.render(
   <React.StrictMode>
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <UserProvider>
-        <Router />
+        <StoreProvider>
+          <Router />
+        </StoreProvider>
       </UserProvider>
     </ChakraProvider>
   </React.StrictMode>,

@@ -1,6 +1,7 @@
 import {Container, SimpleGrid} from '@chakra-ui/react';
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useMemo} from 'react';
 import Listing from '../../components/Listing';
+import {StoreContext} from '../../contexts/StoreContext';
 import api from '../../utils/api';
 
 async function createPaymentSession(priceId) {
@@ -13,35 +14,43 @@ async function createPaymentSession(priceId) {
 }
 
 export default function Store() {
-  const [error, setError] = useState(false);
-  const [products, setProducts] = useState([]);
+  const store = useContext(StoreContext);
+  const {products} = store;
 
-  useEffect(async () => {
-    try {
-      const fetchedProducts = await api.GET('products');
-      setProducts(fetchedProducts.data);
-    } catch (err) {
-      setError(true);
+  const sortedProducts = useMemo(
+    () => (products != null ? products.sort((a, b) => a.price - b.price) : null),
+    [products]
+  );
+
+  useEffect(() => {
+    if (products == null) {
+      store.fetchProducts();
     }
   }, []);
 
-  if (error) {
-    return null;
-  }
-
   return (
-    <Container maxW="container.xl">
-      <SimpleGrid minChildWidth={220} gap={6}>
-        {products.map((product) => (
-          <Listing
-            key={product.id}
-            name={product.name}
-            price={product.price / 100}
-            url="/imgs/square_buttload_gems.png"
-            description={product.description}
-            onCheckout={() => createPaymentSession(product.id)}
-          />
-        ))}
+    <Container maxW="container.xl" minH="70vh" pt={8}>
+      <SimpleGrid minChildWidth={220} gap={8}>
+        {products !== null ? (
+          sortedProducts.map((product) => (
+            <Listing
+              loaded
+              key={product.id}
+              name={product.name}
+              price={product.price}
+              url="/imgs/square_buttload_gems.png"
+              description={product.description}
+              onCheckout={() => createPaymentSession(product.id)}
+            />
+          ))
+        ) : (
+          <>
+            <Listing loaded={false} />
+            <Listing loaded={false} />
+            <Listing loaded={false} />
+            <Listing loaded={false} />
+          </>
+        )}
       </SimpleGrid>
     </Container>
   );

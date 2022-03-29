@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import {
   Flex,
@@ -9,34 +10,31 @@ import {
   MenuDivider,
   Stack,
   useColorMode,
-  Button,
   IconButton,
   Heading,
   Box,
 } from '@chakra-ui/react';
-import {MdArrowForward, MdLightMode, MdModeNight} from 'react-icons/md';
+import {MdLightMode, MdModeNight} from 'react-icons/md';
+import {Link} from 'react-router-dom';
 import {UserContext} from '../../contexts/UserContext';
-import login from '../../utils/login';
+import LoginButton from '../LoginButton';
 
-// function NavLink({children}) {
-//   return (
-//     <Link
-//       px={2}
-//       py={1}
-//       rounded="md"
-//       _hover={{
-//         textDecoration: 'none',
-//         bg: useColorModeValue('gray.200', 'gray.700'),
-//       }}
-//       href="#">
-//       {children}
-//     </Link>
-//   );
-// }
+const LINKS = [
+  {href: '/', name: 'Home'},
+  {href: '/store', name: 'Store'},
+  {href: '/leaderboards', name: 'Leaderboards'},
+];
 
+function NavLink({href, children}) {
+  return (
+    <Link p={2} to={href} rounded="md">
+      {children}
+    </Link>
+  );
+}
 function Profile({username, avatar, logout}) {
   return (
-    <Menu>
+    <Menu placement="bottom-end">
       <MenuButton>
         <Avatar size="sm" name={username} src={avatar} />
       </MenuButton>
@@ -52,13 +50,18 @@ export default function Nav() {
   const {colorMode, toggleColorMode} = useColorMode();
   const {logout, user} = React.useContext(UserContext);
 
-  // const { isOpen, onOpen, onClose } = useDisclosure();
-
   return (
-    <Box px={4}>
+    <Box px={4} as="nav">
       <Flex justifyContent="center">
         <Flex h={16} alignItems="center" justifyContent="space-between" alignSelf="center" w="container.xl">
           <Heading size="md">Castle Mania</Heading>
+          <Flex columnGap={8}>
+            {LINKS.map((link) => (
+              <NavLink key={link.name} href={link.href}>
+                {link.name}
+              </NavLink>
+            ))}
+          </Flex>
           <Flex alignItems="center">
             <Stack direction="row" spacing={4}>
               <IconButton
@@ -69,9 +72,7 @@ export default function Nav() {
               {user != null ? (
                 <Profile username={user.username} avatar={user.avatar} logout={logout} />
               ) : (
-                <Button size="sm" colorScheme="teal" rightIcon={<MdArrowForward />} onClick={login}>
-                  Log in
-                </Button>
+                <LoginButton />
               )}
             </Stack>
           </Flex>
