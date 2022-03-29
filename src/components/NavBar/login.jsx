@@ -1,5 +1,6 @@
 import {Button} from '@chakra-ui/react';
 import React from 'react';
+import {MdOutlineLogin} from 'react-icons/md';
 import {UserContext} from '../../contexts/UserContext';
 import login from '../../utils/login';
 import Profile from './profile';
@@ -13,7 +14,7 @@ export default function LoginButton() {
   }
 
   return (
-    <Button size="sm" colorScheme="teal" onClick={login}>
+    <Button size="sm" leftIcon={<MdOutlineLogin />} colorScheme="teal" onClick={login}>
       Login
     </Button>
   );

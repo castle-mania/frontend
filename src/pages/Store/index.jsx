@@ -37,7 +37,7 @@ export default function Store() {
             key={product.id}
             name={product.name}
             price={product.price / 100}
-            url="/imgs/slot_machine_transparent.gif"
+            url="/imgs/square_buttload_gems.png"
             description={product.description}
             onCheckout={() => createPaymentSession(product.id)}
           />

@@ -18,6 +18,7 @@
     "react/prop-types": "off",
     "no-restricted-syntax": "off",
     "camelcase": "off",
+    "react/jsx-props-no-spreading": "off",
     "no-param-reassign": [
       "error",
       {
