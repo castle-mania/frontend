@@ -1,4 +1,4 @@
-import {Container, SimpleGrid} from '@chakra-ui/react';
+import {Box, Container, SimpleGrid} from '@chakra-ui/react';
 import React, {useContext, useEffect, useMemo} from 'react';
 import Listing from '../../components/Listing';
 import {StoreContext} from '../../contexts/StoreContext';
@@ -29,16 +29,18 @@ export default function Store() {
   }, []);
 
   return (
-    <Container maxW="container.xl" minH="70vh" pt={8}>
+    <Container maxW="container.xl" minH="100vh" p={8}>
+      <Box h="64px" />
       <SimpleGrid minChildWidth={220} gap={8}>
         {products !== null ? (
           sortedProducts.map((product) => (
             <Listing
               loaded
+              popular={product.popular}
               key={product.id}
               name={product.name}
               price={product.price}
-              url="/imgs/square_buttload_gems.png"
+              url={product.image}
               description={product.description}
               onCheckout={() => createPaymentSession(product.id)}
             />

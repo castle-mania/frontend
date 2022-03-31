@@ -3,7 +3,7 @@ import {Box, Flex, Stack} from '@chakra-ui/react';
 
 export default function Step({videoUrl, children, reverse}) {
   const video = (
-    <Box boxSize="lg" borderRadius="3xl" overflow="hidden">
+    <Box boxSize="sm" borderRadius="3xl" overflow="hidden">
       <video src={videoUrl} autoPlay loop muted />
     </Box>
   );
@@ -16,7 +16,6 @@ export default function Step({videoUrl, children, reverse}) {
       wrap="no-wrap"
       rowGap={8}
       minH="20vh"
-      px={8}
       mb={16}>
       {!reverse ? video : null}
       <Stack spacing={4} w={{base: 'md', lg: '40%'}} align={['left', 'left', 'flex-start', 'flex-start']}>

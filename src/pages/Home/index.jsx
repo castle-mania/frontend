@@ -14,7 +14,7 @@ export default function Home() {
         direction={{base: 'column-reverse', lg: 'row'}}
         rowGap={8}
         wrap="no-wrap"
-        minH="70vh">
+        minH="100vh">
         <Stack spacing={4} w={{base: 'md', xl: '40%'}} align={['left', 'left', 'flex-start', 'flex-start']}>
           <Heading size="3xl">Accelerate Your Guild&apos;s Retention</Heading>
           <Text>

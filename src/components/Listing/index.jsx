@@ -1,5 +1,6 @@
-import {Badge, Box, Button, Flex, Image, Skeleton} from '@chakra-ui/react';
+import {Badge, Box, Button, Flex, Image, Skeleton, useColorModeValue} from '@chakra-ui/react';
 import React from 'react';
+import {MdArrowForward} from 'react-icons/md';
 import {UserContext} from '../../contexts/UserContext';
 import LoginButton from '../LoginButton';
 
@@ -15,17 +16,22 @@ function CheckoutButton({user, onCheckout, price}) {
   }
 
   return (
-    <Button onClick={() => onCheckout()} colorScheme="teal" size="sm">
+    <Button onClick={onCheckout} rightIcon={<MdArrowForward />} colorScheme="teal" size="sm">
       Checkout {formatPrice(price, user.locale)}
     </Button>
   );
 }
 
-export default function Listing({name, description, url, onCheckout, price, loaded}) {
+export default function Listing({name, description, url, onCheckout, price, loaded, popular}) {
   const {user} = React.useContext(UserContext);
 
   return (
-    <Box borderWidth="1px" borderRadius="lg" overflow="hidden">
+    <Box
+      boxShadow="lg"
+      shadow={1}
+      backgroundColor={useColorModeValue('gray.200', 'gray.900')}
+      borderRadius="md"
+      overflow="hidden">
       <Skeleton isLoaded={loaded} p="6" h={!loaded ? 420 : 'auto'}>
         <Box minH={250}>
           <Image src={`${process.env.PUBLIC_URL}${url}`} />
@@ -35,9 +41,11 @@ export default function Listing({name, description, url, onCheckout, price, load
             <Box fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
               {name}
             </Box>
-            <Badge borderRadius="full" px={2} colorScheme="teal">
-              Popular
-            </Badge>
+            {popular ? (
+              <Badge borderRadius="full" px={2} colorScheme="teal">
+                Popular
+              </Badge>
+            ) : null}
           </Box>
           <Box>{description}</Box>
           <CheckoutButton user={user} price={price} onCheckout={onCheckout} />

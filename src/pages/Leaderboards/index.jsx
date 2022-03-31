@@ -1,5 +1,6 @@
-import {Avatar, Container, Flex, Text, useColorModeValue} from '@chakra-ui/react';
+import {Avatar, Box, Container, Flex, Text, useColorModeValue} from '@chakra-ui/react';
 import React, {useContext, useEffect} from 'react';
+import Currency, {Types} from '../../components/Currency';
 import {LeaderboardContext} from '../../contexts/LeaderboardContext';
 
 export default function Leaderboard() {
@@ -17,8 +18,9 @@ export default function Leaderboard() {
   }
 
   return (
-    <Container maxW="container.xl" minH="70vh" pt={8}>
-      <Flex rowGap={4} direction="column">
+    <Container maxW="container.xl" minH="100vh" p={8}>
+      <Box h="64px" />
+      <Flex rowGap={4} direction="column" w="100%">
         {users.map((user) => (
           <Container maxW="container.sm" bg={useColorModeValue('gray.100', 'gray.900')} rounded="md" p={4}>
             <Flex alignItems="center" justifyContent="space-between">
@@ -26,7 +28,7 @@ export default function Leaderboard() {
                 <Avatar src={user.avatar} size="sm" />
                 <Text>{user.username}</Text>
               </Flex>
-              <Text>{user.money.toFixed(2)}</Text>
+              <Currency type={Types.COIN} value={user.money} />
             </Flex>
           </Container>
         ))}
