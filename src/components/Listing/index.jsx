@@ -16,7 +16,7 @@ function CheckoutButton({user, onCheckout, price}) {
   }
 
   return (
-    <Button onClick={onCheckout} rightIcon={<MdArrowForward />} colorScheme="teal" size="sm">
+    <Button size="md" onClick={onCheckout} rightIcon={<MdArrowForward />} colorScheme="teal">
       Checkout {formatPrice(price, user.locale)}
     </Button>
   );

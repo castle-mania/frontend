@@ -14,12 +14,19 @@ import {
   Heading,
   Box,
   useColorModeValue,
+  Drawer,
+  DrawerContent,
+  DrawerOverlay,
+  useDisclosure,
+  Link,
 } from '@chakra-ui/react';
-import {MdLightMode, MdLogout, MdModeNight} from 'react-icons/md';
-import {Link} from 'react-router-dom';
+import {MdLightMode, MdLogout, MdMenu, MdModeNight} from 'react-icons/md';
+import * as ReactDOM from 'react-router-dom';
 import {UserContext} from '../../contexts/UserContext';
 import LoginButton from '../LoginButton';
 import Currency, {Types} from '../Currency';
+
+const ReactLink = ReactDOM.Link;
 
 const LINKS = [
   {href: '/', name: 'Home'},
@@ -27,13 +34,6 @@ const LINKS = [
   {href: '/leaderboards', name: 'Leaderboards'},
 ];
 
-function NavLink({href, children}) {
-  return (
-    <Link p={2} to={href} rounded="md">
-      {children}
-    </Link>
-  );
-}
 function Profile({username, avatar, logout}) {
   const {toggleColorMode} = useColorMode();
 
@@ -57,52 +57,101 @@ function Profile({username, avatar, logout}) {
 
 export default function Nav() {
   const {colorMode, toggleColorMode} = useColorMode();
+  const {isOpen, onOpen, onClose} = useDisclosure();
+  const btnRef = React.useRef();
   const {logout, user} = React.useContext(UserContext);
 
   return (
-    <Box
-      px={4}
-      zIndex={1}
-      as="nav"
-      bg={useColorModeValue('gray.100', 'gray.900')}
-      position="fixed"
-      w="100vw"
-      shadow={1}
-      borderWidth={2}
-      borderColor={useColorModeValue('gray.200', 'gray.800')}>
-      <Flex justifyContent="center">
-        <Flex h={16} alignItems="center" justifyContent="space-between" alignSelf="center" w="container.xl">
-          <Flex columnGap={8}>
-            <Heading size="md">Castle Mania</Heading>
-            {LINKS.map((link) => (
-              <NavLink key={link.name} href={link.href}>
-                {link.name}
-              </NavLink>
-            ))}
-          </Flex>
-          <Flex alignItems="center">
-            <Stack direction="row" spacing={4}>
-              {user != null ? (
-                <>
-                  <Currency type={Types.GEM} value={user.funds} />
-                  <Currency type={Types.COIN} value={user.money} />
-                  <Profile username={user.username} avatar={user.avatar} logout={logout} />
-                </>
-              ) : (
-                <>
-                  <IconButton
-                    size="sm"
-                    variant="ghost"
-                    onClick={toggleColorMode}
-                    icon={colorMode === 'light' ? <MdModeNight /> : <MdLightMode />}
-                  />
-                  <LoginButton />
-                </>
-              )}
-            </Stack>
+    <>
+      <Box
+        display={{base: 'none', md: 'block'}}
+        px={4}
+        zIndex={1}
+        as="nav"
+        bg={useColorModeValue('gray.100', 'gray.900')}
+        w="100vw"
+        shadow={1}
+        borderWidth={2}
+        borderColor={useColorModeValue('gray.200', 'gray.800')}>
+        <Flex justifyContent="center">
+          <Flex h={16} alignItems="center" justifyContent="space-between" alignSelf="center" w="container.xl">
+            <Flex columnGap={8} alignItems="center">
+              <Heading size="md">Castle Mania</Heading>
+              {LINKS.map((link) => (
+                <Link as={ReactLink} p={2} to={link.href} rounded="md">
+                  {link.name}
+                </Link>
+              ))}
+            </Flex>
+            <Flex alignItems="center">
+              <Stack direction="row" spacing={4}>
+                {user != null ? (
+                  <>
+                    <Currency type={Types.GEM} value={user.funds} />
+                    <Currency type={Types.COIN} value={user.money} />
+                    <Profile username={user.username} avatar={user.avatar} logout={logout} />
+                  </>
+                ) : (
+                  <>
+                    <IconButton
+                      size="sm"
+                      variant="ghost"
+                      onClick={toggleColorMode}
+                      icon={colorMode === 'light' ? <MdModeNight /> : <MdLightMode />}
+                    />
+                    <LoginButton />
+                  </>
+                )}
+              </Stack>
+            </Flex>
           </Flex>
         </Flex>
-      </Flex>
-    </Box>
+      </Box>
+      <Box
+        display={{base: 'visible', md: 'none'}}
+        px={4}
+        zIndex={1}
+        as="nav"
+        bg={useColorModeValue('gray.100', 'gray.900')}
+        w="100vw"
+        shadow={1}
+        borderWidth={2}
+        borderColor={useColorModeValue('gray.200', 'gray.800')}>
+        <Flex alignItems="center" justifyContent="space-between" w="100%" p={2}>
+          <IconButton variant="ghost" icon={<MdMenu fontSize={24} />} ref={btnRef} onClick={onOpen} />
+          <Stack direction="row" spacing={4}>
+            {user != null ? (
+              <>
+                <Currency type={Types.GEM} value={user.funds} />
+                <Currency type={Types.COIN} value={user.money} />
+              </>
+            ) : (
+              <>
+                <IconButton
+                  size="sm"
+                  variant="ghost"
+                  onClick={toggleColorMode}
+                  icon={colorMode === 'light' ? <MdModeNight /> : <MdLightMode />}
+                />
+                <LoginButton />
+              </>
+            )}
+          </Stack>
+        </Flex>
+      </Box>
+      <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
+        <DrawerOverlay />
+        <DrawerContent>
+          <Flex direction="column" m={4} rowGap={2} h="100%">
+            {LINKS.map((link) => (
+              <Link as={ReactLink} p={2} to={link.href} rounded="md">
+                {link.name}
+              </Link>
+            ))}
+            <LoginButton />
+          </Flex>
+        </DrawerContent>
+      </Drawer>
+    </>
   );
 }

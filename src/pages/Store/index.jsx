@@ -1,4 +1,4 @@
-import {Box, Container, SimpleGrid} from '@chakra-ui/react';
+import {Container, SimpleGrid} from '@chakra-ui/react';
 import React, {useContext, useEffect, useMemo} from 'react';
 import Listing from '../../components/Listing';
 import {StoreContext} from '../../contexts/StoreContext';
@@ -29,9 +29,8 @@ export default function Store() {
   }, []);
 
   return (
-    <Container maxW="container.xl" minH="100vh" p={8}>
-      <Box h="64px" />
-      <SimpleGrid minChildWidth={220} gap={8}>
+    <Container maxW="container.xl" p={4}>
+      <SimpleGrid minChildWidth={220} gap={4}>
         {products !== null ? (
           sortedProducts.map((product) => (
             <Listing

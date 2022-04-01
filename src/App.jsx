@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import './App.css';
-import {ChakraProvider} from '@chakra-ui/react';
+import {Box, ChakraProvider} from '@chakra-ui/react';
 import {Route, Routes, BrowserRouter} from 'react-router-dom';
 import NavBar from './components/NavBar';
 import DiscordAuth from './authentication';
@@ -29,20 +29,24 @@ function Redirect({to}) {
 function Router() {
   return (
     <BrowserRouter>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/store" element={<Store />} />
-        <Route path="/leaderboards" element={<Leaderboard />} />
-        <Route path="/privacy" element={<PrivacyPolicy />} />
-        <Route path="/terms" element={<Terms />} />
-        <Route path="/payment/success" element={<Succes />} />
-        <Route path="/payment/cancel" element={<Cancel />} />
-        <Route path="/discord/callback" exact element={<DiscordAuth />} />
-        <Route path="/invite" exact element={<Redirect to={INVITE_URL} />} />
-        <Route path="/discord" exact element={<Redirect to={DISCORD_INVITE} />} />
-      </Routes>
-      <Footer />
+      <Box>
+        <Box minH="100vh" pb={200}>
+          <NavBar />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/store" element={<Store />} />
+            <Route path="/leaderboards" element={<Leaderboard />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/payment/success" element={<Succes />} />
+            <Route path="/payment/cancel" element={<Cancel />} />
+            <Route path="/discord/callback" exact element={<DiscordAuth />} />
+            <Route path="/invite" exact element={<Redirect to={INVITE_URL} />} />
+            <Route path="/discord" exact element={<Redirect to={DISCORD_INVITE} />} />
+          </Routes>
+        </Box>
+        <Footer />
+      </Box>
     </BrowserRouter>
   );
 }
