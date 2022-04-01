@@ -33,7 +33,7 @@ export default function Listing({name, description, url, onCheckout, price, load
       borderRadius="md"
       overflow="hidden">
       <Skeleton isLoaded={loaded} p="6" h={!loaded ? 420 : 'auto'}>
-        <Box minH={250}>
+        <Box>
           <Image src={`${process.env.PUBLIC_URL}${url}`} />
         </Box>
         <Flex direction="column" rowGap={4}>

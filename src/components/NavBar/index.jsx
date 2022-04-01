@@ -117,7 +117,7 @@ export default function Nav() {
         shadow={1}
         borderWidth={2}
         borderColor={useColorModeValue('gray.200', 'gray.800')}>
-        <Flex alignItems="center" justifyContent="space-between" w="100%" p={2}>
+        <Flex alignItems="center" justifyContent="space-between" w="100%" p={3}>
           <IconButton variant="ghost" icon={<MdMenu fontSize={24} />} ref={btnRef} onClick={onOpen} />
           <Stack direction="row" spacing={4}>
             {user != null ? (
