@@ -19,6 +19,7 @@ import {
   DrawerOverlay,
   useDisclosure,
   Link,
+  Switch,
 } from '@chakra-ui/react';
 import {MdLightMode, MdLogout, MdMenu, MdModeNight} from 'react-icons/md';
 import * as ReactDOM from 'react-router-dom';
@@ -29,7 +30,6 @@ import Currency, {Types} from '../Currency';
 const ReactLink = ReactDOM.Link;
 
 const LINKS = [
-  {href: '/', name: 'Home'},
   {href: '/store', name: 'Store'},
   {href: '/leaderboards', name: 'Leaderboards'},
 ];
@@ -76,7 +76,9 @@ export default function Nav() {
         <Flex justifyContent="center">
           <Flex h={16} alignItems="center" justifyContent="space-between" alignSelf="center" w="container.xl">
             <Flex columnGap={8} alignItems="center">
-              <Heading size="md">Castle Mania</Heading>
+              <Heading as={ReactLink} to="/" size="md">
+                Castle Mania
+              </Heading>
               {LINKS.map((link) => (
                 <Link as={ReactLink} p={2} to={link.href} rounded="md">
                   {link.name}
@@ -133,7 +135,7 @@ export default function Nav() {
                   onClick={toggleColorMode}
                   icon={colorMode === 'light' ? <MdModeNight /> : <MdLightMode />}
                 />
-                <LoginButton />
+                <LoginButton size="sm" />
               </>
             )}
           </Stack>
@@ -143,11 +145,18 @@ export default function Nav() {
         <DrawerOverlay />
         <DrawerContent>
           <Flex direction="column" m={4} rowGap={2} h="100%">
+            <Heading p={2} as={ReactLink} to="/" size="md">
+              Castle Mania
+            </Heading>
             {LINKS.map((link) => (
               <Link as={ReactLink} p={2} to={link.href} rounded="md">
                 {link.name}
               </Link>
             ))}
+            <Flex justifyContent="space-between" p={2}>
+              Dark Mode
+              <Switch onChange={toggleColorMode} isChecked={colorMode === 'dark'} />
+            </Flex>
             <LoginButton />
           </Flex>
         </DrawerContent>
