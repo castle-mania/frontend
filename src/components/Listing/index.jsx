@@ -32,9 +32,9 @@ export default function Listing({name, description, url, onCheckout, price, load
       backgroundColor={useColorModeValue('gray.200', 'gray.900')}
       borderRadius="md"
       overflow="hidden">
-      <Skeleton isLoaded={loaded} p="6" h={!loaded ? 420 : 'auto'}>
+      <Skeleton isLoaded={loaded} p="6">
         <Box>
-          <Image src={`${process.env.PUBLIC_URL}${url}`} />
+          <Image src={`${process.env.PUBLIC_URL}${url}`} alt={name} fallbackSrc="https://via.placeholder.com/150" />
         </Box>
         <Flex direction="column" rowGap={4}>
           <Box display="flex" alignItems="center" columnGap="2">
@@ -42,7 +42,7 @@ export default function Listing({name, description, url, onCheckout, price, load
               {name}
             </Box>
             {popular ? (
-              <Badge borderRadius="full" px={2} colorScheme="teal">
+              <Badge borderRadius="full" px={2} colorScheme="orange">
                 Popular
               </Badge>
             ) : null}

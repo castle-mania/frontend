@@ -101,7 +101,7 @@ export default function Nav() {
                       onClick={toggleColorMode}
                       icon={colorMode === 'light' ? <MdModeNight /> : <MdLightMode />}
                     />
-                    <LoginButton />
+                    <LoginButton size="sm" />
                   </>
                 )}
               </Stack>
