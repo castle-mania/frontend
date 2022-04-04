@@ -34,7 +34,7 @@ export default function Listing({name, description, url, onCheckout, price, load
       overflow="hidden">
       <Skeleton isLoaded={loaded} p="6">
         <Box>
-          <Image src={`${process.env.PUBLIC_URL}${url}`} alt={name} fallbackSrc="https://via.placeholder.com/150" />
+          <Image src={`${process.env.PUBLIC_URL}${url}`} alt={name} />
         </Box>
         <Flex direction="column" rowGap={4}>
           <Box display="flex" alignItems="center" columnGap="2">
