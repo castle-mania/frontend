@@ -23,7 +23,7 @@ function CheckoutButton({user, onCheckout, price}) {
       rightIcon={<MdArrowForward />}
       _hover={{backgroundColor: useColorModeValue('gray.600', 'gray.700')}}
       color={useColorModeValue('gray.200', 'gray.300')}
-      backgroundColor={useColorModeValue('gray.800', 'gray.800')}>
+      backgroundColor={useColorModeValue('gray.700', 'gray.800')}>
       Checkout {formatPrice(price, user.locale)}
     </Button>
   );

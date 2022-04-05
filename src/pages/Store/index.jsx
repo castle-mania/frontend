@@ -30,7 +30,7 @@ export default function Store() {
 
   return (
     <Container maxW="container.xl" px={{xl: 0, base: '16px'}} mt={4}>
-      <SimpleGrid minChildWidth={220} gap={4}>
+      <SimpleGrid minChildWidth={275} gap={4}>
         {products !== null ? (
           sortedProducts.map((product) => (
             <Listing
