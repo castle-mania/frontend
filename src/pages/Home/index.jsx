@@ -7,11 +7,11 @@ import SupportDiscordButton from '../../components/SupportDiscordButton';
 
 export default function Home() {
   return (
-    <Container maxW="container.xl" my={4}>
+    <Container maxW="container.xl" my={4} px={{xl: 0, base: '16px'}}>
       <Flex
         align="center"
         columnGap={16}
-        justify={{base: 'center', md: 'space-around', xl: 'space-between'}}
+        justify={{base: 'center', md: 'space-between'}}
         direction={{base: 'column-reverse', md: 'row'}}
         wrap="no-wrap">
         <Stack spacing={4} w={{base: null, lg: '40%'}} align={['left', 'left', 'flex-start', 'flex-start']} maxW="lg">

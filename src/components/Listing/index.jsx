@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import {Badge, Box, Button, Flex, Image, Skeleton, useColorModeValue} from '@chakra-ui/react';
 import React from 'react';
 import {MdArrowForward} from 'react-icons/md';
@@ -32,11 +33,9 @@ export default function Listing({name, description, url, onCheckout, price, load
       backgroundColor={useColorModeValue('gray.200', 'gray.900')}
       borderRadius="md"
       overflow="hidden">
-      <Skeleton isLoaded={loaded} p="6">
-        <Box>
-          <Image src={`${process.env.PUBLIC_URL}${url}`} alt={name} />
-        </Box>
-        <Flex direction="column" rowGap={4}>
+      <Skeleton isLoaded={loaded} p={4}>
+        <Image w="100%" src={`${process.env.PUBLIC_URL}${url}`} alt={name} fallback={<Box mt="100%" />} />
+        <Flex direction="column" rowGap={4} minH={144}>
           <Box display="flex" alignItems="center" columnGap="2">
             <Box fontWeight="semibold" as="h4" lineHeight="tight" isTruncated>
               {name}
