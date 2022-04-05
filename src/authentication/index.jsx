@@ -33,7 +33,7 @@ export default function DiscordAuth() {
 
   return (
     <Container className={styles.container}>
-      <Spinner colorScheme="teal" size="sm" />
+      <Spinner colorScheme="green" size="sm" />
       <Text>Authenticating</Text>
     </Container>
   );

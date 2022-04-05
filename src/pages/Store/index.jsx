@@ -37,6 +37,7 @@ export default function Store() {
               loaded
               popular={product.popular}
               key={product.id}
+              amount={product?.metadata?.quantity}
               name={product.name}
               price={product.price}
               url={product.image}

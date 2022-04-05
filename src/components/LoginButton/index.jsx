@@ -9,14 +9,14 @@ export default function LoginButton(props) {
 
   if (user != null) {
     return (
-      <Button {...props} colorScheme="teal" rightIcon={<MdLogout />} onClick={logout}>
+      <Button {...props} colorScheme="green" rightIcon={<MdLogout />} onClick={logout}>
         Log Out
       </Button>
     );
   }
 
   return (
-    <Button {...props} colorScheme="teal" rightIcon={<MdArrowForward />} onClick={login}>
+    <Button {...props} colorScheme="green" rightIcon={<MdArrowForward />} onClick={login}>
       Log in
     </Button>
   );
