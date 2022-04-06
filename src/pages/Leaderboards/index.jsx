@@ -82,7 +82,7 @@ export default function Leaderboard() {
           <TrophyPlace user={thirdUser} size="xl" place={3} />
         </Flex>
       </Box>
-      <Flex flexDirection="column" rowGap={4} m={4}>
+      <Flex flexDirection="column" rowGap={4} my={4}>
         {rest.map((user, index) => (
           <BasicPlace {...user} index={index + 3} key={`${user.username}-${index}`} />
         ))}
