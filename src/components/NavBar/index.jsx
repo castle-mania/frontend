@@ -45,7 +45,26 @@ function NavLink({href, name}) {
       key={name}
       _hover={{
         textDecoration: 'none',
-        bg: useColorModeValue('gray.200', 'gray.700'),
+        bg: useColorModeValue('gray.200', 'gray.800'),
+      }}>
+      {name}
+    </Link>
+  );
+}
+
+function MobileNavLink({href, name}) {
+  return (
+    <Link
+      as={ReactLink}
+      p={2}
+      px={4}
+      to={href}
+      rounded="md"
+      key={name}
+      bg={useColorModeValue('gray.200', 'gray.600')}
+      _hover={{
+        textDecoration: 'none',
+        bg: useColorModeValue('gray.300', 'gray.500'),
       }}>
       {name}
     </Link>
@@ -160,18 +179,16 @@ export default function Nav() {
       <Drawer isOpen={isOpen} placement="right" onClose={onClose} finalFocusRef={btnRef}>
         <DrawerOverlay />
         <DrawerContent>
-          <Flex direction="column" m={4} rowGap={2} h="100%">
-            <Heading p={2} as={ReactLink} to="/" size="md">
+          <Flex direction="column" m={4} rowGap={4} h="100%">
+            <Heading py={2} as={ReactLink} to="/" size="md">
               Castle Mania
             </Heading>
-            {LINKS.map((link) => (
-              <Link as={ReactLink} p={2} to={link.href} rounded="md" key={link.name}>
-                {link.name}
-              </Link>
+            {LINKS.map((link, index) => (
+              <MobileNavLink {...link} key={`${link.name}-${index}`} />
             ))}
             <Flex justifyContent="space-between" p={2}>
               Dark Mode
-              <Switch onChange={toggleColorMode} isChecked={colorMode === 'dark'} />
+              <Switch onChange={toggleColorMode} size="lg" isChecked={colorMode === 'dark'} />
             </Flex>
             <LoginButton />
           </Flex>
