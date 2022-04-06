@@ -80,7 +80,7 @@ export default function Nav() {
                 Castle Mania
               </Heading>
               {LINKS.map((link) => (
-                <Link as={ReactLink} p={2} to={link.href} rounded="md">
+                <Link as={ReactLink} p={2} to={link.href} rounded="md" key={link.name}>
                   {link.name}
                 </Link>
               ))}
@@ -149,7 +149,7 @@ export default function Nav() {
               Castle Mania
             </Heading>
             {LINKS.map((link) => (
-              <Link as={ReactLink} p={2} to={link.href} rounded="md">
+              <Link as={ReactLink} p={2} to={link.href} rounded="md" key={link.name}>
                 {link.name}
               </Link>
             ))}

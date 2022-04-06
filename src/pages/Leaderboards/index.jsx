@@ -1,5 +1,6 @@
+/* eslint-disable react/no-array-index-key */
 import {Avatar, Box, Container, Flex, Heading, Tag, useColorModeValue, Text} from '@chakra-ui/react';
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {LeaderboardContext} from '../../contexts/LeaderboardContext';
 import Currency, {Types} from '../../components/Currency';
 
@@ -18,7 +19,25 @@ function TrophyPlace({user, place, ...rest}) {
   );
 }
 
+function BasicPlace({username, avatar, money, index}) {
+  return (
+    <Container backgroundColor={useColorModeValue('gray.200', 'gray.900')} p={4} rounded="md" maxW="container.sm">
+      <Flex justifyContent="space-between">
+        <Flex alignItems="center" columnGap={4}>
+          <Tag>#{index + 1}</Tag>
+          <Avatar size="sm" src={avatar} />
+          <Text>{username}</Text>
+        </Flex>
+        <Currency value={money} type={Types.COIN} />
+      </Flex>
+    </Container>
+  );
+}
+
+const validate = () => window.innerWidth < 600;
+
 export default function Leaderboard() {
+  const [small, setSmall] = useState(validate());
   const leaderboard = useContext(LeaderboardContext);
   const {users} = leaderboard;
 
@@ -28,8 +47,28 @@ export default function Leaderboard() {
     }
   }, []);
 
+  useEffect(() => {
+    const onResize = () => setSmall(validate());
+
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      window.removeEventListener('resize', onResize);
+    };
+  }, []);
+
   if (users == null) {
     return null;
+  }
+
+  if (small) {
+    return (
+      <Flex flexDirection="column" rowGap={4} m={4}>
+        {users.map((user, index) => (
+          <BasicPlace {...user} index={index} key={`${user.username}-${index}`} />
+        ))}
+      </Flex>
+    );
   }
 
   const [topUser, secondUser, thirdUser, ...rest] = users;
@@ -44,17 +83,8 @@ export default function Leaderboard() {
         </Flex>
       </Box>
       <Flex flexDirection="column" rowGap={4} m={4}>
-        {rest.map(({username, avatar, money}, index) => (
-          <Container backgroundColor={useColorModeValue('gray.200', 'gray.900')} p={4} rounded="md" maxW="container.sm">
-            <Flex justifyContent="space-between">
-              <Flex alignItems="center" columnGap={4}>
-                <Tag>#{index + 3}</Tag>
-                <Avatar size="sm" src={avatar} />
-                <Text>{username}</Text>
-              </Flex>
-              <Currency value={money} type={Types.COIN} />
-            </Flex>
-          </Container>
+        {rest.map((user, index) => (
+          <BasicPlace {...user} index={index + 3} key={`${user.username}-${index}`} />
         ))}
       </Flex>
     </>
