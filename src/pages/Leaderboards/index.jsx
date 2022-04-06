@@ -22,6 +22,7 @@ function TrophyPlace({user, place, ...rest}) {
 function BasicPlace({username, avatar, money, index}) {
   return (
     <Container
+      shadow="md"
       backgroundColor={useColorModeValue('gray.200', 'gray.900')}
       px={8}
       py={4}
@@ -81,7 +82,7 @@ export default function Leaderboard() {
   return (
     <Box margin={4}>
       <Flex flexDirection="column" rowGap={4}>
-        <Container py={8} backgroundColor={useColorModeValue('gray.200', 'gray.900')} maxW="container.sm">
+        <Container shadow="md" py={8} backgroundColor={useColorModeValue('gray.200', 'gray.900')} maxW="container.sm">
           <Flex columnGap={4} alignItems="baseline" justifyContent="center">
             <TrophyPlace user={secondUser} size="xl" place={2} />
             <TrophyPlace user={topUser} size="2xl" place={1} />

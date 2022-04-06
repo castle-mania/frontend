@@ -35,7 +35,7 @@ export default function Listing({name, description, url, onCheckout, price, load
   return (
     <Box
       boxShadow="lg"
-      shadow={1}
+      shadow="md"
       backgroundColor={useColorModeValue('gray.200', 'gray.900')}
       borderRadius="md"
       overflow="hidden">
