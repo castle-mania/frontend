@@ -5,7 +5,7 @@ export const LeaderboardContext = React.createContext(null);
 
 async function fetchUsers() {
   try {
-    const fetchedUsers = await api.GET('leaderboards');
+    const fetchedUsers = await api.GET('leaderboards', {params: {type: 'money'}});
     return fetchedUsers.data.users;
   } catch (err) {
     return null;

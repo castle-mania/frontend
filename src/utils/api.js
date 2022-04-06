@@ -14,7 +14,7 @@ function request(method, path, data = {}) {
       'Access-Control-Allow-Credentials': true,
     },
     url,
-    data,
+    ...data,
   };
 
   return axios(options);

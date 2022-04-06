@@ -1,0 +1,9 @@
+.image:before {
+  content: '';
+  display: absolute;
+  padding-top: 100%;
+}
+
+.image {
+  width: 100%;
+}
