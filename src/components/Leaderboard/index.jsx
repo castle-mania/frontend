@@ -188,10 +188,10 @@ export default function Leaderboard() {
         {guilds != null ? (
           <Menu placement="bottom-end">
             <MenuButton leftIcon={<Avatar size="xs" src={guild?.icon} />} as={Button}>
-              {guild.name || 'Global'}
+              {guild?.name || 'Global'}
             </MenuButton>
             <MenuList onSelect={setType}>
-              <MenuItem key="global" onClick={() => setGuild(null)}>
+              <MenuItem icon={<Avatar size="sm" src={null} />} key="global" onClick={() => setGuild(null)}>
                 Global
               </MenuItem>
               {guilds.map((_guild) => {
