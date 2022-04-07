@@ -1,12 +1,37 @@
 /* eslint-disable react/no-array-index-key */
-import {Avatar, Flex, Heading, Tag, Text, useColorModeValue, Box, Divider} from '@chakra-ui/react';
+import {
+  Avatar,
+  Flex,
+  Heading,
+  Tag,
+  Text,
+  useColorModeValue,
+  Box,
+  Divider,
+  Skeleton,
+  Menu,
+  MenuButton,
+  Button,
+  MenuList,
+  MenuItem,
+  useRadio,
+  useRadioGroup,
+  HStack,
+} from '@chakra-ui/react';
 import React, {useContext, useEffect, useState} from 'react';
-import {LeaderboardContext} from '../../contexts/LeaderboardContext';
+import {MdArrowDropDown} from 'react-icons/md';
+import {GuildContext} from '../../contexts/GuildContext';
+import {fetchUsers} from '../../utils/leaderboard';
 import Currency, {Types} from '../Currency';
 
 export const LeaderboardTypes = {
   CPH: 'cph',
   MONEY: 'money',
+};
+
+const LeaderboardTypeText = {
+  [LeaderboardTypes.MONEY]: 'Total Coins',
+  [LeaderboardTypes.CPH]: 'Coins Per Hour',
 };
 
 function LeaderboardValue({type, ...rest}) {
@@ -17,6 +42,37 @@ function LeaderboardValue({type, ...rest}) {
   if (type === LeaderboardTypes.CPH) {
     return <Currency type={Types.CPH} {...rest} />;
   }
+
+  return null;
+}
+
+function RadioCard({children, ...props}) {
+  const {getInputProps, getCheckboxProps} = useRadio(props);
+
+  const input = getInputProps();
+  const checkbox = getCheckboxProps();
+
+  return (
+    <Box as="label">
+      <input {...input} />
+      <Box
+        {...checkbox}
+        cursor="pointer"
+        borderWidth="1px"
+        borderRadius="md"
+        _checked={{
+          bg: useColorModeValue('gray.200', 'gray.700'),
+          borderColor: useColorModeValue('gray.200', 'gray.700'),
+        }}
+        _focus={{
+          boxShadow: 'outline',
+        }}
+        px={4}
+        py={2}>
+        {children}
+      </Box>
+    </Box>
+  );
 }
 
 function TrophyPlace({user, place, type, ...rest}) {
@@ -51,19 +107,18 @@ function BasicPlace({user, index, type}) {
 
 const validate = () => window.innerWidth < 600;
 
-export default function Leaderboard({type}) {
-  const leaderboard = useContext(LeaderboardContext);
+export default function Leaderboard() {
+  const {guilds} = useContext(GuildContext);
 
   const [small, setSmall] = useState(validate());
-  const {global} = leaderboard;
+  const [type, setType] = useState(LeaderboardTypes.MONEY);
+  const [guild, setGuild] = useState(null);
+  const [users, setUsers] = useState(null);
 
-  useEffect(() => {
-    if (global[type] == null) {
-      leaderboard.fetchUsers(type);
-    }
-  }, [type]);
-
-  const users = global[type];
+  useEffect(async () => {
+    const tempUsers = await fetchUsers(type, guild);
+    setUsers(tempUsers);
+  }, [guild, type]);
 
   useEffect(() => {
     const onResize = () => setSmall(validate());
@@ -75,39 +130,84 @@ export default function Leaderboard({type}) {
     };
   }, []);
 
+  const {getRootProps, getRadioProps} = useRadioGroup({
+    name: 'leaderboard_type',
+    defaultValue: LeaderboardTypes.MONEY,
+    onChange: (value) => setType(value),
+  });
+
+  const group = getRootProps();
+  const isLoaded = users != null;
+
   if (users == null) {
     return null;
   }
 
   if (small) {
     return (
-      <Flex
-        shadow="md"
-        rounded="md"
-        flexDirection="column"
-        border="1px"
-        p={0}
-        borderColor={useColorModeValue('gray.200', 'gray.700')}>
-        {users.map((user, index) => (
-          <Box key={`${user.username}-${index}`}>
-            <BasicPlace user={user} index={index} type={type} />
-            {index === users.length - 1 ? null : <Divider />}
-          </Box>
-        ))}
-      </Flex>
+      <Skeleton isLoaded={isLoaded}>
+        <Flex
+          shadow="md"
+          rounded="md"
+          flexDirection="column"
+          border="1px"
+          p={0}
+          borderColor={useColorModeValue('gray.200', 'gray.700')}>
+          {users.map((user, index) => (
+            <Box key={`${user.username}-${index}`}>
+              <BasicPlace user={user} index={index} type={type} />
+              {index === users.length - 1 ? null : <Divider />}
+            </Box>
+          ))}
+        </Flex>
+      </Skeleton>
     );
   }
 
   const [topUser, secondUser, thirdUser, ...rest] = users;
 
   return (
-    <Box
+    <Skeleton
+      isLoaded={isLoaded}
       flexDirection="column"
       border="1px"
       shadow="md"
       p={0}
       borderColor={useColorModeValue('gray.200', 'gray.700')}
       rounded="md">
+      <Flex p={4} justifyContent="space-between" alignItems="center">
+        <HStack {...group}>
+          {Object.values(LeaderboardTypes).map((_type) => {
+            const radio = getRadioProps({value: _type});
+            return (
+              <RadioCard key={_type} {...radio}>
+                {LeaderboardTypeText[_type]}
+              </RadioCard>
+            );
+          })}
+        </HStack>
+        {guilds != null ? (
+          <Menu placement="bottom-end">
+            <MenuButton leftIcon={<MdArrowDropDown />} as={Button}>
+              Guild
+            </MenuButton>
+            <MenuList onSelect={setType}>
+              <MenuItem key="global" onClick={() => setGuild(null)}>
+                Global
+              </MenuItem>
+              {guilds.map((_guild) => {
+                const {id, name, icon} = _guild;
+                return (
+                  <MenuItem icon={<Avatar size="sm" src={icon} />} key={id} onClick={() => setGuild(_guild)}>
+                    {name}
+                  </MenuItem>
+                );
+              })}
+            </MenuList>
+          </Menu>
+        ) : null}
+      </Flex>
+      <Divider />
       <Flex px={4} py={8} columnGap={4} alignItems="baseline" justifyContent="center" w="100%">
         <TrophyPlace user={secondUser} size="xl" place={2} type={type} />
         <TrophyPlace user={topUser} size="2xl" place={1} type={type} />
@@ -119,6 +219,6 @@ export default function Leaderboard({type}) {
           <BasicPlace user={user} index={index + 3} type={type} />
         </React.Fragment>
       ))}
-    </Box>
+    </Skeleton>
   );
 }

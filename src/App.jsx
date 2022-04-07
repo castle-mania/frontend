@@ -17,7 +17,7 @@ import Footer from './components/Footer';
 import StoreProvider from './contexts/StoreContext';
 import theme from './theme';
 import Leaderboard from './pages/Leaderboards';
-import LeaderboardProvider from './contexts/LeaderboardContext';
+import GuildProvider from './contexts/GuildContext';
 
 function Redirect({to}) {
   useEffect(() => {
@@ -55,11 +55,11 @@ ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <UserProvider>
-        <StoreProvider>
-          <LeaderboardProvider>
+        <GuildProvider>
+          <StoreProvider>
             <Router />
-          </LeaderboardProvider>
-        </StoreProvider>
+          </StoreProvider>
+        </GuildProvider>
       </UserProvider>
     </ChakraProvider>
   </React.StrictMode>,

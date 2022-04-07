@@ -11,7 +11,7 @@ const config = {
   styles: {
     global: {
       html: {
-        'overflow-y': 'overlay',
+        overflowY: 'overlay',
       },
     },
   },
