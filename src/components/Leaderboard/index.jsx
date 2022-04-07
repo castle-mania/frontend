@@ -40,7 +40,7 @@ function BasicPlace({user, index, type}) {
       <Flex justifyContent="space-between">
         <Flex alignItems="center" columnGap={4}>
           <Tag>#{index + 1}</Tag>
-          <Avatar size="sm" />
+          <Avatar src={user?.avatar} size="sm" />
           <Text>{user.username}</Text>
         </Flex>
         <LeaderboardValue type={type} value={user?.[type]} />
