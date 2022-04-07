@@ -187,7 +187,7 @@ export default function Leaderboard() {
         </HStack>
         {guilds != null ? (
           <Menu placement="bottom-end">
-            <MenuButton leftIcon={<Avatar size="xs" src={guild.icon} />} as={Button}>
+            <MenuButton leftIcon={<Avatar size="xs" src={guild?.icon} />} as={Button}>
               {guild.name || 'Global'}
             </MenuButton>
             <MenuList onSelect={setType}>
