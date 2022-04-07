@@ -5,11 +5,19 @@ import {numberWithCommas} from '../../utils';
 export const Types = {
   COIN: 'coin',
   GEM: 'gem',
+  CPH: 'cph',
 };
 
 export const ImagePath = {
   [Types.COIN]: '/imgs/coin.gif',
+  [Types.CPH]: '/imgs/coin.gif',
   [Types.GEM]: '/imgs/gem.gif',
+};
+
+export const FormatValue = {
+  [Types.COIN]: numberWithCommas,
+  [Types.GEM]: numberWithCommas,
+  [Types.CPH]: (value) => `${numberWithCommas(value)} / H`,
 };
 
 export default function Currency({type, value, ...rest}) {
@@ -18,7 +26,7 @@ export default function Currency({type, value, ...rest}) {
   return (
     <HStack {...rest} justifyContent="center">
       <Image src={imagePath} boxSize="20px" />
-      <Text>{numberWithCommas(value)}</Text>
+      <Text>{FormatValue[type](value)}</Text>
     </HStack>
   );
 }
