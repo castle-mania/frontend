@@ -90,7 +90,7 @@ export default function Leaderboard() {
         border="1px"
         shadow="md"
         p={0}
-        mt={4}
+        my={4}
         borderColor={useColorModeValue('gray.200', 'gray.700')}
         rounded="md">
         <Flex px={4} py={8} columnGap={4} alignItems="baseline" justifyContent="center" w="100%">
