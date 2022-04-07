@@ -1,5 +1,5 @@
 /* eslint-disable react/no-array-index-key */
-import {Avatar, Container, Flex, Heading, Tag, useColorModeValue, Text, Box} from '@chakra-ui/react';
+import {Avatar, Container, Flex, Heading, Tag, Text, useColorModeValue, Box, Divider} from '@chakra-ui/react';
 import React, {useContext, useEffect, useState} from 'react';
 import {LeaderboardContext} from '../../contexts/LeaderboardContext';
 import Currency, {Types} from '../../components/Currency';
@@ -21,13 +21,7 @@ function TrophyPlace({user, place, ...rest}) {
 
 function BasicPlace({username, avatar, money, index}) {
   return (
-    <Container
-      shadow="md"
-      backgroundColor={useColorModeValue('gray.200', 'gray.900')}
-      px={8}
-      py={4}
-      rounded="md"
-      maxW="container.sm">
+    <Box p={4} m={0}>
       <Flex justifyContent="space-between">
         <Flex alignItems="center" columnGap={4}>
           <Tag>#{index + 1}</Tag>
@@ -36,7 +30,7 @@ function BasicPlace({username, avatar, money, index}) {
         </Flex>
         <Currency value={money} type={Types.COIN} />
       </Flex>
-    </Container>
+    </Box>
   );
 }
 
@@ -69,9 +63,19 @@ export default function Leaderboard() {
 
   if (small) {
     return (
-      <Flex flexDirection="column" rowGap={4} m={4}>
+      <Flex
+        shadow="md"
+        rounded="md"
+        flexDirection="column"
+        border="1px"
+        p={0}
+        borderColor={useColorModeValue('gray.200', 'gray.700')}
+        m={4}>
         {users.map((user, index) => (
-          <BasicPlace {...user} index={index} key={`${user.username}-${index}`} />
+          <Box key={`${user.username}-${index}`}>
+            <BasicPlace {...user} index={index} />
+            {index === users.length - 1 ? null : <Divider />}
+          </Box>
         ))}
       </Flex>
     );
@@ -80,19 +84,27 @@ export default function Leaderboard() {
   const [topUser, secondUser, thirdUser, ...rest] = users;
 
   return (
-    <Box margin={4}>
-      <Flex flexDirection="column" rowGap={4}>
-        <Container shadow="md" py={8} backgroundColor={useColorModeValue('gray.200', 'gray.900')} maxW="container.sm">
-          <Flex columnGap={4} alignItems="baseline" justifyContent="center">
-            <TrophyPlace user={secondUser} size="xl" place={2} />
-            <TrophyPlace user={topUser} size="2xl" place={1} />
-            <TrophyPlace user={thirdUser} size="xl" place={3} />
-          </Flex>
-        </Container>
+    <Container maxW="container.md">
+      <Box
+        flexDirection="column"
+        border="1px"
+        shadow="md"
+        p={0}
+        mt={4}
+        borderColor={useColorModeValue('gray.200', 'gray.700')}
+        rounded="md">
+        <Flex px={4} py={8} columnGap={4} alignItems="baseline" justifyContent="center" w="100%">
+          <TrophyPlace user={secondUser} size="xl" place={2} />
+          <TrophyPlace user={topUser} size="2xl" place={1} />
+          <TrophyPlace user={thirdUser} size="xl" place={3} />
+        </Flex>
         {rest.map((user, index) => (
-          <BasicPlace {...user} index={index + 3} key={`${user.username}-${index}`} />
+          <React.Fragment key={`${user.username}-${index}`}>
+            <Divider />
+            <BasicPlace {...user} index={index + 3} />
+          </React.Fragment>
         ))}
-      </Flex>
-    </Box>
+      </Box>
+    </Container>
   );
 }

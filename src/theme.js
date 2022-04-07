@@ -8,6 +8,13 @@ const config = {
     body: 'Poppins, sans-serif',
     heading: 'Poppins, sans-serif',
   },
+  styles: {
+    global: {
+      html: {
+        'overflow-y': 'overlay',
+      },
+    },
+  },
 };
 
 // 3. extend the theme
