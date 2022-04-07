@@ -19,7 +19,6 @@ import {
   HStack,
 } from '@chakra-ui/react';
 import React, {useContext, useEffect, useState} from 'react';
-import {MdArrowDropDown} from 'react-icons/md';
 import {GuildContext} from '../../contexts/GuildContext';
 import {fetchUsers} from '../../utils/leaderboard';
 import Currency, {Types} from '../Currency';
@@ -113,11 +112,16 @@ export default function Leaderboard() {
   const [small, setSmall] = useState(validate());
   const [type, setType] = useState(LeaderboardTypes.MONEY);
   const [guild, setGuild] = useState(null);
-  const [users, setUsers] = useState(null);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
+    setLoading(true);
+
     const tempUsers = await fetchUsers(type, guild);
+
     setUsers(tempUsers);
+    setLoading(false);
   }, [guild, type]);
 
   useEffect(() => {
@@ -137,15 +141,10 @@ export default function Leaderboard() {
   });
 
   const group = getRootProps();
-  const isLoaded = users != null;
-
-  if (users == null) {
-    return null;
-  }
 
   if (small) {
     return (
-      <Skeleton isLoaded={isLoaded}>
+      <Skeleton isLoaded={!loading}>
         <Flex
           shadow="md"
           rounded="md"
@@ -168,7 +167,7 @@ export default function Leaderboard() {
 
   return (
     <Skeleton
-      isLoaded={isLoaded}
+      isLoaded={!loading}
       flexDirection="column"
       border="1px"
       shadow="md"
@@ -188,8 +187,8 @@ export default function Leaderboard() {
         </HStack>
         {guilds != null ? (
           <Menu placement="bottom-end">
-            <MenuButton leftIcon={<MdArrowDropDown />} as={Button}>
-              Guild
+            <MenuButton leftIcon={<Avatar size="xs" src={guild.icon} />} as={Button}>
+              {guild.name || 'Global'}
             </MenuButton>
             <MenuList onSelect={setType}>
               <MenuItem key="global" onClick={() => setGuild(null)}>
