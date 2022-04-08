@@ -3,8 +3,8 @@ import api from './api';
 
 const leaderboardCache = {};
 
-export async function fetchUsers(type, guild, setLoading) {
-  const scale = guild?._id || 'global';
+export async function fetchUsers(type, guildId, setLoading) {
+  const scale = guildId || 'global';
   const key = `${scale}-${type}`;
 
   const users = leaderboardCache[key];
@@ -18,7 +18,7 @@ export async function fetchUsers(type, guild, setLoading) {
     const req = await api.GET('leaderboards', {
       params: {
         type,
-        guildId: guild?._id,
+        guildId,
       },
     });
 

@@ -18,7 +18,8 @@ import {
   useRadioGroup,
   HStack,
 } from '@chakra-ui/react';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useState} from 'react';
+import {useSearchParams} from 'react-router-dom';
 import {GuildContext} from '../../contexts/GuildContext';
 import {fetchUsers} from '../../utils/leaderboard';
 import Currency, {Types} from '../Currency';
@@ -106,20 +107,46 @@ function BasicPlace({user, index, type}) {
 
 const validate = () => window.innerWidth < 600;
 
+const GLOBAL_GUILD = {
+  name: 'Global',
+  icon: null,
+};
+
 export default function Leaderboard() {
+  const [searchParams, setSearchParams] = useSearchParams();
   const {guilds} = useContext(GuildContext);
 
   const [small, setSmall] = useState(validate());
-  const [type, setType] = useState(LeaderboardTypes.MONEY);
-  const [guild, setGuild] = useState(null);
+  const [type, setType] = useState(searchParams.get('type') ?? LeaderboardTypes.MONEY);
+  const [guildId, setGuildId] = useState(searchParams.get('guildId'));
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
-    const tempUsers = await fetchUsers(type, guild, setLoading);
+    setSearchParams({
+      type,
+      ...(guildId != null ? {guildId} : {}),
+    });
+
+    const tempUsers = await fetchUsers(type, guildId, setLoading);
+
     setUsers(tempUsers);
     setLoading(false);
-  }, [guild, type]);
+  }, [guildId, type]);
+
+  const selectedGuild = useMemo(() => {
+    if (guildId == null || guilds == null) {
+      return GLOBAL_GUILD;
+    }
+
+    const foundGuild = guilds.find(({_id}) => _id === guildId);
+
+    if (foundGuild == null) {
+      return GLOBAL_GUILD;
+    }
+
+    return foundGuild;
+  }, [guildId, guilds]);
 
   useEffect(() => {
     const onResize = () => setSmall(validate());
@@ -133,7 +160,7 @@ export default function Leaderboard() {
 
   const {getRootProps, getRadioProps} = useRadioGroup({
     name: 'leaderboard_type',
-    defaultValue: LeaderboardTypes.MONEY,
+    defaultValue: type,
     onChange: (value) => setType(value),
   });
 
@@ -184,17 +211,17 @@ export default function Leaderboard() {
         </HStack>
         {guilds != null ? (
           <Menu placement="bottom-end">
-            <MenuButton leftIcon={<Avatar size="xs" src={guild?.icon} />} as={Button}>
-              {guild?.name || 'Global'}
+            <MenuButton leftIcon={<Avatar size="xs" src={selectedGuild.icon} />} as={Button}>
+              {selectedGuild.name}
             </MenuButton>
             <MenuList onSelect={setType}>
-              <MenuItem icon={<Avatar size="sm" src={null} />} key="global" onClick={() => setGuild(null)}>
+              <MenuItem icon={<Avatar size="sm" src={null} />} key="global" onClick={() => setGuildId(null)}>
                 Global
               </MenuItem>
               {guilds.map((_guild) => {
-                const {id, name, icon} = _guild;
+                const {_id, name, icon} = _guild;
                 return (
-                  <MenuItem icon={<Avatar size="sm" src={icon} />} key={id} onClick={() => setGuild(_guild)}>
+                  <MenuItem icon={<Avatar size="sm" src={icon} />} key={_id} onClick={() => setGuildId(_id)}>
                     {name}
                   </MenuItem>
                 );
