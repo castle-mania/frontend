@@ -16,7 +16,6 @@ import {
   MenuItem,
   useRadio,
   useRadioGroup,
-  HStack,
 } from '@chakra-ui/react';
 import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from 'react-router-dom';
@@ -166,40 +165,10 @@ export default function Leaderboard() {
 
   const group = getRootProps();
 
-  if (small) {
-    return (
-      <Skeleton isLoaded={!loading}>
-        <Flex
-          shadow="md"
-          rounded="md"
-          flexDirection="column"
-          border="1px"
-          p={0}
-          borderColor={useColorModeValue('gray.200', 'gray.700')}>
-          {users.map((user, index) => (
-            <Box key={`${user.username}-${index}`}>
-              <BasicPlace user={user} index={index} type={type} />
-              {index === users.length - 1 ? null : <Divider />}
-            </Box>
-          ))}
-        </Flex>
-      </Skeleton>
-    );
-  }
-
-  const [topUser, secondUser, thirdUser, ...rest] = users;
-
-  return (
-    <Skeleton
-      isLoaded={!loading}
-      flexDirection="column"
-      border="1px"
-      shadow="md"
-      p={0}
-      borderColor={useColorModeValue('gray.200', 'gray.700')}
-      rounded="md">
-      <Flex p={4} justifyContent="space-between" alignItems="center">
-        <HStack {...group}>
+  const Navigation = (
+    <>
+      <Flex p={4} justifyContent="space-between" gap={4} flexDirection={{base: 'column', sm: 'row'}}>
+        <Flex {...group} gap={4} flexDirection={{base: 'column', sm: 'row'}}>
           {Object.values(LeaderboardTypes).map((_type) => {
             const radio = getRadioProps({value: _type});
             return (
@@ -208,7 +177,7 @@ export default function Leaderboard() {
               </RadioCard>
             );
           })}
-        </HStack>
+        </Flex>
         {guilds != null ? (
           <Menu placement="bottom-end">
             <MenuButton leftIcon={<Avatar size="xs" src={selectedGuild.icon} />} as={Button}>
@@ -231,6 +200,43 @@ export default function Leaderboard() {
         ) : null}
       </Flex>
       <Divider />
+    </>
+  );
+
+  if (small) {
+    return (
+      <Skeleton isLoaded={!loading}>
+        <Flex
+          shadow="md"
+          rounded="md"
+          flexDirection="column"
+          border="1px"
+          p={0}
+          borderColor={useColorModeValue('gray.200', 'gray.700')}>
+          {Navigation}
+          {users.map((user, index) => (
+            <Box key={`${user.username}-${index}`}>
+              <BasicPlace user={user} index={index} type={type} />
+              {index === users.length - 1 ? null : <Divider />}
+            </Box>
+          ))}
+        </Flex>
+      </Skeleton>
+    );
+  }
+
+  const [topUser, secondUser, thirdUser, ...rest] = users;
+
+  return (
+    <Skeleton
+      isLoaded={!loading}
+      flexDirection="column"
+      border="1px"
+      shadow="md"
+      p={0}
+      borderColor={useColorModeValue('gray.200', 'gray.700')}
+      rounded="md">
+      {Navigation}
       <Flex px={4} py={8} columnGap={4} alignItems="baseline" justifyContent="center" w="100%">
         <TrophyPlace user={secondUser} size="xl" place={2} type={type} />
         <TrophyPlace user={topUser} size="2xl" place={1} type={type} />
