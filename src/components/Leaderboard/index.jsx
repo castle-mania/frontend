@@ -116,10 +116,7 @@ export default function Leaderboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
-    setLoading(true);
-
-    const tempUsers = await fetchUsers(type, guild);
-
+    const tempUsers = await fetchUsers(type, guild, setLoading);
     setUsers(tempUsers);
     setLoading(false);
   }, [guild, type]);

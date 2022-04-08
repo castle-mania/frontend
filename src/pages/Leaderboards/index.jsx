@@ -4,7 +4,7 @@ import Leaderboard from '../../components/Leaderboard';
 
 export default function Leaderboards() {
   return (
-    <Container maxW="container.md" my={4}>
+    <Container maxW="container.lg" my={4}>
       <Leaderboard />
     </Container>
   );

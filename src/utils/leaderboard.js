@@ -3,7 +3,7 @@ import api from './api';
 
 const leaderboardCache = {};
 
-export async function fetchUsers(type, guild) {
+export async function fetchUsers(type, guild, setLoading) {
   const scale = guild?._id || 'global';
   const key = `${scale}-${type}`;
 
@@ -11,6 +11,8 @@ export async function fetchUsers(type, guild) {
   if (users != null) {
     return users;
   }
+
+  setLoading(true);
 
   try {
     const req = await api.GET('leaderboards', {
