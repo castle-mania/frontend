@@ -9,9 +9,9 @@ export const Types = {
 };
 
 export const ImagePath = {
-  [Types.COIN]: '/imgs/coin.gif',
-  [Types.CPH]: '/imgs/coin.gif',
-  [Types.GEM]: '/imgs/gem.gif',
+  [Types.COIN]: '/imgs/coin_112.gif',
+  [Types.CPH]: '/imgs/coin_112.gif',
+  [Types.GEM]: '/imgs/gem_112.gif',
 };
 
 export const FormatValue = {
