@@ -12,11 +12,13 @@ import {
   Th,
   useColorModeValue,
   Tfoot,
+  Tooltip,
+  Box,
 } from '@chakra-ui/react';
 import {CommandContext} from '../../contexts/CommandsContext';
 
 function Command({name, description, options}) {
-  const args = options != null ? options.map((option) => option.name) : [];
+  const args = options || [];
 
   return (
     <Tr>
@@ -27,7 +29,11 @@ function Command({name, description, options}) {
       <Td>
         <Flex columnGap={2}>
           {args.map((argument) => (
-            <Code>{argument}</Code>
+            <Tooltip placement="top" label={argument.description}>
+              <Box>
+                <Code>{argument.name}</Code>
+              </Box>
+            </Tooltip>
           ))}
         </Flex>
       </Td>
