@@ -18,6 +18,8 @@ import StoreProvider from './contexts/StoreContext';
 import theme from './theme';
 import Leaderboard from './pages/Leaderboards';
 import GuildProvider from './contexts/GuildContext';
+import Commands from './pages/Commands';
+import CommandsProvider from './contexts/CommandsContext';
 
 function Redirect({to}) {
   useEffect(() => {
@@ -36,6 +38,7 @@ function Router() {
             <Route path="/" element={<Home />} />
             <Route path="/store" element={<Store />} />
             <Route path="/leaderboards" element={<Leaderboard />} />
+            <Route path="/commands" element={<Commands />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/payment/success" element={<Succes />} />
@@ -57,7 +60,9 @@ ReactDOM.render(
       <UserProvider>
         <GuildProvider>
           <StoreProvider>
-            <Router />
+            <CommandsProvider>
+              <Router />
+            </CommandsProvider>
           </StoreProvider>
         </GuildProvider>
       </UserProvider>
