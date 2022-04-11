@@ -25,7 +25,7 @@ export default function Currency({type, value, ...rest}) {
 
   return (
     <HStack {...rest} justifyContent="center">
-      <Image src={imagePath} boxSize="20px" />
+      <Image src={imagePath} boxSize="20px" alt={type} />
       <Text>{FormatValue[type](value)}</Text>
     </HStack>
   );

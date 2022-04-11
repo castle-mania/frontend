@@ -26,7 +26,7 @@ export default function Home() {
           </Flex>
         </Stack>
         <Box maxW="md">
-          <Image src="/imgs/square_buttload_gems.png" />
+          <Image src="/imgs/square_buttload_gems.png" alt="landing-page-image" />
         </Box>
       </Flex>
     </Container>
