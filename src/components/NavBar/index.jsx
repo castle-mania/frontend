@@ -73,7 +73,7 @@ function MobileNavLink({href, name}) {
 }
 
 function Profile({username, avatar, logout}) {
-  const {toggleColorMode} = useColorMode();
+  const {toggleColorMode, colorMode} = useColorMode();
 
   return (
     <Menu placement="bottom-end">
@@ -81,9 +81,10 @@ function Profile({username, avatar, logout}) {
         <Avatar size="sm" name={username} src={avatar} />
       </MenuButton>
       <MenuList alignItems="center">
-        <MenuItem onClick={toggleColorMode} icon={useColorModeValue(<MdModeNight />, <MdLightMode />)}>
-          Toggle Theme
-        </MenuItem>
+        <Flex justifyContent="space-between" p={2} alignItems="center">
+          Dark Mode
+          <Switch onChange={toggleColorMode} size="md" colorScheme="green" isChecked={colorMode === 'dark'} />
+        </Flex>
         <MenuDivider />
         <MenuItem onClick={logout} icon={<MdLogout />}>
           Logout
@@ -124,7 +125,15 @@ export default function Nav() {
 
   return (
     <>
-      <Box display={{base: 'none', md: 'flex'}} justifyContent="center" px={4} zIndex={1} as="nav" w="100vw">
+      <Box
+        display={{base: 'none', md: 'flex'}}
+        justifyContent="center"
+        px={4}
+        zIndex={1}
+        as="nav"
+        w="100vw"
+        position="sticky"
+        top={0}>
         <Flex h={16} alignItems="center" justifyContent="space-between" alignSelf="center" w="container.xl">
           <Flex columnGap={8} alignItems="center">
             <Heading as={ReactLink} to="/" size="md">

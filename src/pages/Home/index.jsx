@@ -25,7 +25,7 @@ export default function Home() {
             <SupportDiscordButton />
           </Flex>
         </Stack>
-        <Box maxW="md">
+        <Box maxW="md" minH={448}>
           <Image src="/imgs/square_buttload_gems.png" alt="landing-page-image" />
         </Box>
       </Flex>
