@@ -20,6 +20,7 @@ import Leaderboard from './pages/Leaderboards';
 import GuildProvider from './contexts/GuildContext';
 import Commands from './pages/Commands';
 import CommandsProvider from './contexts/CommandsContext';
+import Profile from './pages/Profile';
 
 function Redirect({to}) {
   useEffect(() => {
@@ -35,6 +36,7 @@ function Router() {
         <Box minH="100vh" pb={200}>
           <NavBar />
           <Routes>
+            <Route path="/profile" element={<Profile />} />
             <Route path="/" element={<Home />} />
             <Route path="/store" element={<Store />} />
             <Route path="/leaderboards" element={<Leaderboard />} />

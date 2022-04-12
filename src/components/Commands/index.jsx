@@ -29,7 +29,7 @@ function Command({name, description, options}) {
       <Td>
         <Flex columnGap={2}>
           {args.map((argument) => (
-            <Tooltip placement="top" label={argument.description}>
+            <Tooltip placement="top" key={argument.name} label={argument.description}>
               <Box>
                 <Code>{argument.name}</Code>
               </Box>

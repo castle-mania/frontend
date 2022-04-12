@@ -21,9 +21,9 @@ function CheckoutButton({user, onCheckout, price}) {
       size="md"
       onClick={onCheckout}
       rightIcon={<MdArrowForward />}
-      _hover={{backgroundColor: useColorModeValue('gray.600', 'gray.700')}}
+      _hover={{backgroundColor: useColorModeValue('gray.600', 'gray.600')}}
       color={useColorModeValue('gray.200', 'gray.300')}
-      backgroundColor={useColorModeValue('gray.700', 'gray.800')}>
+      backgroundColor={useColorModeValue('gray.700', 'gray.700')}>
       Checkout {formatPrice(price, user.locale)}
     </Button>
   );
@@ -36,7 +36,8 @@ export default function Listing({name, description, url, onCheckout, price, load
     <Box
       boxShadow="lg"
       shadow="md"
-      backgroundColor={useColorModeValue('gray.200', 'gray.900')}
+      borderWidth="1px"
+      borderColor={useColorModeValue('gray.200', 'gray.700')}
       borderRadius="md"
       overflow="hidden">
       <Skeleton isLoaded={loaded} p={4}>
