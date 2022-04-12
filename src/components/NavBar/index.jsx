@@ -125,15 +125,7 @@ export default function Nav() {
 
   return (
     <>
-      <Box
-        display={{base: 'none', md: 'flex'}}
-        justifyContent="center"
-        px={4}
-        zIndex={1}
-        as="nav"
-        w="100vw"
-        position="sticky"
-        top={0}>
+      <Box display={{base: 'none', md: 'flex'}} justifyContent="center" px={4} zIndex={1} as="nav" w="100vw" top={0}>
         <Flex h={16} alignItems="center" justifyContent="space-between" alignSelf="center" w="container.xl">
           <Flex columnGap={8} alignItems="center">
             <Heading as={ReactLink} to="/" size="md">
