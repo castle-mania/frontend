@@ -9,6 +9,7 @@ export default function InviteBotButton(props) {
       {...props}
       rightIcon={<MdArrowForward />}
       size="lg"
+      shadow="md"
       colorScheme="green"
       onClick={() => window.open(INVITE_URL)}>
       Invite Bot

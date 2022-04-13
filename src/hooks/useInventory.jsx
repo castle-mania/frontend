@@ -21,5 +21,6 @@ export default function useInventory(inventory) {
     }));
   }, [items, inventory]);
 
-  return patchedItems;
+  const cph = patchedItems != null ? patchedItems.reduce((a, b) => a + b.gph, 0) : 0;
+  return [patchedItems, cph];
 }

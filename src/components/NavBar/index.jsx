@@ -33,7 +33,6 @@ const ReactLink = ReactDOM.Link;
 const LINKS = [
   {href: '/store', name: 'Store'},
   {href: '/leaderboards', name: 'Leaderboards'},
-  {href: '/commands', name: 'Commands'},
 ];
 
 function NavLink({href, name}) {

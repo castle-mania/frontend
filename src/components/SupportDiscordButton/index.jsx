@@ -9,6 +9,7 @@ export default function SupportDiscordButton(props) {
     <Button
       {...props}
       size="lg"
+      shadow="md"
       leftIcon={<FontAwesomeIcon icon={faDiscord} />}
       onClick={() => window.open(DISCORD_INVITE)}>
       Support Discord

@@ -4,11 +4,13 @@ import React from 'react';
 import InviteBotButton from '../../components/InviteBotButton';
 // import Step from '../../components/Step';
 import SupportDiscordButton from '../../components/SupportDiscordButton';
+import Commands from '../../components/Commands';
 
 export default function Home() {
   return (
     <Container maxW="container.xl" my={4} px={{xl: 0, base: '16px'}}>
       <Flex
+        mb={16}
         align="center"
         columnGap={16}
         justify={{base: 'center', md: 'space-between'}}
@@ -29,6 +31,7 @@ export default function Home() {
           <Image src="/imgs/square_buttload_gems.png" alt="landing-page-image" />
         </Box>
       </Flex>
+      <Commands />
     </Container>
   );
 }
