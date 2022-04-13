@@ -8,11 +8,26 @@ import {
   PopoverContent,
   PopoverHeader,
   PopoverTrigger,
+  Tag,
   Text,
   VStack,
 } from '@chakra-ui/react';
 import React from 'react';
 import Currency, {Types} from '../Currency';
+
+function RarityTag({rarity, level}) {
+  switch (rarity) {
+    case 3:
+      return <Tag colorScheme="yellow">LVL {level}</Tag>;
+    case 2:
+      return <Tag colorScheme="purple">LVL {level}</Tag>;
+    case 1:
+      return <Tag colorScheme="green">LVL {level}</Tag>;
+    case 0:
+    default:
+      return <Tag colorScheme="blue">LVL {level}</Tag>;
+  }
+}
 
 export default function Item({item, ...props}) {
   return (
@@ -25,7 +40,7 @@ export default function Item({item, ...props}) {
           <PopoverHeader>
             <HStack justifyContent="space-between">
               <Heading size="sm">{item.name}</Heading>
-              <Heading size="sm">LVL {item.level}</Heading>
+              <RarityTag rarity={item.rarity} level={item.level} />
             </HStack>
           </PopoverHeader>
           <PopoverBody>

@@ -6,8 +6,10 @@ import api from '../../utils/api';
 
 async function createPaymentSession(priceId) {
   const {data} = await api.POST('create-checkout-session', {
-    price_id: priceId,
-    quantity: 1,
+    body: {
+      price_id: priceId,
+      quantity: 1,
+    },
   });
 
   window.open(data.redirect_url, '_self');
