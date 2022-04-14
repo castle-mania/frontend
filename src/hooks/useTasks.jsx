@@ -12,7 +12,7 @@ export default function useTasks(workbench) {
 
   const patchedTasks = React.useMemo(() => {
     if (items == null) {
-      return items;
+      return [];
     }
 
     if (workbench.tasks.length === 0) {

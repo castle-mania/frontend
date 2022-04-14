@@ -11,8 +11,8 @@ export default function useInventory(inventory) {
   }, []);
 
   const patchedItems = React.useMemo(() => {
-    if (items == null) {
-      return items;
+    if (items == null || inventory == null) {
+      return null;
     }
 
     return inventory.items.map((item) => ({

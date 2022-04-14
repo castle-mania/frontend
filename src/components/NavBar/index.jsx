@@ -8,7 +8,6 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuDivider,
   Stack,
   useColorMode,
   IconButton,
@@ -22,7 +21,7 @@ import {
   Link,
   Switch,
 } from '@chakra-ui/react';
-import {MdLightMode, MdLogout, MdMenu, MdModeNight} from 'react-icons/md';
+import {MdLightMode, MdMenu, MdModeNight} from 'react-icons/md';
 import * as ReactDOM from 'react-router-dom';
 import {UserContext} from '../../contexts/UserContext';
 import LoginButton from '../LoginButton';
@@ -80,14 +79,14 @@ function Profile({username, avatar, logout}) {
         <Avatar size="sm" name={username} src={avatar} />
       </MenuButton>
       <MenuList alignItems="center">
-        <Flex justifyContent="space-between" p={2} alignItems="center">
-          Dark Mode
-          <Switch onChange={toggleColorMode} size="md" colorScheme="green" isChecked={colorMode === 'dark'} />
-        </Flex>
-        <MenuDivider />
-        <MenuItem onClick={logout} icon={<MdLogout />}>
-          Logout
+        <MenuItem as={ReactLink} to="/profile">
+          My Profile
         </MenuItem>
+        <MenuItem justifyContent="space-between" closeOnSelect={false} onClick={toggleColorMode} alignItems="center">
+          Dark Mode
+          <Switch size="md" colorScheme="green" onChange={toggleColorMode} isChecked={colorMode === 'dark'} />
+        </MenuItem>
+        <MenuItem onClick={logout}>Logout</MenuItem>
       </MenuList>
     </Menu>
   );

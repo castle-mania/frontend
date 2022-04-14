@@ -37,6 +37,7 @@ function Router() {
           <NavBar />
           <Routes>
             <Route path="/profile" element={<Profile />} />
+            <Route path="/profile/:discordId" element={<Profile />} />
             <Route path="/" element={<Home />} />
             <Route path="/store" element={<Store />} />
             <Route path="/leaderboards" element={<Leaderboard />} />

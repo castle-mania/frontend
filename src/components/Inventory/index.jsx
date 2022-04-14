@@ -8,11 +8,11 @@ export default function Inventory({inventory, ...props}) {
   const [items, cph] = useInventory(inventory);
 
   const filledItems = useMemo(() => {
-    if (items == null) {
-      return null;
-    }
-
     const filled = new Array(36).fill(null);
+
+    if (items == null) {
+      return filled;
+    }
 
     for (const item of items) {
       filled[item.cords.x + item.cords.y * 6] = item;
@@ -40,15 +40,18 @@ export default function Inventory({inventory, ...props}) {
           ? filledItems.map((item, index) => {
               if (item == null) {
                 return (
-                  <GridItem
-                    key={`blank-${index}`}
-                    bg={useColorModeValue('gray.200', 'gray.700')}
-                    rounded="md"
-                    h="100%"
-                    w="100%"
-                  />
+                  <Skeleton isLoaded={inventory != null}>
+                    <GridItem
+                      key={`blank-${index}`}
+                      bg={useColorModeValue('gray.200', 'gray.700')}
+                      rounded="md"
+                      pt="100%"
+                      w="100%"
+                    />
+                  </Skeleton>
                 );
               }
+
               return (
                 <GridItem key={`${item}-${index}`}>
                   <Item item={item} />

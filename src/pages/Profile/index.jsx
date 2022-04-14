@@ -1,21 +1,20 @@
 import {
   Avatar,
-  Box,
   Container,
   Divider,
   Grid,
   GridItem,
   Heading,
   HStack,
+  Box,
   useColorModeValue,
   VStack,
+  Skeleton,
 } from '@chakra-ui/react';
 import React from 'react';
 import Currency, {Types} from '../../components/Currency';
 import Inventory from '../../components/Inventory';
-import LoginButton from '../../components/LoginButton';
-import Workbench from '../../components/Workbench';
-import {UserContext} from '../../contexts/UserContext';
+import useUser from '../../hooks/useUser';
 
 function MiniProfile({user, ...props}) {
   return (
@@ -24,33 +23,26 @@ function MiniProfile({user, ...props}) {
         PROFILE
       </Heading>
       <Divider />
-      <HStack justifyContent="space-between" p={4}>
-        <HStack spacing={4}>
-          <Avatar alt={user.username} src={user.avatar} />
-          <Heading>{user.username}</Heading>
-        </HStack>
-        <VStack>
-          <Currency value={user.money} type={Types.COIN} />
-          <Currency value={user.funds} type={Types.GEM} />
-        </VStack>
-      </HStack>
+      <Skeleton isLoaded={user != null} justifyContent="space-between" p={4} minH={88} display="flex">
+        {user != null ? (
+          <>
+            <HStack spacing={4}>
+              <Avatar alt={user?.username} src={user?.avatar} />
+              <Heading>{user?.username}</Heading>
+            </HStack>
+            <VStack>
+              <Currency value={user?.money} type={Types.COIN} />
+              <Currency value={user?.funds} type={Types.GEM} />
+            </VStack>
+          </>
+        ) : null}
+      </Skeleton>
     </Box>
   );
 }
 
 export default function Profile() {
-  const {user} = React.useContext(UserContext);
-
-  if (user == null) {
-    return (
-      <Container maxW="container.xl">
-        <VStack>
-          <Heading size="sm">LOGIN TO VIEW PROFILE</Heading>
-          <LoginButton size="sm" />
-        </VStack>
-      </Container>
-    );
-  }
+  const [user] = useUser();
 
   return (
     <Container maxW="container.xl" px={{xl: 0, base: '16px'}} mt={4}>
@@ -62,14 +54,14 @@ export default function Profile() {
           <MiniProfile user={user} />
         </GridItem>
         <GridItem>
-          <Inventory inventory={user.inventories[0]} />
+          <Inventory inventory={user?.inventories[0]} />
         </GridItem>
         <GridItem>
-          <Inventory inventory={user.inventories[1]} />
+          <Inventory inventory={user?.inventories[1]} />
         </GridItem>
-        <GridItem colSpan={{sm: 2, base: 1}}>
+        {/* <GridItem colSpan={{sm: 2, base: 1}}>
           <Workbench />
-        </GridItem>
+        </GridItem> */}
       </Grid>
     </Container>
   );

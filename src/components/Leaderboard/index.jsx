@@ -21,6 +21,7 @@ import React, {useContext, useEffect, useMemo, useState} from 'react';
 import {useSearchParams} from 'react-router-dom';
 import {GuildContext} from '../../contexts/GuildContext';
 import {fetchUsers} from '../../utils/leaderboard';
+import UserAvatar from '../Avatar';
 import Currency, {Types} from '../Currency';
 
 export const LeaderboardTypes = {
@@ -77,7 +78,7 @@ function RadioCard({children, ...props}) {
 function TrophyPlace({user, place, type, ...rest}) {
   return (
     <Flex direction="column" justifyContent="center" alignItems="center" rowGap={4} minW={175}>
-      <Avatar src={user?.avatar} {...rest} />
+      <UserAvatar user={user} {...rest} />
       <Flex direction="column" justifyContent="center" alignItems="center" rowGap={2}>
         <Flex justifyContent="center" alignItems="center" gap={4}>
           <Tag>#{place}</Tag>
@@ -95,7 +96,7 @@ function BasicPlace({user, index, type}) {
       <Flex justifyContent="space-between">
         <Flex alignItems="center" columnGap={4}>
           <Tag>#{index + 1}</Tag>
-          <Avatar src={user?.avatar} size="sm" />
+          <UserAvatar user={user} size="sm" />
           <Text>{user.username}</Text>
         </Flex>
         <LeaderboardValue type={type} value={user?.[type]} />
