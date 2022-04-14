@@ -30,7 +30,7 @@ export default function Workbench({user, ...props}) {
           w="100%">
           <HStack px={4} py={2} justifyContent="space-between">
             <Heading size="sm">CRAFTING</Heading>
-            <Heading size="sm">{tasks?.length ?? 0} TASKS IN PROGRESS</Heading>
+            <Text size="sm">{tasks?.length ?? 0} tasks in progress</Text>
           </HStack>
           {tasks.map((task, index) => {
             const taskDuration = dayjs(task.endDate).diff(dayjs(new Date()));
