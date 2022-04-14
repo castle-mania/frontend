@@ -9,6 +9,8 @@ import {
   useColorModeValue,
   VStack,
   Skeleton,
+  Button,
+  useToast,
 } from '@chakra-ui/react';
 import React from 'react';
 import UserAvatar from '../../components/Avatar';
@@ -18,7 +20,21 @@ import VotingStatus from '../../components/VotingStatus';
 import Workbench from '../../components/Workbench';
 import useUser from '../../hooks/useUser';
 
+function handleCopyDiscordId(id, toast) {
+  navigator.clipboard.writeText(id);
+
+  toast({
+    title: 'Account copied.',
+    description: `Successfully copied ${id} to your clip-board.`,
+    status: 'success',
+    duration: 1500,
+    isClosable: true,
+  });
+}
+
 function MiniProfile({user, ...props}) {
+  const toast = useToast();
+
   return (
     <Box
       {...props}
@@ -27,9 +43,12 @@ function MiniProfile({user, ...props}) {
       borderWidth="1px"
       borderColor={useColorModeValue('gray.200', 'gray.700')}
       w="100%">
-      <Heading size="sm" px={4} py={2}>
-        PROFILE
-      </Heading>
+      <HStack px={4} py={2} justifyContent="space-between">
+        <Heading size="sm">PROFILE</Heading>
+        <Button size="xs" variant="unstyled" onClick={() => handleCopyDiscordId(user.discordId, toast)}>
+          Copy ID
+        </Button>
+      </HStack>
       <Divider />
       <Skeleton isLoaded={user != null} justifyContent="space-between" p={4} minH={88} display="flex">
         {user != null ? (
