@@ -2,6 +2,7 @@
 import * as Sentry from '@sentry/react';
 import {BrowserTracing} from '@sentry/tracing';
 import './App';
+import './utils/day';
 
 Sentry.init({
   dsn: 'https://0e8fa72d2d3e4bcca434b602fe9467d2@o1095587.ingest.sentry.io/6329172',

@@ -32,7 +32,6 @@ function RarityTag({rarity, level}) {
 }
 
 export default function Item({item, ...props}) {
-  console.log(item);
   return (
     <Box {...props}>
       <Popover>

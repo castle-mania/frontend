@@ -13,13 +13,8 @@ import {
   Tooltip,
   useColorModeValue,
 } from '@chakra-ui/react';
-import dayjs from 'dayjs';
-import duration from 'dayjs/plugin/duration';
-import relative from 'dayjs/plugin/relativeTime';
+import dayjs, {duration} from 'dayjs';
 import {UserContext} from '../../contexts/UserContext';
-
-dayjs.extend(duration);
-dayjs.extend(relative);
 
 function handleVoteClick(ref) {
   switch (ref) {
@@ -69,7 +64,7 @@ export default function VotingStatus({user, ...props}) {
               <Tag colorScheme="green">Ready</Tag>
             </Tooltip>
           ) : (
-            <Text>{duration(votingMeta?.duration).humanize()} left</Text>
+            <Text>{duration(votingMeta.duration).humanize()} left</Text>
           )}
         </HStack>
         <Divider />
