@@ -12,12 +12,22 @@ async function fetchProducts() {
   }
 }
 
+let itemFetching = false;
+
 async function fetchItems() {
+  if (itemFetching) {
+    return null;
+  }
+
+  itemFetching = true;
+
   try {
     const fetchedProducts = await api.GET('items');
     return fetchedProducts.data;
   } catch (err) {
     return null;
+  } finally {
+    itemFetching = false;
   }
 }
 
