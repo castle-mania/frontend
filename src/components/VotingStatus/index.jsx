@@ -42,9 +42,10 @@ export default function VotingStatus({user, ...props}) {
     }
 
     return {
-      topGG: dayjs(votes.topGG.lastVoted).diff(dayjs(new Date())),
-      dbl: dayjs(votes.discordBotList.lastVoted).diff(dayjs(new Date())),
+      topGG: dayjs(votes.topGG.lastVoted).add(12, 'hours').isAfter(dayjs(new Date())),
+      dbl: dayjs(votes.discordBotList.lastVoted).add(12, 'hours').isAfter(dayjs(new Date())),
       ready: dayjs(votes.lastReward).add(12, 'hours').isBefore(dayjs(new Date())),
+      duration: dayjs(votes.lastReward).add(12, 'hours').diff(dayjs(new Date())),
     };
   }, [votes]);
 
@@ -67,7 +68,9 @@ export default function VotingStatus({user, ...props}) {
             <Tooltip name="vote-label" label="Completing votes rewards you with a gift.">
               <Tag colorScheme="green">Ready</Tag>
             </Tooltip>
-          ) : null}
+          ) : (
+            <Text>{duration(votingMeta?.duration).humanize()} left</Text>
+          )}
         </HStack>
         <Divider />
         <Skeleton isLoaded={votingMeta != null} minH={81}>
@@ -83,11 +86,7 @@ export default function VotingStatus({user, ...props}) {
                 bg="none"
                 w="100%">
                 <Text size="sm">Top.GG</Text>
-                {votingMeta.topGG > 0 ? (
-                  <Text>{dayjs.duration(votingMeta.topGG).humanize()} remaining</Text>
-                ) : (
-                  <Checkbox isChecked={false} />
-                )}
+                <Checkbox isChecked={votingMeta.topGG} colorScheme="green" />
               </HStack>
               <Divider />
               <HStack
@@ -102,11 +101,7 @@ export default function VotingStatus({user, ...props}) {
                 <Text variant="link" size="sm">
                   DiscordBotList
                 </Text>
-                {votingMeta.topGG > 0 ? (
-                  <Text>{dayjs.duration(votingMeta.topGG).humanize()} remaining</Text>
-                ) : (
-                  <Checkbox isChecked={false} />
-                )}
+                <Checkbox isChecked={votingMeta.dbl} colorScheme="green" />
               </HStack>
             </>
           ) : null}
