@@ -8,11 +8,11 @@ export default function Vote() {
   useEffect(() => {
     switch (referrer) {
       case 'topgg':
-        window.open('https://top.gg/bot/757120026867138580/vote', '_self');
+        window.open('https://top.gg/bot/757120026867138580/vote');
         break;
       case 'dbl':
       default:
-        window.open('https://discordbotlist.com/bots/castle-mania/upvote', '_self');
+        window.open('https://discordbotlist.com/bots/castle-mania/upvote');
         break;
     }
   }, []);

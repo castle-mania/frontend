@@ -2,6 +2,7 @@
 import React, {useMemo} from 'react';
 import {
   Box,
+  Button,
   Checkbox,
   Divider,
   Heading,
@@ -12,16 +13,25 @@ import {
   Tooltip,
   useColorModeValue,
 } from '@chakra-ui/react';
-import * as ReactDOM from 'react-router-dom';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relative from 'dayjs/plugin/relativeTime';
 import {UserContext} from '../../contexts/UserContext';
 
-const ReactLink = ReactDOM.Link;
-
 dayjs.extend(duration);
 dayjs.extend(relative);
+
+function handleVoteClick(ref) {
+  switch (ref) {
+    case 'topgg':
+      window.open('https://top.gg/bot/757120026867138580/vote');
+      break;
+    case 'dbl':
+    default:
+      window.open('https://discordbotlist.com/bots/castle-mania/upvote');
+      break;
+  }
+}
 
 export default function VotingStatus({user, ...props}) {
   const {votes} = React.useContext(UserContext);
@@ -38,13 +48,19 @@ export default function VotingStatus({user, ...props}) {
     };
   }, [votes]);
 
-  if (user != null && votes != null && user.discordId !== votes.discordId) {
+  if (user == null || user.discordId !== votes?.discordId) {
     return null;
   }
 
   return (
     <Box w="100%" {...props}>
-      <Box rounded="md" shadow="md" borderWidth="1px" borderColor={useColorModeValue('gray.200', 'gray.700')} w="100%">
+      <Box
+        rounded="md"
+        shadow="md"
+        borderWidth="1px"
+        borderColor={useColorModeValue('gray.200', 'gray.700')}
+        w="100%"
+        overflow="hidden">
         <HStack px={4} py={2} justifyContent="space-between">
           <Heading size="sm">VOTING STATUS</Heading>
           {votingMeta?.ready ? (
@@ -57,7 +73,15 @@ export default function VotingStatus({user, ...props}) {
         <Skeleton isLoaded={votingMeta != null} minH={81}>
           {votingMeta != null ? (
             <>
-              <HStack px={4} py={2} justifyContent="space-between" as={ReactLink} to="/vote/topgg">
+              <HStack
+                px={4}
+                py={2}
+                justifyContent="space-between"
+                onClick={() => handleVoteClick('topgg')}
+                as={Button}
+                rounded="none"
+                bg="none"
+                w="100%">
                 <Text size="sm">Top.GG</Text>
                 {votingMeta.topGG > 0 ? (
                   <Text>{dayjs.duration(votingMeta.topGG).humanize()} remaining</Text>
@@ -66,7 +90,15 @@ export default function VotingStatus({user, ...props}) {
                 )}
               </HStack>
               <Divider />
-              <HStack px={4} py={2} justifyContent="space-between" as={ReactLink} to="/vote/dbl">
+              <HStack
+                px={4}
+                py={2}
+                justifyContent="space-between"
+                onClick={() => handleVoteClick('dbl')}
+                as={Button}
+                rounded="none"
+                bg="none"
+                w="100%">
                 <Text variant="link" size="sm">
                   DiscordBotList
                 </Text>

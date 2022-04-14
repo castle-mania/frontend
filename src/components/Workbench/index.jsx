@@ -15,7 +15,7 @@ export default function Workbench({user, ...props}) {
   const {workbench} = React.useContext(UserContext);
   const tasks = useTasks(workbench);
 
-  if (user != null && workbench != null && user.discordId !== workbench.discordId) {
+  if (user == null || user.discordId !== workbench?.discordId) {
     return null;
   }
 
