@@ -18,6 +18,7 @@ export default function useInventory(inventory) {
     return inventory.items.map((item) => ({
       ...items[item.id],
       ...item,
+      _self: true,
     }));
   }, [items, inventory]);
 

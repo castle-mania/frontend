@@ -6,12 +6,14 @@ import {
   Popover,
   PopoverBody,
   PopoverContent,
+  PopoverFooter,
   PopoverHeader,
   PopoverTrigger,
   Tag,
   Text,
   VStack,
 } from '@chakra-ui/react';
+import dayjs, {duration} from 'dayjs';
 import React from 'react';
 import Currency, {Types} from '../Currency';
 
@@ -30,6 +32,7 @@ function RarityTag({rarity, level}) {
 }
 
 export default function Item({item, ...props}) {
+  console.log(item);
   return (
     <Box {...props}>
       <Popover>
@@ -55,6 +58,14 @@ export default function Item({item, ...props}) {
               </HStack>
             </VStack>
           </PopoverBody>
+          {item._self ? (
+            <PopoverFooter>
+              <HStack justifyContent="space-between">
+                <Text>Fabricated</Text>
+                <Text>{duration(dayjs(item.purchased).diff(dayjs())).humanize()} ago</Text>
+              </HStack>
+            </PopoverFooter>
+          ) : null}
         </PopoverContent>
       </Popover>
     </Box>

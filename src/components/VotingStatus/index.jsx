@@ -64,7 +64,7 @@ export default function VotingStatus({user, ...props}) {
         overflow="hidden">
         <HStack px={4} py={2} justifyContent="space-between">
           <Heading size="sm">VOTING STATUS</Heading>
-          {votingMeta?.ready ? (
+          {votingMeta == null || votingMeta.ready ? (
             <Tooltip name="vote-label" label="Completing votes rewards you with a gift.">
               <Tag colorScheme="green">Ready</Tag>
             </Tooltip>
