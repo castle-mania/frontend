@@ -20,7 +20,7 @@ import Leaderboard from './pages/Leaderboards';
 import GuildProvider from './contexts/GuildContext';
 import CommandsProvider from './contexts/CommandsContext';
 import Profile from './pages/Profile';
-import WorkbenchProvider from './contexts/WorkbenchContext';
+import Vote from './pages/Vote';
 
 function Redirect({to}) {
   useEffect(() => {
@@ -38,6 +38,7 @@ function Router() {
           <Routes>
             <Route path="/profile" element={<Profile />} />
             <Route path="/profile/:discordId" element={<Profile />} />
+            <Route path="/vote/:referrer" element={<Vote />} />
             <Route path="/" element={<Home />} />
             <Route path="/store" element={<Store />} />
             <Route path="/leaderboards" element={<Leaderboard />} />
@@ -60,15 +61,13 @@ ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
       <UserProvider>
-        <WorkbenchProvider>
-          <GuildProvider>
-            <StoreProvider>
-              <CommandsProvider>
-                <Router />
-              </CommandsProvider>
-            </StoreProvider>
-          </GuildProvider>
-        </WorkbenchProvider>
+        <GuildProvider>
+          <StoreProvider>
+            <CommandsProvider>
+              <Router />
+            </CommandsProvider>
+          </StoreProvider>
+        </GuildProvider>
       </UserProvider>
     </ChakraProvider>
   </React.StrictMode>,

@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Container,
   Divider,
   Grid,
@@ -12,13 +11,22 @@ import {
   Skeleton,
 } from '@chakra-ui/react';
 import React from 'react';
+import UserAvatar from '../../components/Avatar';
 import Currency, {Types} from '../../components/Currency';
 import Inventory from '../../components/Inventory';
+import VotingStatus from '../../components/VotingStatus';
+import Workbench from '../../components/Workbench';
 import useUser from '../../hooks/useUser';
 
 function MiniProfile({user, ...props}) {
   return (
-    <Box {...props} rounded="md" shadow="md" borderWidth="1px" borderColor={useColorModeValue('gray.200', 'gray.700')}>
+    <Box
+      {...props}
+      rounded="md"
+      shadow="md"
+      borderWidth="1px"
+      borderColor={useColorModeValue('gray.200', 'gray.700')}
+      w="100%">
       <Heading size="sm" px={4} py={2}>
         PROFILE
       </Heading>
@@ -27,7 +35,7 @@ function MiniProfile({user, ...props}) {
         {user != null ? (
           <>
             <HStack spacing={4}>
-              <Avatar alt={user?.username} src={user?.avatar} />
+              <UserAvatar user={user} />
               <Heading>{user?.username}</Heading>
             </HStack>
             <VStack>
@@ -51,7 +59,11 @@ export default function Profile() {
         templateRows={{lg: '1fr', sm: '1fr', base: null}}
         gap={4}>
         <GridItem colSpan={{lg: 1, sm: 2, base: 1}} rowSpan={{lg: 2, sm: 1}}>
-          <MiniProfile user={user} />
+          <VStack spacing={4}>
+            <MiniProfile user={user} />
+            <VotingStatus user={user} />
+            <Workbench user={user} />
+          </VStack>
         </GridItem>
         <GridItem>
           <Inventory inventory={user?.inventories[0]} />
@@ -59,9 +71,6 @@ export default function Profile() {
         <GridItem>
           <Inventory inventory={user?.inventories[1]} />
         </GridItem>
-        {/* <GridItem colSpan={{sm: 2, base: 1}}>
-          <Workbench />
-        </GridItem> */}
       </Grid>
     </Container>
   );

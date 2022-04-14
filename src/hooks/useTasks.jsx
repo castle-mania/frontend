@@ -11,7 +11,7 @@ export default function useTasks(workbench) {
   }, []);
 
   const patchedTasks = React.useMemo(() => {
-    if (items == null) {
+    if (items == null || workbench == null) {
       return [];
     }
 

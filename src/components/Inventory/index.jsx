@@ -40,14 +40,8 @@ export default function Inventory({inventory, ...props}) {
           ? filledItems.map((item, index) => {
               if (item == null) {
                 return (
-                  <Skeleton isLoaded={inventory != null}>
-                    <GridItem
-                      key={`blank-${index}`}
-                      bg={useColorModeValue('gray.200', 'gray.700')}
-                      rounded="md"
-                      pt="100%"
-                      w="100%"
-                    />
+                  <Skeleton key={`blank-${index}`} isLoaded={inventory != null}>
+                    <GridItem bg={useColorModeValue('gray.200', 'gray.700')} rounded="md" pt="100%" w="100%" />
                   </Skeleton>
                 );
               }

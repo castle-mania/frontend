@@ -20,7 +20,7 @@ export default function Store() {
   const {products} = store;
 
   const sortedProducts = useMemo(
-    () => (products != null ? products.sort((a, b) => a.price - b.price) : null),
+    () => (products != null ? products.sort((a, b) => b.price - a.price) : null),
     [products]
   );
 

@@ -4,16 +4,20 @@ import {Box, Divider, Heading, HStack, Skeleton, Text, useColorModeValue, VStack
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import relative from 'dayjs/plugin/relativeTime';
-import {WorkbenchContext} from '../../contexts/WorkbenchContext';
 import useTasks from '../../hooks/useTasks';
 import Item from '../Item';
+import {UserContext} from '../../contexts/UserContext';
 
 dayjs.extend(duration);
 dayjs.extend(relative);
 
-export default function Workbench(props) {
-  const {workbench} = React.useContext(WorkbenchContext);
+export default function Workbench({user, ...props}) {
+  const {workbench} = React.useContext(UserContext);
   const tasks = useTasks(workbench);
+
+  if (user != null && workbench != null && user.discordId !== workbench.discordId) {
+    return null;
+  }
 
   return (
     <Skeleton isLoaded={workbench != null} w="100%" {...props}>
