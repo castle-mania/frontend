@@ -16,7 +16,7 @@ export default function Home() {
         justify={{base: 'center', md: 'space-between'}}
         direction={{base: 'column-reverse', md: 'row'}}
         wrap="no-wrap">
-        <Stack spacing={4} w={{base: null, lg: '40%'}} align={['left', 'left', 'flex-start', 'flex-start']} maxW="lg">
+        <Stack spacing={4} w={{base: null, lg: '80%'}} align={['left', 'left', 'flex-start', 'flex-start']} maxW="lg">
           <Heading size="2xl">Accelerate Your Guild&apos;s Retention</Heading>
           <Text>
             Castle Mania is a Unique Global Currency game that allows you to Buy, Sell, Raid and Gamble your way to the
@@ -27,8 +27,8 @@ export default function Home() {
             <SupportDiscordButton />
           </Flex>
         </Stack>
-        <Box maxW="md" minH={448}>
-          <Image src="/imgs/square_buttload_gems.png" alt="landing-page-image" />
+        <Box maxW="xl">
+          <Image src="/imgs/c_green.png" alt="landing-page-image" />
         </Box>
       </Flex>
       <Commands />
