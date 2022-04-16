@@ -51,10 +51,18 @@ export default function Item({item, ...props}) {
                 <Text>Coins Per Hour</Text>
                 <Currency value={item.gph} type={Types.CPH} />
               </HStack>
-              <HStack justifyContent="space-between">
-                <Text>Price</Text>
-                <Currency value={item.price} type={Types.COIN} />
-              </HStack>
+              {item.buyable.coins ? (
+                <HStack justifyContent="space-between">
+                  <Text>Price</Text>
+                  <Currency value={item.price.coins} type={Types.COIN} />
+                </HStack>
+              ) : null}
+              {item.buyable.gems ? (
+                <HStack justifyContent="space-between">
+                  <Text>Price</Text>
+                  <Currency value={item.price.gems} type={Types.GEM} />
+                </HStack>
+              ) : null}
             </VStack>
           </PopoverBody>
           {item._self ? (

@@ -45,7 +45,7 @@ function MiniProfile({user, ...props}) {
       w="100%">
       <HStack px={4} py={2} justifyContent="space-between">
         <Heading size="sm">PROFILE</Heading>
-        <Button size="xs" variant="unstyled" onClick={() => handleCopyDiscordId(user.discordId, toast)}>
+        <Button size="xs" variant="unstyle" onClick={() => handleCopyDiscordId(user.discordId, toast)}>
           Copy ID
         </Button>
       </HStack>
@@ -57,7 +57,7 @@ function MiniProfile({user, ...props}) {
               <UserAvatar user={user} />
               <Heading>{user?.username}</Heading>
             </HStack>
-            <VStack>
+            <VStack justifyContent="right" alignItems="right">
               <Currency value={user?.money} type={Types.COIN} />
               <Currency value={user?.funds} type={Types.GEM} />
             </VStack>
