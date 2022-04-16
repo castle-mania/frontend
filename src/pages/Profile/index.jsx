@@ -57,7 +57,7 @@ function MiniProfile({user, ...props}) {
               <UserAvatar user={user} />
               <Heading>{user?.username}</Heading>
             </HStack>
-            <VStack justifyContent="right" alignItems="right">
+            <VStack justifyContent="right" alignItems="righ">
               <Currency value={user?.money} type={Types.COIN} />
               <Currency value={user?.funds} type={Types.GEM} />
             </VStack>

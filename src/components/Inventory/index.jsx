@@ -35,7 +35,7 @@ export default function Inventory({inventory, ...props}) {
         <Heading size="sm">{cph} / H</Heading>
       </Flex>
       <Divider />
-      <Grid templateColumns="repeat(6, 1fr)" templateRows="repeat(6, 1fr)" gap={4} p={4}>
+      <Grid templateColumns="repeat(6, 1fr)" templateRows="repeat(6, 1fr)" gap={{md: 4, sm: 2, base: 4}} p={4}>
         {filledItems != null
           ? filledItems.map((item, index) => {
               if (item == null) {
