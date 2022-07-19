@@ -16,7 +16,7 @@
     "@sentry/react": "^6.19.6",
     "@sentry/tracing": "^6.19.6",
     "@testing-library/jest-dom": "^5.16.1",
-    "@testing-library/react": "^12.1.2",
+    "@testing-library/react": "^12.1.5",
     "@testing-library/user-event": "^14.3.0",
     "axios": "^0.24.0",
     "dayjs": "^1.11.0",
