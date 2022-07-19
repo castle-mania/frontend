@@ -38,7 +38,8 @@ function NavLink({href, name}) {
   return (
     <Link
       as={ReactLink}
-      p={2}
+      py={1}
+      px={2}
       to={href}
       rounded="md"
       key={name}
@@ -125,7 +126,7 @@ export default function Nav() {
     <>
       <Box display={{base: 'none', md: 'flex'}} justifyContent="center" px={4} zIndex={1} as="nav" w="100vw" top={0}>
         <Flex h={16} alignItems="center" justifyContent="space-between" alignSelf="center" w="container.xl">
-          <Flex columnGap={8} alignItems="center">
+          <Flex columnGap={4} alignItems="center">
             <Heading as={ReactLink} to="/" size="md">
               Castle Mania
             </Heading>
