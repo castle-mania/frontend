@@ -17,7 +17,7 @@ async function createPaymentSession(priceId) {
 
 export default function Store() {
   const store = useContext(StoreContext);
-  const {products} = store;
+  const {products, fetchProducts} = store;
 
   const sortedProducts = useMemo(
     () => (products != null ? products.sort((a, b) => b.price - a.price) : null),
@@ -26,7 +26,7 @@ export default function Store() {
 
   useEffect(() => {
     if (products == null) {
-      store.fetchProducts();
+      fetchProducts();
     }
   }, []);
 
