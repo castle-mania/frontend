@@ -3,7 +3,7 @@ import axios from 'axios';
 let accessToken = localStorage.getItem('jwt-token');
 
 function request(method, path, data = {}) {
-  const url = `https://api.castlemania.bot/${path}`;
+  const url = `https://api.castlemania.bot/api/${path}`;
 
   const options = {
     method,
