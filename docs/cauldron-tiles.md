@@ -125,3 +125,50 @@ paste_y = plot_y - 240
 - A dithered contact shadow is baked in around/under the legs — it lands on
   whatever ground is beneath (wood floor, grass). Do not add another shadow.
 - Scale with the same plot_width / 600 factor as everything else.
+
+## Craft splash (public/imgs/cauldron/splash-back.gif, splash-front.gif)
+
+Play-once plop effect for when a generator is crafted: the machine hops,
+plunges into the brew, and a splash erupts while it sinks. Two layers of ONE
+burst (rear-arc elements vs near-arc) so it wraps the sinking machine.
+
+- Both gifs: 768x564, 12 frames @ 100ms (last 140ms), transparent, play ONCE
+  (no loop). Paste BOTH at `(plot_x - 72, plot_y - 228)`.
+- Draw order during the effect: liquid -> rim-back -> splash-back -> machine
+  (masked, see below) -> splash-front -> rim-front.
+
+### Machine motion (asset px, 100ms per step)
+
+Vertical offset of the machine sprite from its resting paste position:
+
+```
+step:   0     1     2      3      4      5+
+dy:     0   -84   +60   +156   +264   remove machine
+```
+
+Start the splash gifs at step 2 (impact). Rise is one step (ease-out pop),
+fall is one step (gravity snap). After step 4 stop drawing the machine.
+
+### Waterline mask while sinking (dy > 0)
+
+Hide every machine pixel at or below the curve (mx = sprite column 0..419):
+
+```
+ylim(mx) = surface_y - 30 + floor(105 * sqrt(1 - ((mx-210)/240)^2) / 6) * 6
+```
+
+where `surface_y = plot_y + 168` (the plot diamond center scanline).
+Then add foam so no cut edge ever shows:
+
+1. Foam strip: for each 6px column where the machine has visible pixels
+   within 12px above ylim, draw two 6px blocks of #d6eda4 at ylim-6 and ylim.
+2. Foam ring: 6px blocks where
+   `0.80 <= ((bx-cx)/252)^2 + ((by-surface_y)/110)^2 <= 1.22`
+   (cx = plot_x + 312); blocks above surface_y draw BEFORE the machine,
+   blocks below AFTER it.
+
+### Staggering
+
+When several generators are crafted together, stagger each plot's sequence
+start by ~160ms (order by ascending row + col). Simultaneous identical plops
+read as one mechanical event; staggered ones read as a real pour.
