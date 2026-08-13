@@ -1,9 +1,9 @@
 # Cauldron brewing tiles
 
 The brewing surface ("inside of the cauldron") is a 3×3 grid of animated liquid
-tiles. Generators are placed on individual tiles to brew them into elite
-versions. This doc covers exact placement geometry so the grid, the generator
-sprites, and the animations all line up.
+tiles surrounded by a two-part cauldron rim. Generators are placed on individual
+tiles to brew them into elite versions. This doc covers exact placement geometry
+so the grid, the rim, the generator sprites, and the animations all line up.
 
 ## Assets
 
@@ -49,6 +49,26 @@ paste_y = tile_y - 240     // = tile center 168 − 408
 
 Draw order: all nine tiles first (ground layer), then generators sorted by
 ascending `(row + col)`.
+
+## Cauldron rim
+
+`public/imgs/cauldron/cauldron-rim-back.png` and `cauldron-rim-front.png` —
+one static rim split into two layers so generators sandwich between them
+(the machines sit inside the pot: behind the front lip, in front of the back
+wall).
+
+- Both are 2136×1476 with identical alignment: paste BOTH at
+  `(X0 - 156, Y0 - 132)` where `(X0, Y0)` is the liquid grid's top-left
+  (the same origin used in the grid layout formulas above).
+- Draw order for the whole scene:
+  1. the nine liquid tiles (ascending `row + col`)
+  2. `cauldron-rim-back.png`
+  3. generators, ascending `(row + col)`
+  4. `cauldron-rim-front.png`
+- The rim's inner edge overlaps the tiles' outer outline by a couple of
+  pixels on purpose (it hides the seam) — never offset it to "make room".
+- Scaling: the rim is at the same asset scale as everything else; apply the
+  same `W / 600` factor.
 
 ## Animation sync
 
