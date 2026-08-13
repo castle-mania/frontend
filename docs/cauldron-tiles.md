@@ -108,3 +108,20 @@ and board joints continue across every piece in any arrangement.
 Notes: the missing-plank holes are fully transparent (the room background
 shows through). Pieces are static PNGs; draw them under everything else
 (they are ground). Scale with the same `W / 600` factor as the rest.
+
+## Table desk (public/imgs/props/table-desk.png)
+
+Wooden work table occupying one plot tile. Static PNG, 420x528, on the SAME
+anchor system as the generator gifs: its ground-diamond center is at
+(210, 408), so to place it on any plot/tile paste at:
+
+```
+paste_x = plot_x + 102
+paste_y = plot_y - 240
+```
+
+- Draw it with the other entities (generators), sorted together by ascending
+  (row + col); it occludes and is occluded exactly like a machine.
+- A dithered contact shadow is baked in around/under the legs — it lands on
+  whatever ground is beneath (wood floor, grass). Do not add another shadow.
+- Scale with the same plot_width / 600 factor as everything else.
