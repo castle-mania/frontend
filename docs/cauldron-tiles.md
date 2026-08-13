@@ -73,3 +73,38 @@ under a placed generator) and `public/imgs/grass-plot-plain.png` (empty plot).
   `(tile_x + 102, tile_y − 240)`.
 - The bottom ~102 px are the floating-island soil slab; the two variants have
   pixel-identical silhouettes and can be swapped in place without popping.
+
+## Wooden floor tiles (public/imgs/floor/)
+
+Broken wooden plank flooring for the area around the cauldron. Eleven pieces,
+ALL on the same 624×336 canvas as a full plot tile — every piece pastes at
+exactly the position a full tile would occupy on the lattice; the cut sides
+are baked into the art as transparency.
+
+- `wood-floor-a.png` / `wood-floor-b.png` — full diamonds (same base plank
+  pattern, different damage), mix freely.
+- `wood-floor-half-{bottom-a,bottom-b,top,left,right}.png` — edge pieces named
+  for which side of the floor REGION they sit on; each keeps the half of the
+  diamond facing into the region, producing a straight cut on that side
+  (horizontal for top/bottom, vertical for left/right).
+- `wood-floor-corner-{tl,tr,bl,br}.png` — quarter pieces for the region's
+  corners where two straight edges meet.
+
+Layout recipe for a rectangular floor (asset px; lattice pitch 600 wide /
+150 tall per row, odd rows offset +300):
+
+```
+row 0 (top):    corner-tl,  half-top ... ,  corner-tr
+row 1 (odd):      full,  full ...          (offset +300)
+row 2 (even):   half-left,  full ...,  half-right
+...alternate rows 1/2 pattern...
+row N (bottom): corner-bl,  half-bottom ...,  corner-br
+```
+
+Piece (row s, slot t) pastes at `(FX0 + 600*t + (300 if s odd else 0),
+FY0 + 150*s)`. The plank pattern is period-locked to the lattice, so seams
+and board joints continue across every piece in any arrangement.
+
+Notes: the missing-plank holes are fully transparent (the room background
+shows through). Pieces are static PNGs; draw them under everything else
+(they are ground). Scale with the same `W / 600` factor as the rest.
