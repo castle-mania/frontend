@@ -1,81 +1,67 @@
-# Cauldron brewing tiles
+# Cauldron brewing surface
 
-The brewing surface ("inside of the cauldron") is a 3×3 grid of animated liquid
-tiles surrounded by a two-part cauldron rim. Generators are placed on individual
-tiles to brew them into elite versions. This doc covers exact placement geometry
-so the grid, the rim, the generator sprites, and the animations all line up.
+The brewing surface ("inside of the cauldron") is one animated liquid sheet —
+a 3×3 grid of plot positions sharing a single green whirlpool — surrounded by
+a two-part cauldron rim. Generators are placed on individual plot positions to
+brew them into elite versions. This doc covers exact placement geometry so the
+liquid, the rim, the generator sprites, and the animations all line up.
 
-## Assets
+## Assets (public/imgs/cauldron/)
 
-`public/imgs/cauldron/cauldron-r{row}-c{col}.gif` — nine tiles, `row`/`col` ∈ 0..2.
+- `cauldron-liquid.gif` — the whole 3×3 liquid surface as ONE gif: 1824×936,
+  transparent background, 14 frames @ 100 ms, seamless loop. Rendered as a
+  single animation so the grid can never drift out of sync.
+- `cauldron-rim-back.png` / `cauldron-rim-front.png` — one static rim split
+  into two layers so generators render inside the pot (back = far wall,
+  front = near lip). Shadows on the liquid and walls are baked in — do not
+  add your own.
+- Art scale matches the generator gifs (1 art pixel = 6 px); no relative
+  scaling between liquid, rim, and generators.
 
-- 624×336 px, transparent background, 14 frames @ 100 ms, seamless loop.
-- The nine tiles form **one** whirlpool centered on `r1-c1`. Each tile is
-  position-specific — always render all nine in their fixed grid positions;
-  they are not interchangeable and cannot be reused as generic liquid.
-- Art scale matches the generator gifs (1 art pixel = 6 px), so no relative
-  scaling between tiles and generators is needed.
+## Layout (asset pixels, before display scaling)
 
-## Grid layout (asset pixel space, before display scaling)
+Let `(X0, Y0)` be where you paste `cauldron-liquid.gif` (its top-left corner).
 
-Within each tile canvas the 2:1 diamond surface spans x 12..612, y 18..318;
-its center is at **(312, 168)**.
-
-Neighbor offsets: `col+1` → `(+300, +150)`, `row+1` → `(−300, +150)`:
+- The nine plot positions inside it, `row`/`col` ∈ 0..2 (r1-c1 is the
+  whirlpool eye at the center):
 
 ```
-tile_x(row, col) = X0 + 300 * (col - row)
-tile_y(row, col) = Y0 + 150 * (col + row)
+plot_x(row, col) = X0 + 300 * (col - row) + 100
+plot_y(row, col) = Y0 + 150 * (col + row) + 50
 ```
 
-The composed grid is 1824×936. Draw tiles in ascending `(row + col)` order —
-canvases overlap by a couple of pixels at the widened diamond corners.
+  Each plot's diamond surface center is at `(plot_x + 312, plot_y + 168)`.
 
-## Scaling to the board
+- Rim: paste BOTH rim layers at `(X0 - 156, Y0 - 132)`. Never offset them
+  relative to each other. The rim's inner edge intentionally overlaps the
+  liquid's outline to hide the seam.
 
-The diamond surface is 600 px wide at asset scale. If board plots display at
-`W` px wide, scale the whole composition by `W / 600` (nearest-neighbor to
-keep pixels crisp).
-
-## Placing a generator on a tile
+## Placing a generator on a plot
 
 Generator iso gifs are 420×528 with the machine's ground-diamond center at
-(210, 408). To sit a generator on a tile:
+(210, 408). To sit a generator on plot (row, col):
 
 ```
-paste_x = tile_x + 102     // = tile center 312 − 210
-paste_y = tile_y - 240     // = tile center 168 − 408
+paste_x = plot_x(row, col) + 102
+paste_y = plot_y(row, col) - 240
 ```
 
-Draw order: all nine tiles first (ground layer), then generators sorted by
-ascending `(row + col)`.
+## Draw order (back to front)
 
-## Cauldron rim
+1. `cauldron-liquid.gif`
+2. `cauldron-rim-back.png`
+3. generator sprites, ascending `(row + col)`
+4. `cauldron-rim-front.png`
 
-`public/imgs/cauldron/cauldron-rim-back.png` and `cauldron-rim-front.png` —
-one static rim split into two layers so generators sandwich between them
-(the machines sit inside the pot: behind the front lip, in front of the back
-wall).
+## Scaling & animation
 
-- Both are 2136×1476 with identical alignment: paste BOTH at
-  `(X0 - 156, Y0 - 132)` where `(X0, Y0)` is the liquid grid's top-left
-  (the same origin used in the grid layout formulas above).
-- Draw order for the whole scene:
-  1. the nine liquid tiles (ascending `row + col`)
-  2. `cauldron-rim-back.png`
-  3. generators, ascending `(row + col)`
-  4. `cauldron-rim-front.png`
-- The rim's inner edge overlaps the tiles' outer outline by a couple of
-  pixels on purpose (it hides the seam) — never offset it to "make room".
-- Scaling: the rim is at the same asset scale as everything else; apply the
-  same `W / 600` factor.
-
-## Animation sync
-
-Tiles are 14 frames @ 100 ms (1.4 s loop); generator gifs are 7 or 14 frames
-@ 100 ms. Both divide the tile loop, so if all gifs start on a shared clock
-everything stays in phase (machines loop exactly twice per liquid loop).
-Avoid restarting gifs on re-render.
+- The liquid's full diamond is 1800 px wide (each plot diamond 600 px). If
+  board plots display `W` px wide, scale the whole composition by `W / 600`,
+  nearest-neighbor so pixels stay crisp.
+- The liquid gif is 14 frames @ 100 ms; generator gifs are 7 or 14 frames
+  @ 100 ms. Start all gifs on a shared clock and machines stay in phase with
+  the liquid (looping exactly twice per liquid loop). Avoid restarting gifs
+  on re-render.
 
 ## Grass plot tiles (same anchor math)
 
@@ -83,7 +69,7 @@ Avoid restarting gifs on re-render.
 under a placed generator) and `public/imgs/grass-plot-plain.png` (empty plot).
 
 - 624×420; the diamond surface spans y 18..318 with center (312, 168), same
-  as the cauldron tiles, so the generator paste offset is identical:
+  as a cauldron plot, so the generator paste offset is identical:
   `(tile_x + 102, tile_y − 240)`.
 - The bottom ~102 px are the floating-island soil slab; the two variants have
   pixel-identical silhouettes and can be swapped in place without popping.
