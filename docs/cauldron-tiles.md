@@ -172,3 +172,21 @@ Then add foam so no cut edge ever shows:
 When several generators are crafted together, stagger each plot's sequence
 start by ~160ms (order by ascending row + col). Simultaneous identical plops
 read as one mechanical event; staggered ones read as a real pour.
+
+## Bookcase backdrop (public/imgs/backdrop/)
+
+A large spanning bookcase that closes off the back of the brewing room,
+drawn behind the wooden floor. Front-facing (not isometric), like a Stardew
+interior back wall.
+
+- `bookcase-a.png` / `bookcase-b.png` — 600x600 segments, tileable side by
+  side at 600px pitch (the side stiles meet at seams like real adjacent
+  cases). Alternate a/b so long runs don't visibly repeat.
+- Placement: paste segments at any multiple of 600 horizontally with the
+  BOTTOM edge sitting exactly on the floor region's straight top boundary
+  (`FY0 + 168` from the floor recipe). The run should span at least the
+  floor's full width; it can extend past it.
+- Draw order: bookcase first (it is the farthest layer), then the floor,
+  then the cauldron and entities.
+- Static PNGs; scale with the same plot_width / 600 factor as everything
+  else, nearest-neighbor.
